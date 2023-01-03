@@ -1,7 +1,7 @@
 """Providing models and values for Maya Render Settings."""
 from pydantic import Field
 
-from openpype.settings import BaseSettingsModel
+from ayon_server.settings import BaseSettingsModel
 
 
 def arnold_image_format_enum():

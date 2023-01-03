@@ -1,4 +1,4 @@
-from openpype.settings import Field, BaseSettingsModel, task_types_enum
+from ayon_server.settings import Field, BaseSettingsModel, task_types_enum
 
 
 class XMLPresetAttrsFromCommentsModel(BaseSettingsModel):

@@ -4,7 +4,7 @@ Note: Names were changed to get rid of the versions in class names.
 """
 from pydantic import Field
 
-from openpype.settings import BaseSettingsModel
+from ayon_server.settings import BaseSettingsModel
 
 
 class PathsTemplate(BaseSettingsModel):

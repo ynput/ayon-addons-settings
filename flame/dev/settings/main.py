@@ -1,4 +1,4 @@
-from openpype.settings import Field, BaseSettingsModel, TemplateWorkfileOptions
+from ayon_server.settings import Field, BaseSettingsModel, TemplateWorkfileOptions
 
 from .imageio import ImageIOModel, DEFAULT_FLAME_IMAGEIO_SETTINGS
 from .create_plugins import CreatePuginsModel, DEFAULT_FLAME_CREATE_SETTINGS

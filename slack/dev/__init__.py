@@ -3,7 +3,7 @@ import os
 from typing import Any
 from nxtools import logging
 
-from openpype.addons import BaseServerAddon
+from ayon_server.addons import BaseServerAddon
 
 from .settings.main import SlackSettings, DEFAULT_SLACK_SETTING
 from .version import __version__

@@ -1,6 +1,6 @@
 from typing import Any, Type
 
-from openpype.addons import BaseServerAddon, AddonLibrary
+from ayon_server.addons import BaseServerAddon, AddonLibrary
 
 from .settings import NukeSettings, DEFAULT_VALUES
 

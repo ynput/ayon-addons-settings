@@ -1,6 +1,6 @@
 from typing import Type
 
-from openpype.addons import BaseServerAddon
+from ayon_server.addons import BaseServerAddon
 
 from .settings import CelActionSettings, DEFAULT_VALUES
 

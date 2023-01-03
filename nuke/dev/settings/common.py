@@ -1,7 +1,7 @@
 from pydantic import Field
 
-from openpype.settings import BaseSettingsModel, ensure_unique_names
-from openpype.types import (
+from ayon_server.settings import BaseSettingsModel, ensure_unique_names
+from ayon_server.types import (
     ColorRGBA_float,
     ColorRGB_uint8
 )

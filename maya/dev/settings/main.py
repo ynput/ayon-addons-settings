@@ -1,5 +1,5 @@
 from pydantic import Field
-from openpype.settings.common import BaseSettingsModel
+from ayon_server.settings.common import BaseSettingsModel
 from .imageio import ImageIOSettings, DEFAULT_IMAGEIO_SETTINGS
 from .mel_workspace import MelWorkspaceModel, DEFAULT_MEL_WORKSPACE_SETTINGS
 from .ext_mapping import ExtMappingModel, DEFAULT_EXT_MAPPING_SETTINGS

@@ -1,6 +1,6 @@
 from pydantic import Field, validator
 
-from openpype.settings import BaseSettingsModel, ensure_unique_names
+from ayon_server.settings import BaseSettingsModel, ensure_unique_names
 
 
 class CollectRenderSceneModel(BaseSettingsModel):

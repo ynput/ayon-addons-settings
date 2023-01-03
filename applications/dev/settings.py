@@ -1,8 +1,8 @@
 import json
 from pydantic import Field, validator
 
-from openpype.settings import BaseSettingsModel, ensure_unique_names
-from openpype.exceptions import BadRequestException
+from ayon_server.settings import BaseSettingsModel, ensure_unique_names
+from ayon_server.exceptions import BadRequestException
 
 
 def validate_json_dict(value):

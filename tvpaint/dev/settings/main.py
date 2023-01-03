@@ -1,5 +1,5 @@
 from pydantic import Field, validator
-from openpype.settings import BaseSettingsModel, Field
+from ayon_server.settings import BaseSettingsModel, Field
 
 from .workfile_builder import WorkfileBuilderPlugin
 

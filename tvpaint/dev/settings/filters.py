@@ -1,7 +1,7 @@
 from pydantic import Field
 from pathlib import Path
 
-from openpype.settings import BaseSettingsModel
+from ayon_server.settings import BaseSettingsModel
 
 
 class FiltersSubmodel(BaseSettingsModel):

@@ -1,5 +1,5 @@
 from pydantic import Field
-from openpype.settings.common import BaseSettingsModel
+from ayon_server.settings.common import BaseSettingsModel
 
 from .creator_plugins import AfterEffectsCreatorPlugins
 from .publish_plugins import AfterEffectsPublishPlugins
