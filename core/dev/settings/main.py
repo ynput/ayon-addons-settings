@@ -1,7 +1,7 @@
 import json
 from pydantic import Field, validator
-from openpype.settings import BaseSettingsModel
-from openpype.exceptions import BadRequestException
+from ayon_server.settings import BaseSettingsModel
+from ayon_server.exceptions import BadRequestException
 
 from .publish_plugins import PublishPuginsModel, DEFAULT_PUBLISH_VALUES
 from .tools import GlobalToolsModel, DEFAULT_TOOLS_VALUES

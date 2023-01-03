@@ -1,4 +1,4 @@
-from openpype.settings import Field, BaseSettingsModel, TemplateWorkfileOptions
+from ayon_server.settings import Field, BaseSettingsModel, TemplateWorkfileOptions
 
 from .publish_plugins import PublishPuginsModel, DEFAULT_BLENDER_PUBLISH_SETTINGS
 

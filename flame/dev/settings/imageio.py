@@ -1,4 +1,4 @@
-from openpype.settings import Field, BaseSettingsModel
+from ayon_server.settings import Field, BaseSettingsModel
 
 
 class ProfileNamesMappingInputsModel(BaseSettingsModel):

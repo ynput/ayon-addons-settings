@@ -1,5 +1,5 @@
 from pydantic import Field
-from openpype.settings import BaseSettingsModel
+from ayon_server.settings import BaseSettingsModel
 
 
 class MultiplatformStrList(BaseSettingsModel):

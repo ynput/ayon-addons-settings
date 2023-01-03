@@ -1,5 +1,5 @@
 from pydantic import Field
-from openpype.settings.common import BaseSettingsModel
+from ayon_server.settings.common import BaseSettingsModel
 
 from .loader_plugins import HarmonyLoaderPlugins
 from .publish_plugins import HarmonyPublishPlugins

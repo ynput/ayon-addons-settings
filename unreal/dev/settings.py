@@ -1,4 +1,4 @@
-from openpype.settings import BaseSettingsModel, Field
+from ayon_server.settings import BaseSettingsModel, Field
 
 
 class ProjectSetup(BaseSettingsModel):

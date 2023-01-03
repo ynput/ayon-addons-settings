@@ -1,8 +1,8 @@
-from typing import Any, Type
+from typing import Type
 
-from openpype.addons import BaseServerAddon
+from ayon_server.addons import BaseServerAddon
 
-from .settings import WebpublisherSettings
+from .settings import WebpublisherSettings, DEFAULT_VALUES
 
 
 class WebpublisherAddon(BaseServerAddon):
@@ -12,7 +12,6 @@ class WebpublisherAddon(BaseServerAddon):
     settings_model: Type[WebpublisherSettings] = WebpublisherSettings
     frontend_scopes = {}
     services = {}
-
 
     async def get_default_settings(self):
         settings_model_cls = self.get_settings_model()

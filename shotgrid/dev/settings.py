@@ -1,6 +1,6 @@
 from pydantic import Field, validator
 
-from openpype.settings import BaseSettingsModel, normalize_name, ensure_unique_names
+from ayon_server.settings import BaseSettingsModel, normalize_name, ensure_unique_names
 
 
 class DictLikeSubmodel(BaseSettingsModel):

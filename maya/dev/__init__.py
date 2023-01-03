@@ -1,5 +1,5 @@
 """Maya Addon Module"""
-from openpype.addons import BaseServerAddon
+from ayon_server.addons import BaseServerAddon
 
 from .settings.main import MayaSettings, DEFAULT_MAYA_SETTING
 from .version import __version__

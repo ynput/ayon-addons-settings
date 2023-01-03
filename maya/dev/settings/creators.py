@@ -4,7 +4,7 @@ Note: This needs to be changed when switching to the new publisher in Maya.
 """
 from pydantic import Field
 
-from openpype.settings import BaseSettingsModel
+from ayon_server.settings import BaseSettingsModel
 
 
 def class_ref(cls):

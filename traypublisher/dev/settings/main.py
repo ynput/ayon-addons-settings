@@ -1,5 +1,5 @@
 from pydantic import Field
-from openpype.settings.common import BaseSettingsModel
+from ayon_server.settings.common import BaseSettingsModel
 
 from .simple_creators import SimpleCreatorPlugin
 from .editorial_creators import TraypublisherEditorialCreatorPlugins
