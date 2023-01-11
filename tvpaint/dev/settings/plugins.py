@@ -1,6 +1,7 @@
 from pydantic import Field, validator
 
 from ayon_server.settings import BaseSettingsModel, ensure_unique_names
+from ayon_server.types import ColorRGBA_uint8
 
 
 class CollectRenderSceneModel(BaseSettingsModel):
@@ -13,7 +14,7 @@ class CollectRenderSceneModel(BaseSettingsModel):
 class ExtractSequenceModel(BaseSettingsModel):
     """Review BG color is used for whole scene review and for thumbnails."""
     # TODO Use alpha color
-    review_bg: str = Field("", widget="color")
+    review_bg: ColorRGBA_uint8 = Field((255, 255, 255, 1.0), title="Review BG color")
     families_to_review: list[str] = Field(default_factory=list, title="Families to review")
 
 
