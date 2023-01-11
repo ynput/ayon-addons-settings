@@ -19,8 +19,8 @@ class ExtractSequenceModel(BaseSettingsModel):
 
 class ValidatePluginModel(BaseSettingsModel):
     enabled: bool = True
-    action_enabled: bool = Field(True, title="Optional")
-    action_enable: bool = Field(True, title="Active")
+    optional: bool = Field(True, title="Optional")
+    active: bool = Field(True, title="Active")
 
 
 class ExtractConvertToEXRModel(BaseSettingsModel):
