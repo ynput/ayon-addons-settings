@@ -189,25 +189,28 @@ DEFAULT_FLAME_PUBLISH_SETTINGS = {
             }
         ]
     },
-    # "ExtractSubsetResources": {
-    #     "keep_original_representation": False,
-    #     "export_presets_mapping": {
-    #         "exr16fpdwaa": {
-    #             "active": True,
-    #             "export_type": "File Sequence",
-    #             "ext": "exr",
-    #             "xml_preset_file": "OpenEXR (16-bit fp DWAA).xml",
-    #             "colorspace_out": "ACES - ACEScg",
-    #             "xml_preset_dir": "",
-    #             "parsed_comment_attrs": True,
-    #             "representation_add_range": True,
-    #             "representation_tags": [],
-    #             "load_to_batch_group": True,
-    #             "batch_group_loader_name": "LoadClipBatch",
-    #             "filter_path_regex": ".*"
-    #         }
-    #     }
-    # },
+    "ExtractSubsetResources": {
+        "keep_original_representation": False,
+        "export_presets_mapping": [
+            {
+                "name": "exr16fpdwaa",
+                "active": True,
+                "export_type": "File Sequence",
+                "ext": "exr",
+                "xml_preset_file": "OpenEXR (16-bit fp DWAA).xml",
+                "colorspace_out": "ACES - ACEScg",
+                "other_parameters": {
+                    "xml_preset_dir": "",
+                    "parsed_comment_attrs": True,
+                    "representation_add_range": True,
+                    "representation_tags": []
+                },
+                "load_to_batch_group": True,
+                "batch_group_loader_name": "LoadClipBatch",
+                "filter_path_regex": ".*"
+            }
+        ]
+    },
     "IntegrateBatchGroup": {
         "enabled": False
     }
