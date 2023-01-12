@@ -102,7 +102,7 @@ DEFAULT_FLAME_CREATE_SETTINGS = {
         "clipName": "{sequence}{shot}",
         "segmentIndex": True,
         "countFrom": 10,
-        "countSteps": 10,
+        "countStep": 10,
         "folder": "shots",
         "episode": "ep01",
         "sequence": "a",
