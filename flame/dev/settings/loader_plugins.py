@@ -58,11 +58,11 @@ class LoadClipBatchModel(BaseSettingsModel):
 
 
 class LoaderPuginsModel(BaseSettingsModel):
-    load_clip: LoadClipModel = Field(
+    LoadClip: LoadClipModel = Field(
         default_factory=LoadClipModel,
         title="Load Clip"
     )
-    load_clip_batch: LoadClipBatchModel = Field(
+    LoadClipBatch: LoadClipBatchModel = Field(
         default_factory=LoadClipBatchModel,
         title="Load as clip to current batch"
     )
