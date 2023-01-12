@@ -1,41 +1,25 @@
 from ayon_server.settings import BaseSettingsModel, Field
 
 
-class ExtractCelactionDeadlineModel(BaseSettingsModel):
-    enabled: bool = Field(
-        True,
-        title="Enabled"
-    )
-    deadline_department: str = Field(
+class CollectRenderPathModel(BaseSettingsModel):
+    output_extension: str = Field(
         "",
-        title="Deadline apartment"
+        title="Output render file extension"
     )
-    deadline_priority: int = Field(
-        50,
-        title="Deadline priority"
-    )
-    deadline_pool: str = Field(
+    anatomy_template_key_render_files: str = Field(
         "",
-        title="Deadline pool"
+        title="Anatomy template key: render files"
     )
-    deadline_pool_secondary: str = Field(
+    anatomy_template_key_metadata: str = Field(
         "",
-        title="Deadline pool (secondary)"
-    )
-    deadline_group: str = Field(
-        "",
-        title="Deadline Group"
-    )
-    deadline_chunk_size: int = Field(
-        10,
-        title="Deadline Chunk size"
+        title="Anatomy template key: metadata job file"
     )
 
 
 class PublishPuginsModel(BaseSettingsModel):
-    ExtractCelactionDeadline: ExtractCelactionDeadlineModel = Field(
-        default_factory=ExtractCelactionDeadlineModel,
-        title="ExtractCelactionDeadline"
+    CollectRenderPath: CollectRenderPathModel = Field(
+        default_factory=CollectRenderPathModel,
+        title="Collect Render Path"
     )
 
 
@@ -48,14 +32,10 @@ class CelActionSettings(BaseSettingsModel):
 
 DEFAULT_VALUES = {
     "publish": {
-        "ExtractCelactionDeadline": {
-            "enabled": True,
-            "deadline_department": "",
-            "deadline_priority": 50,
-            "deadline_pool": "",
-            "deadline_pool_secondary": "",
-            "deadline_group": "",
-            "deadline_chunk_size": 10
+        "CollectRenderPath": {
+            "output_extension": "png",
+            "anatomy_template_key_render_files": "render",
+            "anatomy_template_key_metadata": "render"
         }
     }
 }
