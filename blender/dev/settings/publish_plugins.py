@@ -1,5 +1,6 @@
 from ayon_server.settings import Field, BaseSettingsModel
 
+
 class ValidateCameraZeroKeyframeModel(BaseSettingsModel):
     enabled: bool = Field(
         True,
@@ -57,21 +58,6 @@ class ValidateTransformZeroModel(BaseSettingsModel):
     active: bool = Field(
         True,
         title="Active"
-    )
-
-
-class ModelValidators(BaseSettingsModel):
-    validate_mesh_has_uvs: ValidateMeshHasUvsModel = Field(
-        default_factory=ValidateMeshHasUvsModel,
-        title="Validate Mesh Has Uvs"
-    )
-    validate_mesh_no_negative_scale: ValidateMeshNoNegativeScaleModel = Field(
-        default_factory=ValidateMeshNoNegativeScaleModel,
-        title="Validate Mesh No Negative Scale"
-    )
-    validate_transform_zero: ValidateTransformZeroModel = Field(
-        default_factory=ValidateTransformZeroModel,
-        title="Validate Transform Zero"
     )
 
 
@@ -190,11 +176,18 @@ class PublishPuginsModel(BaseSettingsModel):
         title="Validate Camera Zero Keyframe",
         section="Validators"
     )
-    model_validators: ModelValidators = Field(
-        default_factory=ModelValidators,
-        title="Model",
+    ValidateMeshHasUvs: ValidateMeshHasUvsModel = Field(
+        default_factory=ValidateMeshHasUvsModel,
+        title="Validate Mesh Has Uvs"
     )
-
+    ValidateMeshNoNegativeScale: ValidateMeshNoNegativeScaleModel = Field(
+        default_factory=ValidateMeshNoNegativeScaleModel,
+        title="Validate Mesh No Negative Scale"
+    )
+    ValidateTransformZero: ValidateTransformZeroModel = Field(
+        default_factory=ValidateTransformZeroModel,
+        title="Validate Transform Zero"
+    )
     ExtractBlend: ExtractBlendModel = Field(
         default_factory=ExtractBlendModel,
         title="Extract Blend",
