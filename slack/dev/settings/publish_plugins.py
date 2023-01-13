@@ -41,9 +41,9 @@ class Profile(BaseSettingsModel):
     )
     task_names: list[str] = Field(default_factory=list, title="Task names")
     subset_names: list[str] = Field(default_factory=list, title="Subset names")
-    review_upload_limit: int = Field(50,
-                                     title="Upload review maximum "
-                                           "file size (MB)")
+    review_upload_limit: float = Field(
+        50.0,
+        title="Upload review maximum file size (MB)")
 
     _desc = ("Message sent to channel selected by profile. "
              "Message template can contain {} placeholders from anatomyData "
