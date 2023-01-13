@@ -60,27 +60,6 @@ class ExportPresetsMappingOtherParametersLoadingDuringPublishModel(BaseSettingsM
     )
 
 
-class ExportPresetsMappingOtherParametersModel(BaseSettingsModel):
-    xml_preset_dir: str = Field(
-        "",
-        title="XML preset directory"
-    )
-    parsed_comment_attrs: bool = Field(
-        True,
-        title="Parsed comment attributes"
-    )
-
-    representation: ExportPresetsMappingOtherParametersRepresentationModel = Field(
-        default_factory=ExportPresetsMappingOtherParametersRepresentationModel,
-        title="Representation"
-    )
-
-    loading_during_publish: ExportPresetsMappingOtherParametersLoadingDuringPublishModel = Field(
-        default_factory=ExportPresetsMappingOtherParametersLoadingDuringPublishModel,
-        title="Loading during publish"
-    )
-
-
 class ExportPresetsMappingFilteringModel(BaseSettingsModel):
     filter_path_regex: str = Field(
         ".*",
@@ -110,9 +89,26 @@ class ExportPresetsMappingModel(BaseSettingsModel):
         "ACES - ACEScg",
         title="Output color (imageio)"
     )
-    other_parameters: ExportPresetsMappingOtherParametersModel = Field(
-        default_factory=ExportPresetsMappingOtherParametersModel,
-        title="Other parameters"
+    # TODO remove when resolved or v3 is not a thing anymore
+    # NOTE next 4 attributes were grouped under 'other_parameters' but that
+    #   created inconsistency with v3 settings and harder conversion handling
+    #   - it can be moved back but keep in mind that it must be handled in v3
+    #       conversion script too
+    xml_preset_dir: str = Field(
+        "",
+        title="XML preset directory"
+    )
+    parsed_comment_attrs: bool = Field(
+        True,
+        title="Parsed comment attributes"
+    )
+    representation: ExportPresetsMappingOtherParametersRepresentationModel = Field(
+        default_factory=ExportPresetsMappingOtherParametersRepresentationModel,
+        title="Representation"
+    )
+    loading_during_publish: ExportPresetsMappingOtherParametersLoadingDuringPublishModel = Field(
+        default_factory=ExportPresetsMappingOtherParametersLoadingDuringPublishModel,
+        title="Loading during publish"
     )
     filtering: ExportPresetsMappingFilteringModel = Field(
         default_factory=ExportPresetsMappingFilteringModel,

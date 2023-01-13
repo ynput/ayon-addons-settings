@@ -17,9 +17,7 @@ class ProfileNamesMappingModel(BaseSettingsModel):
     )
 
 
-class ImageIOModel(BaseSettingsModel):
-    _isGroup = True
-
+class ImageIOProjectModel(BaseSettingsModel):
     colourPolicy: str = Field(
         "ACES 1.1",
         title="Colour Policy (name or path)",
@@ -34,6 +32,18 @@ class ImageIOModel(BaseSettingsModel):
         title="Field Dominance"
     )
 
+
+class ImageIOModel(BaseSettingsModel):
+    _isGroup = True
+
+    # NOTE 'project' attribute was expanded to this model but that caused
+    #   inconsistency with v3 settings and harder conversion handling
+    #   - it can be moved back but keep in mind that it must be handled in v3
+    #       conversion script too
+    project: ImageIOProjectModel = Field(
+        default_factory=ImageIOProjectModel,
+        title="Project"
+    )
     profilesMapping: ProfileNamesMappingModel = Field(
         default_factory=ProfileNamesMappingModel,
         title="Profile names mapping"
