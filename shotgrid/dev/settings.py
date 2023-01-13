@@ -31,7 +31,7 @@ class ShotModel(BaseSettingsModel):
 
 
 class TaskModel(BaseSettingsModel):
-    task: str = Field("step", title="Step link") 
+    step: str = Field("step", title="Step link")
 
 
 class EventHandlerModel(BaseSettingsModel):
