@@ -1,15 +1,12 @@
 from pydantic import Field, validator
+
 from ayon_server.settings import (
     BaseSettingsModel,
+    MultiplatformPathModel,
     normalize_name,
     ensure_unique_names,
 )
-
-
-class MultiplatformStr(BaseSettingsModel):
-    windows: str = Field("", title="Windows")
-    linux: str = Field("", title="Linux")
-    darwin: str = Field("", title="MacOS")
+from ayon_server.types import ColorRGBA_uint8
 
 
 class ValidateBaseModel(BaseSettingsModel):
@@ -146,11 +143,9 @@ class ExtractReviewLetterBox(BaseSettingsModel):
         ge=0.0,
         le=10000.0
     )
-    # TODO color should have alpha
-    fill_color: str = Field(
-        "",
-        title="Fill Color",
-        widget="color",
+    fill_color: ColorRGBA_uint8 = Field(
+        (0, 0, 0, 0.0),
+        title="Fill Color"
     )
     line_thickness: int = Field(
         0,
@@ -158,11 +153,9 @@ class ExtractReviewLetterBox(BaseSettingsModel):
         ge=0,
         le=1000
     )
-    # TODO color should have alpha
-    line_color: str = Field(
-        "",
-        title="Line Color",
-        widget="color"
+    line_color: ColorRGBA_uint8 = Field(
+        (0, 0, 0, 0.0),
+        title="Line Color"
     )
 
 
@@ -190,16 +183,15 @@ class ExtractReviewOutputDefModel(BaseSettingsModel):
             "Crop input overscan. See the documentation for more information."
         )
     )
-    overscan_color: str = Field(
-        "",
+    overscan_color: ColorRGBA_uint8 = Field(
+        (0, 0, 0, 0.0),
         title="Overscan color",
-        widget="color",
         description=(
             "Overscan color is used when input aspect ratio is not"
             " same as output aspect ratio."
         )
     )
-    output_width: int = Field(
+    width: int = Field(
         0,
         ge=0,
         le=100000,
@@ -209,7 +201,7 @@ class ExtractReviewOutputDefModel(BaseSettingsModel):
             " value than 0 else source resolution is used."
         )
     )
-    output_height: int = Field(
+    height: int = Field(
         0,
         title="Output height",
         ge=0,
@@ -223,9 +215,8 @@ class ExtractReviewOutputDefModel(BaseSettingsModel):
             " Usefull for anamorph reviews."
         )
     )
-    bg_color: str = Field(
-        "",
-        widget="color",
+    bg_color: ColorRGBA_uint8 = Field(
+        (0, 0, 0, 0.0),
         description=(
             "Background color is used only when input have transparency"
             " and Alpha is higher than 0."
@@ -275,21 +266,19 @@ class ExtractReviewModel(BaseSettingsModel):
 # --- [Start] Extract Burnin ---
 class ExtractBurninOptionsModel(BaseSettingsModel):
     font_size: int = Field(0, ge=0, title="Font size")
-    font_color: str = Field(
-        "",
-        widget="color",
+    font_color: ColorRGBA_uint8 = Field(
+        (255, 255, 255, 1.0),
         title="Font color"
     )
-    bg_color: str = Field(
-        "",
-        widget="color",
+    bg_color: ColorRGBA_uint8 = Field(
+        (0, 0, 0, 1.0),
         title="Background color"
     )
     x_offset: int = Field(0, title="X Offset")
     y_offset: int = Field(0, title="Y Offset")
     bg_padding: int = Field(0, title="Padding around text")
-    font_filepath: MultiplatformStr = Field(
-        default_factory=MultiplatformStr,
+    font_filepath: MultiplatformPathModel = Field(
+        default_factory=MultiplatformPathModel,
         title="Font file path"
     )
 
@@ -335,6 +324,18 @@ class ExtractBurninProfile(BaseSettingsModel):
     hosts: list[str] = Field(
         default_factory=list,
         title="Host names"
+    )
+    task_types: list[str] = Field(
+        default_factory=list,
+        title="Task types"
+    )
+    task_names: list[str] = Field(
+        default_factory=list,
+        title="Task names"
+    )
+    subsets: list[str] = Field(
+        default_factory=list,
+        title="Subset names"
     )
     burnins: list[ExtractBurninDef] = Field(
         default_factory=list,
@@ -437,7 +438,7 @@ class IntegrateHeroVersionModel(BaseSettingsModel):
 
 class CleanUpModel(BaseSettingsModel):
     _isGroup = True
-    patterns: list[str] = Field(
+    paterns: list[str] = Field(
         default_factory=list,
         title="Patterns (regex)"
     )
@@ -586,17 +587,17 @@ DEFAULT_PUBLISH_VALUES = {
                             "single_frame_filter": "single_frame"
                         },
                         "overscan_crop": "",
-                        "overscan_color": "#000000",
+                        "overscan_color": [0, 0, 0, 1.0],
                         "width": 1920,
                         "height": 1080,
                         "scale_pixel_aspect": True,
-                        "bg_color": "#000000",
+                        "bg_color": [0, 0, 0, 0.0],
                         "letter_box": {
                             "enabled": False,
                             "ratio": 0.0,
-                            "fill_color": "#000000",
+                            "fill_color": [0, 0, 0, 1.0],
                             "line_thickness": 0,
-                            "line_color": "#ff0000"
+                            "line_color": [255, 0, 0, 1.0]
                         }
                     },
                     {
@@ -630,17 +631,17 @@ DEFAULT_PUBLISH_VALUES = {
                             "single_frame_filter": "multi_frame"
                         },
                         "overscan_crop": "",
-                        "overscan_color": "#000000",
+                        "overscan_color": [0, 0, 0, 1.0],
                         "width": 0,
                         "height": 0,
                         "scale_pixel_aspect": True,
-                        "bg_color": "#000000",
+                        "bg_color": [0, 0, 0, 0.0],
                         "letter_box": {
                             "enabled": False,
                             "ratio": 0.0,
-                            "fill_color": "#000000",
+                            "fill_color": [0, 0, 0, 1.0],
                             "line_thickness": 0,
-                            "line_color": "#ff0000"
+                            "line_color": [255, 0, 0, 1.0]
                         }
                     }
                 ]
@@ -651,8 +652,8 @@ DEFAULT_PUBLISH_VALUES = {
         "enabled": True,
         "options": {
             "font_size": 42,
-            "font_color": "#ffffff",
-            "bg_color": "#000000",
+            "font_color": [255, 255, 255, 1.0],
+            "bg_color": [255, 255, 255, 0.5],
             "x_offset": 5,
             "y_offset": 5,
             "bg_padding": 5,
@@ -666,6 +667,9 @@ DEFAULT_PUBLISH_VALUES = {
             {
                 "families": [],
                 "hosts": [],
+                "task_types": [],
+                "task_names": [],
+                "subsets": [],
                 "burnins": [
                     {
                         "name": "burnin",

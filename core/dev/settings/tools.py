@@ -58,7 +58,7 @@ class LastWorkfileOnStartupProfile(BaseSettingsModel):
     hosts: list[str] = Field(default_factory=list, title="Hosts")
     # TODO this should use task types enum
     task_types: list[str] = Field(default_factory=list, title="Task types")
-    task_names: list[str] = Field(default_factory=list, title="Task names")
+    tasks: list[str] = Field(default_factory=list, title="Task names")
     enabled: bool = Field(True, title="Enabled")
     use_last_published_workfile: bool = Field(
         True, title="Use last published workfile"
@@ -71,7 +71,7 @@ class WorkfilesToolOnStartupProfile(BaseSettingsModel):
     hosts: list[str] = Field(default_factory=list, title="Hosts")
     # TODO this should use task types enum
     task_types: list[str] = Field(default_factory=list, title="Task types")
-    task_names: list[str] = Field(default_factory=list, title="Task names")
+    tasks: list[str] = Field(default_factory=list, title="Task names")
     enabled: bool = Field(True, title="Enabled")
 
 
@@ -160,7 +160,7 @@ class LoaderFamilyFilterProfile(BaseSettingsModel):
     # TODO this should use task types enum
     task_types: list[str] = Field(default_factory=list, title="Task types")
     is_include: bool = Field(True, title="Exclude / Include")
-    template_publish_families: list[str] = Field(
+    filter_families: list[str] = Field(
         default_factory=list,
         enum_resolver=published_families
     )
@@ -379,8 +379,73 @@ DEFAULT_TOOLS_VALUES = {
             }
         ]
     },
-    "publish": {
-        "template_name_profiles": [],
-        "hero_template_name_profiles": []
-    }
+    "publish": {{
+            "template_name_profiles": [
+                {
+                    "families": [],
+                    "hosts": [],
+                    "task_types": [],
+                    "task_names": [],
+                    "template_name": "publish"
+                },
+                {
+                    "families": [
+                        "review",
+                        "render",
+                        "prerender"
+                    ],
+                    "hosts": [],
+                    "task_types": [],
+                    "task_names": [],
+                    "template_name": "render"
+                },
+                {
+                    "families": [
+                        "simpleUnrealTexture"
+                    ],
+                    "hosts": [
+                        "standalonepublisher"
+                    ],
+                    "task_types": [],
+                    "task_names": [],
+                    "template_name": "simpleUnrealTexture"
+                },
+                {
+                    "families": [
+                        "staticMesh",
+                        "skeletalMesh"
+                    ],
+                    "hosts": [
+                        "maya"
+                    ],
+                    "task_types": [],
+                    "task_names": [],
+                    "template_name": "maya2unreal"
+                },
+                {
+                    "families": [
+                        "online"
+                    ],
+                    "hosts": [
+                        "traypublisher"
+                    ],
+                    "task_types": [],
+                    "task_names": [],
+                    "template_name": "online"
+                }
+            ],
+            "hero_template_name_profiles": [
+                {
+                    "families": [
+                        "simpleUnrealTexture"
+                    ],
+                    "hosts": [
+                        "standalonepublisher"
+                    ],
+                    "task_types": [],
+                    "task_names": [],
+                    "template_name": "simpleUnrealTextureHero"
+                }
+            ]
+        }
 }
