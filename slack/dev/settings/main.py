@@ -6,7 +6,6 @@ from .publish_plugins import SlackPublishPlugins
 
 class SlackSettings(BaseSettingsModel):
     """Slack project settings."""
-    enabled: bool = Field(default=True)
     token: str = Field("", title="Auth Token")
 
     publish: SlackPublishPlugins = Field(
