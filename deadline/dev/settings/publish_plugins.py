@@ -17,6 +17,18 @@ class CollectDeadlinePoolsModel(BaseSettingsModel):
     secondary_pool: str = Field(title="Secondary Pool")
 
 
+class ValidateExpectedFilesModel(BaseSettingsModel):
+    enabled: bool = Field(True, "Enabled")
+    active: bool = Field(True, "Active")
+    allow_user_override: bool = Field(True, "Allow user change frame range")
+    families: list[str] = Field(
+        default_factory=list, title="Trigger on families"
+    )
+    targets: list[str] = Field(
+        default_factory=list, title="Trigger for plugins"
+    )
+
+
 def tile_assembler_enum():
     """Return a list of value/label dicts for the enumerator.
 
@@ -25,14 +37,14 @@ def tile_assembler_enum():
     """
     return [
         {
-        "value": "DraftTileAssembler",
-        "label": "Draft Tile Assembler"
+            "value": "DraftTileAssembler",
+            "label": "Draft Tile Assembler"
         },
         {
-        "value": "OpenPypeTileAssembler",
-        "label": "Open Image IO"
+            "value": "OpenPypeTileAssembler",
+            "label": "Open Image IO"
         }
-        ]
+    ]
 
 
 class ScenePatchesSubmodel(BaseSettingsModel):
@@ -158,6 +170,19 @@ class AfterEffectsSubmitDeadlineModel(BaseSettingsModel):
     multiprocess: bool = Field(title="Optional")
 
 
+class CelactionSubmitDeadlineModel(BaseSettingsModel):
+    enabled: bool = Field(True, title="Enabled")
+    deadline_department: str = Field("", title="Deadline apartment")
+    deadline_priority: int = Field(50, title="Deadline priority")
+    deadline_pool: str = Field("", title="Deadline pool")
+    deadline_pool_secondary: str = Field("", title="Deadline pool (secondary)")
+    deadline_group: str = Field("", title="Deadline Group")
+    deadline_chunk_size: int = Field(10, title="Deadline Chunk size")
+    deadline_job_delay: str = Field(
+        "", title="Delay job (timecode dd:hh:mm:ss)"
+    )
+
+
 class AOVFilterSubmodel(BaseSettingsModel):
     _layout = "expanded"
     name: str = Field(title="Host")
@@ -174,8 +199,8 @@ class ProcessSubmittedJobOnFarmModel(BaseSettingsModel):
     deadline_department: str = Field(title="Department")
     deadline_pool: str = Field(title="Pool")
     deadline_group: str = Field(title="Group")
-    deadline_priority: int = Field(title="Priority")
     deadline_chunk_size: int = Field(title="Chunk Size")
+    deadline_priority: int = Field(title="Priority")
     publishing_script: str = Field(title="Publishing script path")
     skip_integration_repre_list: list[str] = Field(
         default_factory=list,
@@ -202,6 +227,10 @@ class PublishPluginsModel(BaseSettingsModel):
     CollectDeadlinePools: CollectDeadlinePoolsModel = Field(
         default_factory=CollectDeadlinePoolsModel,
         title="Default Pools")
+    ValidateExpectedFiles: ValidateExpectedFilesModel = Field(
+        default_factory=ValidateExpectedFilesModel,
+        title="Validate Expected Files"
+    )
     MayaSubmitDeadline: MayaSubmitDeadlineModel = Field(
         default_factory=MayaSubmitDeadlineModel,
         title="Maya Submit to deadline")
@@ -214,6 +243,10 @@ class PublishPluginsModel(BaseSettingsModel):
     AfterEffectsSubmitDeadline: AfterEffectsSubmitDeadlineModel = Field(
         default_factory=AfterEffectsSubmitDeadlineModel,
         title="After Effects to deadline")
+    CelactionSubmitDeadline: CelactionSubmitDeadlineModel = Field(
+        default_factory=CelactionSubmitDeadlineModel,
+        title="Celaction Submit Deadline"
+    )
     ProcessSubmittedJobOnFarm: ProcessSubmittedJobOnFarmModel = Field(
         default_factory=ProcessSubmittedJobOnFarmModel,
         title="Process submitted job on farm.")
@@ -288,6 +321,16 @@ DEFAULT_DEADLINE_PLUGINS_SETTINGS = {
         "group": "",
         "department": "",
         "multiprocess": True
+    },
+    "CelactionSubmitDeadline": {
+        "enabled": True,
+        "deadline_department": "",
+        "deadline_priority": 50,
+        "deadline_pool": "",
+        "deadline_pool_secondary": "",
+        "deadline_group": "",
+        "deadline_chunk_size": 10,
+        "deadline_job_delay": "00:00:00:00"
     },
     "ProcessSubmittedJobOnFarm": {
         "enabled": True,
