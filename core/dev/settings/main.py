@@ -68,7 +68,25 @@ DEFAULT_VALUES = {
     "environments": "{}",
     "tools": DEFAULT_TOOLS_VALUES,
     "publish": DEFAULT_PUBLISH_VALUES,
-    "project_folder_structure": "{}",
+    "project_folder_structure": json.dumps({
+        "__project_root__": {
+            "prod": {},
+            "resources": {
+                "footage": {
+                    "plates": {},
+                    "offline": {}
+                },
+                "audio": {},
+                "art_dept": {}
+            },
+            "editorial": {},
+            "assets": {
+                "characters": {},
+                "locations": {}
+            },
+            "shots": {}
+        }
+    }, indent=4),
     "project_plugins": {
         "windows": [],
         "darwin": [],
