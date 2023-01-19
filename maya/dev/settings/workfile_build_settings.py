@@ -46,7 +46,7 @@ DEFAULT_WORKFILE_SETTING = {
                 "current_context": [
                     {
                         "subset_name_filters": [
-                            "\".+[Mm]ain\""
+                            ".+[Mm]ain"
                         ],
                         "families": [
                             "model"
@@ -63,7 +63,8 @@ DEFAULT_WORKFILE_SETTING = {
                         "subset_name_filters": [],
                         "families": [
                             "animation",
-                            "pointcache"
+                            "pointcache",
+                            "proxyAbc"
                         ],
                         "repre_names": [
                             "abc"
