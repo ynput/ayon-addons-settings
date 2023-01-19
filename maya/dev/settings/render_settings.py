@@ -4,6 +4,14 @@ from pydantic import Field
 from ayon_server.settings import BaseSettingsModel
 
 
+def aov_separators_enum():
+    return [
+        {"value": "dash", "label": "- (dash)"},
+        {"value": "underscore", "label": "_ (underscore)"},
+        {"value": "dot", "label": ". (dot)"}
+    ]
+
+
 def arnold_image_format_enum():
     """Return enumerator for Arnold output formats."""
     return [
@@ -307,6 +315,11 @@ class RenderSettingsModel(BaseSettingsModel):
     apply_render_settings: bool = Field(title="Apply Render Settings on creation")
     default_render_image_folder: str = Field(title="Default render image folder")
     enable_all_lights: bool = Field(title="Include all lights in Render Setup Layers by default")
+    aov_separator: str = Field(
+        "underscore",
+        title="AOV Separator character",
+        enum_resolver=aov_separators_enum
+    )
     reset_current_frame: bool = Field(title="Reset Current Frame")
     arnold_renderer: ArnoldSettingsModel = Field(default_factory=ArnoldSettingsModel, title="Arnold Renderer")
     vray_renderer: VraySettingsModel = Field(default_factory=VraySettingsModel, title="Vray Renderer")
