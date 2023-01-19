@@ -1,5 +1,5 @@
-from pydantic import Field
-from ayon_server.settings.common import BaseSettingsModel
+from pydantic import Field, validator
+from ayon_server.settings import BaseSettingsModel, ensure_unique_names
 from .imageio import ImageIOSettings, DEFAULT_IMAGEIO_SETTINGS
 from .maya_dirmap import MayaDirmapModel, DEFAULT_MAYA_DIRMAP_SETTINGS
 from .scriptsmenu import ScriptsmenuModel, DEFAULT_SCRIPTSMENU_SETTINGS
@@ -9,13 +9,29 @@ from .publishers import PublishersModel, DEFAULT_PUBLISH_SETTINGS
 from .loaders import LoadersModel, DEFAULT_LOADERS_SETTING
 from .workfile_build_settings import ProfilesModel, DEFAULT_WORKFILE_SETTING
 from .templated_workfile_settings import TemplatedProfilesModel, DEFAULT_TEMPLATED_WORKFILE_SETTINGS
-from .publish_gui_filters import PublishFiltersModel, DEFAULT_GUI_FILTERS_SETTINGS
 
 
 class ExtMappingItemModel(BaseSettingsModel):
     _layout = "compact"
     name: str = Field(title="Family")
     value: str = Field(title="Extension")
+
+
+class PublishGUIFilterItemModel(BaseSettingsModel):
+    _layout = "compact"
+    name: str = Field(title="Name")
+    value: bool = Field(True, title="Active")
+
+
+class PublishGUIFiltersModel(BaseSettingsModel):
+    _layout = "compact"
+    name: str = Field(title="Name")
+    value: list[PublishGUIFilterItemModel] = Field(default_factory=list)
+
+    @validator("value")
+    def validate_unique_outputs(cls, value):
+        ensure_unique_names(value)
+        return value
 
 
 class MayaSettings(BaseSettingsModel):
@@ -36,20 +52,22 @@ class MayaSettings(BaseSettingsModel):
     create: CreatorsModel = Field(
         default_factory=CreatorsModel, title="Creators")
     publish: PublishersModel= Field(
-        default_factory=PublishersModel, title="Publishers"
-    )
+        default_factory=PublishersModel, title="Publishers")
     load: LoadersModel = Field(
-        default_factory=LoadersModel, title="Loaders"
-    )
+        default_factory=LoadersModel, title="Loaders")
     workfile_build: ProfilesModel = Field(
-        default_factory=ProfilesModel, title="Workfile Build Settings"
-    )
+        default_factory=ProfilesModel, title="Workfile Build Settings")
     templated_workfile_build: TemplatedProfilesModel = Field(
         default_factory=TemplatedProfilesModel,
-        title="Templated Workfile Build Settings"
-    )
-    filters: PublishFiltersModel = Field(
-        default_factory=PublishFiltersModel, title="Publish GUI Filters")
+        title="Templated Workfile Build Settings")
+    filters: list[PublishGUIFiltersModel] = Field(
+        default_factory=list,
+        title="Publish GUI Filters")
+
+    @validator("filters", "ext_mapping")
+    def validate_unique_outputs(cls, value):
+        ensure_unique_names(value)
+        return value
 
 
 DEFAULT_MEL_WORKSPACE_SETTINGS = "\n".join((
@@ -85,5 +103,19 @@ DEFAULT_MAYA_SETTING = {
     "load": DEFAULT_LOADERS_SETTING,
     "workfile_build": DEFAULT_WORKFILE_SETTING,
     "templated_workfile_build": DEFAULT_TEMPLATED_WORKFILE_SETTINGS,
-    "filters": DEFAULT_GUI_FILTERS_SETTINGS
+    "filters": [
+        {
+            "name": "preset 1",
+            "value": [
+                {"name": "ValidateNoAnimation", "value": False},
+                {"name": "ValidateShapeDefaultNames", "value": False},
+            ]
+        },
+        {
+            "name": "preset 2",
+            "value": [
+                {"name": "ValidateNoAnimation", "value": False},
+            ]
+        },
+    ]
 }
