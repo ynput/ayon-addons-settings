@@ -37,93 +37,93 @@ class ProfilesModel(BaseSettingsModel):
 
 
 DEFAULT_WORKFILE_SETTING = {
-        "profiles": [
-            {
-                "task_types": [],
-                "tasks": [
-                    "Lighting"
-                ],
-                "current_context": [
-                    {
-                        "subset_name_filters": [
-                            ".+[Mm]ain"
-                        ],
-                        "families": [
-                            "model"
-                        ],
-                        "repre_names": [
-                            "abc",
-                            "ma"
-                        ],
-                        "loaders": [
-                            "ReferenceLoader"
-                        ]
-                    },
-                    {
-                        "subset_name_filters": [],
-                        "families": [
-                            "animation",
-                            "pointcache",
-                            "proxyAbc"
-                        ],
-                        "repre_names": [
-                            "abc"
-                        ],
-                        "loaders": [
-                            "ReferenceLoader"
-                        ]
-                    },
-                    {
-                        "subset_name_filters": [],
-                        "families": [
-                            "rendersetup"
-                        ],
-                        "repre_names": [
-                            "json"
-                        ],
-                        "loaders": [
-                            "RenderSetupLoader"
-                        ]
-                    },
-                    {
-                        "subset_name_filters": [],
-                        "families": [
-                            "camera"
-                        ],
-                        "repre_names": [
-                            "abc"
-                        ],
-                        "loaders": [
-                            "ReferenceLoader"
-                        ]
-                    }
-                ],
-                "linked_assets": [
-                    {
-                        "subset_name_filters": [],
-                        "families": [
-                            "sedress"
-                        ],
-                        "repre_names": [
-                            "ma"
-                        ],
-                        "loaders": [
-                            "ReferenceLoader"
-                        ]
-                    },
-                    {
-                        "subset_name_filters": [],
-                        "families": [
-                            "ArnoldStandin"
-                        ],
-                        "repre_names": [
-                            "ass"
-                        ],
-                        "loaders": [
-                            "assLoader"
-                        ]
-                    }
-                ]
-            }
-        ]
-    }
+    "profiles": [
+        {
+            "task_types": [],
+            "tasks": [
+                "Lighting"
+            ],
+            "current_context": [
+                {
+                    "subset_name_filters": [
+                        ".+[Mm]ain"
+                    ],
+                    "families": [
+                        "model"
+                    ],
+                    "repre_names": [
+                        "abc",
+                        "ma"
+                    ],
+                    "loaders": [
+                        "ReferenceLoader"
+                    ]
+                },
+                {
+                    "subset_name_filters": [],
+                    "families": [
+                        "animation",
+                        "pointcache",
+                        "proxyAbc"
+                    ],
+                    "repre_names": [
+                        "abc"
+                    ],
+                    "loaders": [
+                        "ReferenceLoader"
+                    ]
+                },
+                {
+                    "subset_name_filters": [],
+                    "families": [
+                        "rendersetup"
+                    ],
+                    "repre_names": [
+                        "json"
+                    ],
+                    "loaders": [
+                        "RenderSetupLoader"
+                    ]
+                },
+                {
+                    "subset_name_filters": [],
+                    "families": [
+                        "camera"
+                    ],
+                    "repre_names": [
+                        "abc"
+                    ],
+                    "loaders": [
+                        "ReferenceLoader"
+                    ]
+                }
+            ],
+            "linked_assets": [
+                {
+                    "subset_name_filters": [],
+                    "families": [
+                        "sedress"
+                    ],
+                    "repre_names": [
+                        "ma"
+                    ],
+                    "loaders": [
+                        "ReferenceLoader"
+                    ]
+                },
+                {
+                    "subset_name_filters": [],
+                    "families": [
+                        "ArnoldStandin"
+                    ],
+                    "repre_names": [
+                        "ass"
+                    ],
+                    "loaders": [
+                        "assLoader"
+                    ]
+                }
+            ]
+        }
+    ]
+}
