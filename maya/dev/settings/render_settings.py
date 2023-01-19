@@ -272,7 +272,8 @@ class ArnoldSettingsModel(BaseSettingsModel):
     tiled: bool = Field(title="Tiled (tif, exr)")
     aov_list: list[str] = Field(default_factory=list, enum_resolver=arnold_aov_list_enum, title="AOVs to create")
     additional_options: list[AdditionalOptionsModel] = Field(
-        default_factory=list, title="Additional Arnold Options")
+        default_factory=list, title="Additional Arnold Options",
+        description=("Add additional options - put attribute and value, like AASamples"))
 
 
 class VraySettingsModel(BaseSettingsModel):
@@ -284,7 +285,8 @@ class VraySettingsModel(BaseSettingsModel):
     image_format: str = Field(enum_resolver=vray_image_output_enum, title="Output Image Format")
     aov_list: list[str] = Field(default_factory=list, enum_resolver=vray_aov_list_enum, title="AOVs to create")
     additional_options: list[AdditionalOptionsModel] = Field(
-        default_factory=list, title="Additional Vray Options")
+        default_factory=list, title="Additional Vray Options",
+        description=("Add additional options - put attribute and value, like aaFilterSize"))
 
 
 class RedshiftSettingsModel(BaseSettingsModel):
@@ -297,7 +299,8 @@ class RedshiftSettingsModel(BaseSettingsModel):
     force_combine: bool = Field(title="Force combine beauty and AOVs")
     aov_list: list[str] = Field(default_factory=list, enum_resolver=redshift_aov_list_enum, title="AOVs to create")
     additional_options: list[AdditionalOptionsModel] = Field(
-        default_factory=list, title="Additional Vray Options")
+        default_factory=list, title="Additional Vray Options",
+        description=("Add additional options - put attribute and value, like reflectionMaxTraceDepth"))
 
 
 class RenderSettingsModel(BaseSettingsModel):

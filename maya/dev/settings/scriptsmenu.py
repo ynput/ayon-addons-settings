@@ -6,7 +6,6 @@ from ayon_server.settings import BaseSettingsModel
 class ScriptsmenuSubmodel(BaseSettingsModel):
     """Item Definition"""
     _isGroup = True
-
     type: str = Field(title="Type")
     command: str = Field(title="Command")
     sourcetype: str = Field(title="Source Type")
@@ -18,9 +17,9 @@ class ScriptsmenuSubmodel(BaseSettingsModel):
 class ScriptsmenuModel(BaseSettingsModel):
     _isGroup = True
 
-    name: str = Field(title="Name")
+    name: str = Field(title="Menu Name")
     definition: list[ScriptsmenuSubmodel] = Field(
-        default_factory=list, title="Definition", description="Scriptmenu Items Definition")
+        default_factory=list, title="Menu Definition", description="Scriptmenu Items Definition")
 
 
 DEFAULT_SCRIPTSMENU_SETTINGS = {
