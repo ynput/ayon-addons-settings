@@ -192,10 +192,10 @@ def vray_aov_list_enum():
 def redshift_engine_enum():
     """Get Redshift engine type enumerator."""
     return [
-        {"value": 0, "label": "None"},
-        {"value": 1, "label": "Photon Map"},
-        {"value": 2, "label": "Irradiance Cache"},
-        {"value": 3, "label": "Brute Force"}
+        {"value": "0", "label": "None"},
+        {"value": "1", "label": "Photon Map"},
+        {"value": "2", "label": "Irradiance Cache"},
+        {"value": "3", "label": "Brute Force"}
     ]
 
 
@@ -287,9 +287,13 @@ class ArnoldSettingsModel(BaseSettingsModel):
 class VraySettingsModel(BaseSettingsModel):
     image_prefix: str = Field(title="Image prefix template")
     # engine was str because of JSON limitation (key must be string)
-    engine: int = Field(enum_resolver=lambda: [
-        {"label": "V-Ray", "value": 1},
-        {"label": "V-Ray GPU", "value": 2}], title="Production Engine")
+    engine: str = Field(
+        enum_resolver=lambda: [
+            {"label": "V-Ray", "value": "1"},
+            {"label": "V-Ray GPU", "value": "2"}
+        ],
+        title="Production Engine"
+    )
     image_format: str = Field(enum_resolver=vray_image_output_enum, title="Output Image Format")
     aov_list: list[str] = Field(default_factory=list, enum_resolver=vray_aov_list_enum, title="AOVs to create")
     additional_options: list[AdditionalOptionsModel] = Field(
@@ -300,8 +304,8 @@ class VraySettingsModel(BaseSettingsModel):
 class RedshiftSettingsModel(BaseSettingsModel):
     image_prefix: str = Field(title="Image prefix template")
     # both engines are using the same enumerator, both were originally str because of JSON limitation.
-    primary_gi_engine: int = Field(enum_resolver=redshift_engine_enum, title="Primary GI Engine")
-    secondary_gi_engine: int = Field(enum_resolver=redshift_engine_enum, title="Secondary GI Engine")
+    primary_gi_engine: str = Field(enum_resolver=redshift_engine_enum, title="Primary GI Engine")
+    secondary_gi_engine: str = Field(enum_resolver=redshift_engine_enum, title="Secondary GI Engine")
     image_format: str = Field(enum_resolver=redshift_image_output_enum, title="Output Image Format")
     multilayer_exr: bool = Field(title="Multilayer (exr)")
     force_combine: bool = Field(title="Force combine beauty and AOVs")
@@ -344,15 +348,15 @@ DEFAULT_RENDER_SETTINGS = {
     },
     "vray_renderer": {
         "image_prefix": "<scene>/<Layer>/<Layer>",
-        "engine": 1,
+        "engine": "1",
         "image_format": "exr",
         "aov_list": [],
         "additional_options": []
     },
     "redshift_renderer": {
         "image_prefix": "<Scene>/<RenderLayer>/<RenderLayer>",
-        "primary_gi_engine": 0,
-        "secondary_gi_engine": 0,
+        "primary_gi_engine": "0",
+        "secondary_gi_engine": "0",
         "image_format": "exr",
         "multilayer_exr": True,
         "force_combine": True,
