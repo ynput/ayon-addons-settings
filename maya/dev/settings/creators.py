@@ -2,10 +2,13 @@ from pydantic import Field
 
 from ayon_server.settings import BaseSettingsModel
 
+
 class CreateLookModel(BaseSettingsModel):
     enabled: bool = Field(title="Enabled")
     make_tx: bool = Field(title="Make tx files")
-    defaults: list[str] = Field(default_factory=["Main"], title="Default Subsets")
+    defaults: list[str] = Field(
+        default_factory=["Main"], title="Default Subsets"
+    )
 
 
 class CreateRenderModel(BaseSettingsModel):
@@ -288,159 +291,159 @@ class CreatorsModel(BaseSettingsModel):
 
 
 DEFAULT_CREATORS_SETTINGS = {
-        "CreateLook": {
-            "enabled": True,
-            "make_tx": True,
-            "defaults": [
-                "Main"
-            ]
-        },
-         "CreateRender": {
-            "enabled": True,
-            "defaults": [
-                "Main"
-            ]
-        },
-        "CreateUnrealStaticMesh": {
-            "enabled": True,
-            "defaults": [
-                "",
-                "_Main"
-            ],
-            "static_mesh_prefix": "S",
-            "collision_prefixes": [
-                "UBX",
-                "UCP",
-                "USP",
-                "UCX"
-            ]
-        },
-        "CreateUnrealSkeletalMesh": {
-            "enabled": True,
-            "defaults": [],
-            "joint_hints": "jnt_org"
-        },
-        "CreateMultiverseLook": {
-            "enabled": True,
-            "publish_mip_map": True
-        },
-        "CreateAnimation": {
-            "enabled": True,
-            "write_color_sets": False,
-            "write_face_sets": False,
-            "defaults": [
-                "Main"
-            ]
-        },
-        "CreateModel": {
-            "enabled": True,
-            "write_color_sets": False,
-            "write_face_sets": False,
-            "defaults": [
-                "Main",
-                "Proxy",
-                "Sculpt"
-            ]
-        },
-        "CreatePointCache": {
-            "enabled": True,
-            "write_color_sets": False,
-            "write_face_sets": False,
-            "defaults": [
-                "Main"
-            ]
-        },
-        "CreateMultiverseUsd": {
-            "enabled": True,
-            "defaults": [
-                "Main"
-            ]
-        },
-        "CreateMultiverseUsdComp": {
-            "enabled": True,
-            "defaults": [
-                "Main"
-            ]
-        },
-        "CreateMultiverseUsdOver": {
-            "enabled": True,
-            "defaults": [
-                "Main"
-            ]
-        },
-        "CreateAss": {
-            "enabled": True,
-            "defaults": [
-                "Main"
-            ]
-        },
-        "CreateAssembly": {
-            "enabled": True,
-            "defaults": [
-                "Main"
-            ]
-        },
-        "CreateCamera": {
-            "enabled": True,
-            "defaults": [
-                "Main"
-            ]
-        },
-        "CreateLayout": {
-            "enabled": True,
-            "defaults": [
-                "Main"
-            ]
-        },
-        "CreateMayaScene": {
-            "enabled": True,
-            "defaults": [
-                "Main"
-            ]
-        },
-        "CreateRenderSetup": {
-            "enabled": True,
-            "defaults": [
-                "Main"
-            ]
-        },
-        "CreateReview": {
-            "enabled": True,
-            "defaults": [
-                "Main"
-            ]
-        },
-        "CreateRig": {
-            "enabled": True,
-            "defaults": [
-                "Main",
-                "Sim",
-                "Cloth"
-            ]
-        },
-        "CreateSetDress": {
-            "enabled": True,
-            "defaults": [
-                "Main",
-                "Anim"
-            ]
-        },
-        "CreateVrayProxy": {
-            "enabled": True,
-            "defaults": [
-                "Main"
-            ]
-        },
-        "CreateVrayScene": {
-            "enabled": True,
-            "defaults": [
-                "Main"
-            ]
-        },
-        "CreateYetiRig": {
-            "enabled": True,
-            "defaults": [
-                "Main"
-            ]
-        }
+    "CreateLook": {
+        "enabled": True,
+        "make_tx": True,
+        "defaults": [
+            "Main"
+        ]
+    },
+     "CreateRender": {
+        "enabled": True,
+        "defaults": [
+            "Main"
+        ]
+    },
+    "CreateUnrealStaticMesh": {
+        "enabled": True,
+        "defaults": [
+            "",
+            "_Main"
+        ],
+        "static_mesh_prefix": "S",
+        "collision_prefixes": [
+            "UBX",
+            "UCP",
+            "USP",
+            "UCX"
+        ]
+    },
+    "CreateUnrealSkeletalMesh": {
+        "enabled": True,
+        "defaults": [],
+        "joint_hints": "jnt_org"
+    },
+    "CreateMultiverseLook": {
+        "enabled": True,
+        "publish_mip_map": True
+    },
+    "CreateAnimation": {
+        "enabled": True,
+        "write_color_sets": False,
+        "write_face_sets": False,
+        "defaults": [
+            "Main"
+        ]
+    },
+    "CreateModel": {
+        "enabled": True,
+        "write_color_sets": False,
+        "write_face_sets": False,
+        "defaults": [
+            "Main",
+            "Proxy",
+            "Sculpt"
+        ]
+    },
+    "CreatePointCache": {
+        "enabled": True,
+        "write_color_sets": False,
+        "write_face_sets": False,
+        "defaults": [
+            "Main"
+        ]
+    },
+    "CreateMultiverseUsd": {
+        "enabled": True,
+        "defaults": [
+            "Main"
+        ]
+    },
+    "CreateMultiverseUsdComp": {
+        "enabled": True,
+        "defaults": [
+            "Main"
+        ]
+    },
+    "CreateMultiverseUsdOver": {
+        "enabled": True,
+        "defaults": [
+            "Main"
+        ]
+    },
+    "CreateAss": {
+        "enabled": True,
+        "defaults": [
+            "Main"
+        ]
+    },
+    "CreateAssembly": {
+        "enabled": True,
+        "defaults": [
+            "Main"
+        ]
+    },
+    "CreateCamera": {
+        "enabled": True,
+        "defaults": [
+            "Main"
+        ]
+    },
+    "CreateLayout": {
+        "enabled": True,
+        "defaults": [
+            "Main"
+        ]
+    },
+    "CreateMayaScene": {
+        "enabled": True,
+        "defaults": [
+            "Main"
+        ]
+    },
+    "CreateRenderSetup": {
+        "enabled": True,
+        "defaults": [
+            "Main"
+        ]
+    },
+    "CreateReview": {
+        "enabled": True,
+        "defaults": [
+            "Main"
+        ]
+    },
+    "CreateRig": {
+        "enabled": True,
+        "defaults": [
+            "Main",
+            "Sim",
+            "Cloth"
+        ]
+    },
+    "CreateSetDress": {
+        "enabled": True,
+        "defaults": [
+            "Main",
+            "Anim"
+        ]
+    },
+    "CreateVrayProxy": {
+        "enabled": True,
+        "defaults": [
+            "Main"
+        ]
+    },
+    "CreateVrayScene": {
+        "enabled": True,
+        "defaults": [
+            "Main"
+        ]
+    },
+    "CreateYetiRig": {
+        "enabled": True,
+        "defaults": [
+            "Main"
+        ]
     }
+}
