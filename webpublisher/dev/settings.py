@@ -212,10 +212,7 @@ DEFAULT_VALUES = {
                         ],
                         "result_family": "render"
                     }
-                ],
-                "__dynamic_keys_labels__": {
-                    "default_task_type": "Default task type"
-                }
+                ]
             }
         },
         "CollectTVPaintInstances": {
