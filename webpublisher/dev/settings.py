@@ -1,12 +1,21 @@
 from pydantic import Field, validator
-from ayon_server.settings import BaseSettingsModel, normalize_name, ensure_unique_names
+from ayon_server.settings import (
+    BaseSettingsModel,
+    normalize_name,
+    ensure_unique_names,
+    task_types_enum,
+)
 
 
 class TimeoutProfiles(BaseSettingsModel):
     _layout = "expanded"
 
     hosts: list[str] = Field(default_factory=list, title="Host names")
-    task_types: list[str] = Field(default_factory=list, title="Task types")
+    task_types: list[str] = Field(
+        default_factory=list,
+        title="Task types",
+        enum_resolver=task_types_enum
+    )
     timeout: int = Field(600, title="Timeout (sec)")
     
     

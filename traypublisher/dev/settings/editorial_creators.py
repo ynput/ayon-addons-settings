@@ -1,26 +1,6 @@
 from pydantic import Field
 
-from ayon_server.settings import BaseSettingsModel
-
-
-task_types_enum = [
-    {"label": "Generic", "value": "Generic"},
-    {"label": "Art", "value": "Art"},
-    {"label": "Modeling", "value": "Modeling"},
-    {"label": "Texture", "value": "Texture"},
-    {"label": "Lookdev", "value": "Lookdev"},
-    {"label": "Rigging", "value": "Rigging"},
-    {"label": "Edit", "value": "Edit"},
-    {"label": "Layout", "value": "Layout"},
-    {"label": "Setdress", "value": "Setdress"},
-    {"label": "Animation", "value": "Animation"},
-    {"label": "FX", "value": "FX"},
-    {"label": "Lighting", "value": "Lighting"},
-    {"label": "Paint", "value": "Paint"},
-    {"label": "Compositing", "value": "Compositing"},
-    {"label": "Roto", "value": "Roto"},
-    {"label": "Matchmove", "value": "Matchmove"}
-]
+from ayon_server.settings import BaseSettingsModel, task_types_enum
 
 
 class ClipNameTokenizerItem(BaseSettingsModel):
@@ -37,7 +17,7 @@ class ShotAddTasksItem(BaseSettingsModel):
     task_type: list[str] = Field(
         title="Task type",
         default_factory=list,
-        enum_resolver=lambda: task_types_enum)
+        enum_resolver=task_types_enum)
 
 
 class ShotRenameSubmodel(BaseSettingsModel):
