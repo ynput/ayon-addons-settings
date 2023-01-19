@@ -5,7 +5,9 @@ from ayon_server.settings import (
     MultiplatformPathModel,
     normalize_name,
     ensure_unique_names,
+    task_types_enum,
 )
+
 from ayon_server.types import ColorRGBA_uint8
 
 
@@ -46,7 +48,11 @@ class CollectSceneVersionModel(BaseSettingsModel):
 class ValidateIntentProfile(BaseSettingsModel):
     _layout = "expanded"
     hosts: list[str] = Field(default_factory=list, title="Host names")
-    task_types: list[str] = Field(default_factory=list, title="Task types")
+    task_types: list[str] = Field(
+        default_factory=list,
+        title="Task types",
+        enum_resolver=task_types_enum
+    )
     tasks: list[str] = Field(default_factory=list, title="Task names")
     # TODO This was 'validate' in v3
     validate_intent: bool = Field(True, title="Validate")
@@ -327,7 +333,8 @@ class ExtractBurninProfile(BaseSettingsModel):
     )
     task_types: list[str] = Field(
         default_factory=list,
-        title="Task types"
+        title="Task types",
+        enum_resolver=task_types_enum
     )
     task_names: list[str] = Field(
         default_factory=list,
@@ -376,6 +383,7 @@ class PreIntegrateThumbnailsProfile(BaseSettingsModel):
     task_types: list[str] = Field(
         default_factory=list,
         title="Task types",
+        enum_resolver=task_types_enum
     )
     subsets: list[str] = Field(
         default_factory=list,
@@ -401,7 +409,11 @@ class PreIntegrateThumbnailsModel(BaseSettingsModel):
 class IntegrateSubsetGroupProfile(BaseSettingsModel):
     families: list[str] = Field(default_factory=list, title="Families")
     hosts: list[str] = Field(default_factory=list, title="Hosts")
-    task_types: list[str] = Field(default_factory=list, title="Task types")
+    task_types: list[str] = Field(
+        default_factory=list,
+        title="Task types",
+        enum_resolver=task_types_enum
+    )
     tasks: list[str] = Field(default_factory=list, title="Task names")
     template: str = Field("", title="Template")
 

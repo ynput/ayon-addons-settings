@@ -3,6 +3,7 @@ from ayon_server.settings import (
     BaseSettingsModel,
     normalize_name,
     ensure_unique_names,
+    task_types_enum,
 )
 
 
@@ -20,7 +21,11 @@ class SubsetNameProfile(BaseSettingsModel):
     _layout = "expanded"
     families: list[str] = Field(default_factory=list, title="Families")
     hosts: list[str] = Field(default_factory=list, title="Hosts")
-    task_types: list[str] = Field(default_factory=list, title="Task types")
+    task_types: list[str] = Field(
+        default_factory=list,
+        title="Task types",
+        enum_resolver=task_types_enum
+    )
     tasks: list[str] = Field(default_factory=list, title="Task names")
     template: str = Field("", title="Template")
 
@@ -44,8 +49,11 @@ class CreatorToolModel(BaseSettingsModel):
 
 class WorkfileTemplateProfile(BaseSettingsModel):
     _layout = "expanded"
-    # TODO this should use task types enum
-    task_types: list[str] = Field(default_factory=list, title="Task types")
+    task_types: list[str] = Field(
+        default_factory=list,
+        title="Task types",
+        enum_resolver=task_types_enum
+    )
     # TODO this should use hosts enum
     hosts: list[str] = Field(default_factory=list, title="Hosts")
     # TODO this was using project anatomy template name
@@ -56,8 +64,11 @@ class LastWorkfileOnStartupProfile(BaseSettingsModel):
     _layout = "expanded"
     # TODO this should use hosts enum
     hosts: list[str] = Field(default_factory=list, title="Hosts")
-    # TODO this should use task types enum
-    task_types: list[str] = Field(default_factory=list, title="Task types")
+    task_types: list[str] = Field(
+        default_factory=list,
+        title="Task types",
+        enum_resolver=task_types_enum
+    )
     tasks: list[str] = Field(default_factory=list, title="Task names")
     enabled: bool = Field(True, title="Enabled")
     use_last_published_workfile: bool = Field(
@@ -69,8 +80,11 @@ class WorkfilesToolOnStartupProfile(BaseSettingsModel):
     _layout = "expanded"
     # TODO this should use hosts enum
     hosts: list[str] = Field(default_factory=list, title="Hosts")
-    # TODO this should use task types enum
-    task_types: list[str] = Field(default_factory=list, title="Task types")
+    task_types: list[str] = Field(
+        default_factory=list,
+        title="Task types",
+        enum_resolver=task_types_enum
+    )
     tasks: list[str] = Field(default_factory=list, title="Task names")
     enabled: bool = Field(True, title="Enabled")
 
@@ -79,8 +93,11 @@ class ExtraWorkFoldersProfile(BaseSettingsModel):
     _layout = "expanded"
     # TODO this should use hosts enum
     hosts: list[str] = Field(default_factory=list, title="Hosts")
-    # TODO this should use task types enum
-    task_types: list[str] = Field(default_factory=list, title="Task types")
+    task_types: list[str] = Field(
+        default_factory=list,
+        title="Task types",
+        enum_resolver=task_types_enum
+    )
     task_names: list[str] = Field(default_factory=list, title="Task names")
     folders: list[str] = Field(default_factory=list, title="Folders")
 
@@ -157,8 +174,11 @@ class LoaderFamilyFilterProfile(BaseSettingsModel):
     _layout = "expanded"
     # TODO this should use hosts enum
     hosts: list[str] = Field(default_factory=list, title="Hosts")
-    # TODO this should use task types enum
-    task_types: list[str] = Field(default_factory=list, title="Task types")
+    task_types: list[str] = Field(
+        default_factory=list,
+        title="Task types",
+        enum_resolver=task_types_enum
+    )
     is_include: bool = Field(True, title="Exclude / Include")
     filter_families: list[str] = Field(
         default_factory=list,
@@ -178,8 +198,11 @@ class PublishTemplateNameProfile(BaseSettingsModel):
     families: list[str] = Field(default_factory=list, title="Families")
     # TODO this should use hosts enum
     hosts: list[str] = Field(default_factory=list, title="Hosts")
-    # TODO this should use task types enum
-    task_types: list[str] = Field(default_factory=list, title="Task types")
+    task_types: list[str] = Field(
+        default_factory=list,
+        title="Task types",
+        enum_resolver=task_types_enum
+    )
     task_names: list[str] = Field(default_factory=list, title="Task names")
     template_name: str = Field("", title="Template name")
 

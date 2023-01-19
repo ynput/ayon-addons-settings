@@ -1,7 +1,7 @@
 from pydantic import Field
 from pathlib import Path
 
-from ayon_server.settings import BaseSettingsModel
+from ayon_server.settings import BaseSettingsModel, task_types_enum
 
 
 class PathsTemplate(BaseSettingsModel):
@@ -23,6 +23,7 @@ class CustomBuilderTemplate(BaseSettingsModel):
     task_types: list[str] = Field(
         default_factory=list,
         title="Task types",
+        enum_resolver=task_types_enum
     )
     template_path: PathsTemplate = Field(
         default_factory=PathsTemplate
