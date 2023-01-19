@@ -321,6 +321,7 @@ class RenderSettingsModel(BaseSettingsModel):
         enum_resolver=aov_separators_enum
     )
     reset_current_frame: bool = Field(title="Reset Current Frame")
+    remove_aovs: bool = Field(title="Remove existing AOVs")
     arnold_renderer: ArnoldSettingsModel = Field(default_factory=ArnoldSettingsModel, title="Arnold Renderer")
     vray_renderer: VraySettingsModel = Field(default_factory=VraySettingsModel, title="Vray Renderer")
     redshift_renderer: RedshiftSettingsModel = Field(default_factory=RedshiftSettingsModel, title="Redshift Renderer")
@@ -332,6 +333,7 @@ DEFAULT_RENDER_SETTINGS = {
     "enable_all_lights": True,
     "aov_separator": "underscore",
     "reset_current_frame": False,
+    "remove_aovs": False,
     "arnold_renderer": {
         "image_prefix": "<Scene>/<RenderLayer>/<RenderLayer>_<RenderPass>",
         "image_format": "exr",
