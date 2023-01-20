@@ -67,20 +67,13 @@ class CreateShotClipModels(BaseSettingsModel):
     )
 
 
-class CreatorPuginsModel(BaseSettingsModel):
+class CreatorPluginsSettings(BaseSettingsModel):
     CreateShotClip: CreateShotClipModels = Field(
         default_factory=CreateShotClipModels,
         title="Create Shot Clip"
     )
 
-
-class HieroSettings(BaseSettingsModel):
-    create: CreatorPuginsModel = Field(
-        default_factory=CreatorPuginsModel,
-        title="Creator plugins",
-    )
-
-DEFAULT_VALUES = {
+DEFAULT_CREATE_SETTINGS = {
     "create": {
         "CreateShotClip": {
             "hierarchy": "{folder}/{sequence}",
