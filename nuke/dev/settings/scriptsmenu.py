@@ -1,5 +1,4 @@
-from pydantic import Field
-from ayon_server.settings import BaseSettingsModel
+from ayon_server.settings import BaseSettingsModel, Field
 
 
 class ScriptsmenuSubmodel(BaseSettingsModel):

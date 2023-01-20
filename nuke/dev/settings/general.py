@@ -1,6 +1,5 @@
-from pydantic import Field, validator
+from ayon_server.settings import BaseSettingsModel, Field
 
-from ayon_server.settings import BaseSettingsModel, ensure_unique_names
 
 class MenuShortcut(BaseSettingsModel):
     """Nuke general project settings."""
