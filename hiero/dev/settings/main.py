@@ -15,7 +15,11 @@ from .create_plugins import (
 )
 from .loader_plugins import (
     LoaderPuginsModel,
-    DEFAULT_FLAME_LOADER_SETTINGS
+    DEFAULT_LOADER_PLUGINS_SETTINGS
+)
+from .publish_plugins import (
+    PublishPuginsModel,
+    DEFAULT_PUBLISH_PLUGIN_SETTINGS
 )
 from .scriptsmenu import (
     ScriptsmenuSettings,
@@ -40,6 +44,10 @@ class HieroSettings(BaseSettingsModel):
         default_factory=LoaderPuginsModel,
         title="Loader plugins"
     )
+    publish: PublishPuginsModel = Field(
+        default_factory=PublishPuginsModel,
+        title="Publish plugins"
+    )
     scriptsmenu: ScriptsmenuSettings = Field(
         default_factory=ScriptsmenuSettings,
         title="Scripts Menu Definition",
@@ -51,6 +59,7 @@ class HieroSettings(BaseSettingsModel):
 DEFAULT_VALUES = {
     "imageio": DEFAULT_IMAGEIO_SETTINGS,
     "create": DEFAULT_CREATE_SETTINGS,
-    "load": DEFAULT_FLAME_LOADER_SETTINGS,
+    "load": DEFAULT_LOADER_PLUGINS_SETTINGS,
+    "publish": DEFAULT_PUBLISH_PLUGIN_SETTINGS,
     "scriptsmenu": DEFAULT_SCRIPTSMENU_SETTINGS
 }
