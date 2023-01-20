@@ -28,7 +28,7 @@ class LoaderPuginsModel(BaseSettingsModel):
         title="Load Clip"
     )
 
-DEFAULT_FLAME_LOADER_SETTINGS = {
+DEFAULT_LOADER_PLUGINS_SETTINGS = {
     "LoadClip": {
         "enabled": True,
         "families": [
