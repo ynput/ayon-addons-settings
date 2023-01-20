@@ -23,7 +23,7 @@ ocio_configs_switcher_enum = [
 
 class WorkfileColorspaceSettings(BaseSettingsModel):
     """Hiero workfile colorspace preset. """
-    """TODO:
+    """# TODO: Changes in host api:
     we need to add mapping to resolve properly keys.
     Hiero is excpecting camel case key names,
     but for better code consistency we are using snake_case:
@@ -43,7 +43,7 @@ class WorkfileColorspaceSettings(BaseSettingsModel):
         title="Color Management"
     )
 
-    """TODO:
+    """# TODO: Changes in host api:
     we need to do mapping to convert underscore in aces versions
     to dot version > aces_1_0_2 = aces_1.0.2
     """
@@ -54,7 +54,7 @@ class WorkfileColorspaceSettings(BaseSettingsModel):
         conditionalEnum=True
     )
 
-    """TODO:
+    """# TODO: Changes in host api:
     In v3 hiero is excpecting key `customOCIOConfigPath`
     but here it is `config`
     """
@@ -101,15 +101,14 @@ class ImageIOSettings(BaseSettingsModel):
         default_factory=WorkfileColorspaceSettings,
         title="Workfile"
     )
-    """TODO:
-    Changes in host api:
+    """# TODO: Changes in host api:
     - old settings are using `regexInputs` key
     - removed `inputs` middle part not it is
       directly on regex_inputs
     """
     regex_inputs: list[ClipColorspaceRulesItems] = Field(
         default_factory=list,
-        title="Assign colorspace to clips with rules"
+        title="Assign colorspace to clips via rules"
     )
 
 

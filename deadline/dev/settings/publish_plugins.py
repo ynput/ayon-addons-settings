@@ -18,9 +18,9 @@ class CollectDeadlinePoolsModel(BaseSettingsModel):
 
 
 class ValidateExpectedFilesModel(BaseSettingsModel):
-    enabled: bool = Field(True, "Enabled")
-    active: bool = Field(True, "Active")
-    allow_user_override: bool = Field(True, "Allow user change frame range")
+    enabled: bool = Field(True, title="Enabled")
+    active: bool = Field(True, title="Active")
+    allow_user_override: bool = Field(True, title="Allow user change frame range")
     families: list[str] = Field(
         default_factory=list, title="Trigger on families"
     )

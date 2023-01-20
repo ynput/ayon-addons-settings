@@ -27,8 +27,8 @@ from .scriptsmenu import (
 )
 
 from .gizmo import (
-    GizmoSettings,
-    DEFAULT_GIZMO_SETTINGS
+    GizmoItem,
+    DEFAULT_GIZMO_ITEM
 )
 
 from .create_plugins import (
@@ -83,10 +83,8 @@ class NukeSettings(BaseSettingsModel):
         title="Scripts Menu Definition",
     )
 
-    gizmo: GizmoSettings = Field(
-        default_factory=GizmoSettings,
-        title="Gizmo Menu",
-    )
+    gizmo: list[GizmoItem] = Field(
+        default_factory=list, title="Gizmo Menu")
 
     create: CreatorPluginsSettings = Field(
         default_factory=CreatorPluginsSettings,
@@ -129,7 +127,7 @@ DEFAULT_VALUES = {
     "imageio": DEFAULT_IMAGEIO_SETTINGS,
     "dirmap": DEFAULT_DIRMAP_SETTINGS,
     "scriptsmenu": DEFAULT_SCRIPTSMENU_SETTINGS,
-    "gizmo": DEFAULT_GIZMO_SETTINGS,
+    "gizmo": [DEFAULT_GIZMO_ITEM],
     "create": DEFAULT_CREATE_SETTINGS,
     "publish": DEFAULT_PUBLISH_SETTINGS,
     "load": DEFAULT_LOAD_SETTINGS,

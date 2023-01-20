@@ -3,7 +3,7 @@ from ayon_server.settings import BaseSettingsModel
 
 
 class MultiplatformStrList(BaseSettingsModel):
-    """Todo: This should be unified across the addons."""
+    """# TODO: This should be unified across the addons."""
 
     windows: list[str] = Field(default_factory=list, title="Windows")
     linux: list[str] = Field(default_factory=list, title="Linux")
