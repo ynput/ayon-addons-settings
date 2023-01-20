@@ -1,9 +1,9 @@
 from ayon_server.settings import Field, BaseSettingsModel, TemplateWorkfileOptions
 
-from .imageio import ImageIOModel, DEFAULT_FLAME_IMAGEIO_SETTINGS
-from .create_plugins import CreatePuginsModel, DEFAULT_FLAME_CREATE_SETTINGS
-from .publish_plugins import PublishPuginsModel, DEFAULT_FLAME_PUBLISH_SETTINGS
-from .loader_plugins import LoaderPuginsModel, DEFAULT_FLAME_LOADER_SETTINGS
+from .imageio import ImageIOModel, DEFAULT_IMAGEIO_SETTINGS
+from .create_plugins import CreatePuginsModel, DEFAULT_CREATE_SETTINGS
+from .publish_plugins import PublishPuginsModel, DEFAULT_PUBLISH_SETTINGS
+from .loader_plugins import LoaderPluginsModel, DEFAULT_LOADER_SETTINGS
 
 
 class FlameSettings(BaseSettingsModel):
@@ -19,14 +19,14 @@ class FlameSettings(BaseSettingsModel):
         default_factory=PublishPuginsModel,
         title="Publish plugins"
     )
-    load: LoaderPuginsModel = Field(
-        default_factory=LoaderPuginsModel,
+    load: LoaderPluginsModel = Field(
+        default_factory=LoaderPluginsModel,
         title="Loader plugins"
     )
 
 DEFAULT_VALUES = {
-    "imageio": DEFAULT_FLAME_IMAGEIO_SETTINGS,
-    "create": DEFAULT_FLAME_CREATE_SETTINGS,
-    "publish": DEFAULT_FLAME_PUBLISH_SETTINGS,
-    "load": DEFAULT_FLAME_LOADER_SETTINGS
+    "imageio": DEFAULT_IMAGEIO_SETTINGS,
+    "create": DEFAULT_CREATE_SETTINGS,
+    "publish": DEFAULT_PUBLISH_SETTINGS,
+    "load": DEFAULT_LOADER_SETTINGS
 }
