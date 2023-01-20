@@ -1,10 +1,10 @@
-from pydantic import Field
-
-from ayon_server.settings import BaseSettingsModel, ensure_unique_names
+from ayon_server.settings import BaseSettingsModel, Field
 from ayon_server.types import (
     ColorRGBA_float,
     ColorRGB_uint8
 )
+
+
 class PathsTemplate(BaseSettingsModel):
     windows: str = Field("", title="Windows")
     darwin: str = Field("", title="MacOS")
