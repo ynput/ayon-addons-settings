@@ -1,6 +1,9 @@
 from typing import Literal
-from pydantic import validator
-from ayon_server.settings import BaseSettingsModel, Field
+from pydantic import validator, Field
+from ayon_server.settings import (
+    BaseSettingsModel,
+    ensure_unique_names
+)
 
 from .common import PathsTemplate, KnobModel
 
