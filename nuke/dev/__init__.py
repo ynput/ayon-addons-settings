@@ -7,7 +7,7 @@ from .settings import NukeSettings, DEFAULT_VALUES
 
 class NukeAddon(BaseServerAddon):
     name = "nuke"
-    title = "Nuke"
+    title = "Foundry Nuke"
     version = "1.0.0"
     settings_model: Type[NukeSettings] = NukeSettings
 
