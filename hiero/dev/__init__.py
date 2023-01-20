@@ -7,7 +7,7 @@ from .settings import HieroSettings, DEFAULT_VALUES
 
 class HieroAddon(BaseServerAddon):
     name = "hiero"
-    title = "Foundry Hiero"
+    title = "Hiero"
     version = "1.0.0"
     settings_model: Type[HieroSettings] = HieroSettings
     frontend_scopes = {}

@@ -11,7 +11,7 @@ from .publish_plugins import (
 
 
 class PathsTemplate(BaseSettingsModel):
-    """Todo: This should be unified across the addons."""
+    """# TODO: This should be unified across the addons."""
 
     windows: str = Field("", title="Windows")
     darwin: str = Field("", title="MacOS")
@@ -19,7 +19,7 @@ class PathsTemplate(BaseSettingsModel):
 
 
 class MultiplatformStrList(BaseSettingsModel):
-    """Todo: This should be unified across the addons."""
+    """# TODO: This should be unified across the addons."""
 
     windows: list[str] = Field(default_factory=list, title="Windows")
     linux: list[str] = Field(default_factory=list, title="Linux")
