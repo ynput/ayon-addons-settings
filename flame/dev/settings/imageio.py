@@ -50,7 +50,7 @@ class ImageIOModel(BaseSettingsModel):
     )
 
 
-DEFAULT_FLAME_IMAGEIO_SETTINGS = {
+DEFAULT_IMAGEIO_SETTINGS = {
     "project": {
         "colourPolicy": "ACES 1.1",
         "frameDepth": "16-bit fp",
