@@ -102,118 +102,127 @@ DEFAULT_VALUES = {
     "publish": {
         "CollectPublishedFiles": {
             "sync_next_version": False,
-            "task_type_to_family": {
-                "Animation": [
-                    {
-                        "is_sequence": False,
-                        "extensions": [
-                            "tvp"
-                        ],
-                        "families": [],
-                        "tags": [],
-                        "result_family": "workfile"
-                    },
-                    {
-                        "is_sequence": True,
-                        "extensions": [
-                            "png",
-                            "exr",
-                            "tiff",
-                            "tif"
-                        ],
-                        "families": [
-                            "review"
-                        ],
-                        "tags": [
-                            "review"
-                        ],
-                        "result_family": "render"
-                    }
-                ],
-                "Compositing": [
-                    {
-                        "is_sequence": False,
-                        "extensions": [
-                            "aep"
-                        ],
-                        "families": [],
-                        "tags": [],
-                        "result_family": "workfile"
-                    },
-                    {
-                        "is_sequence": True,
-                        "extensions": [
-                            "png",
-                            "exr",
-                            "tiff",
-                            "tif"
-                        ],
-                        "families": [
-                            "review"
-                        ],
-                        "tags": [
-                            "review"
-                        ],
-                        "result_family": "render"
-                    }
-                ],
-                "Layout": [
-                    {
-                        "is_sequence": False,
-                        "extensions": [
-                            "psd"
-                        ],
-                        "families": [],
-                        "tags": [],
-                        "result_family": "workfile"
-                    },
-                    {
-                        "is_sequence": False,
-                        "extensions": [
-                            "png",
-                            "jpg",
-                            "jpeg",
-                            "tiff",
-                            "tif"
-                        ],
-                        "families": [
-                            "review"
-                        ],
-                        "tags": [
-                            "review"
-                        ],
-                        "result_family": "image"
-                    }
-                ],
-                "default_task_type": [
-                    {
-                        "is_sequence": False,
-                        "extensions": [
-                            "tvp",
-                            "psd"
-                        ],
-                        "families": [],
-                        "tags": [],
-                        "result_family": "workfile"
-                    },
-                    {
-                        "is_sequence": True,
-                        "extensions": [
-                            "png",
-                            "exr",
-                            "tiff",
-                            "tif"
-                        ],
-                        "families": [
-                            "review"
-                        ],
-                        "tags": [
-                            "review"
-                        ],
-                        "result_family": "render"
-                    }
-                ]
-            }
+            "task_type_to_family": [
+                {
+                    "name": "Animation",
+                    "task_types": [
+                        {
+                            "is_sequence": False,
+                            "extensions": [
+                                "tvp"
+                            ],
+                            "families": [],
+                            "tags": [],
+                            "result_family": "workfile"
+                        },
+                        {
+                            "is_sequence": True,
+                            "extensions": [
+                                "png",
+                                "exr",
+                                "tiff",
+                                "tif"
+                            ],
+                            "families": [
+                                "review"
+                            ],
+                            "tags": [
+                                "review"
+                            ],
+                            "result_family": "render"
+                        }
+                    ],
+                }, {
+                    "name": "Compositing",
+                    "task_types": [
+                        {
+                            "is_sequence": False,
+                            "extensions": [
+                                "aep"
+                            ],
+                            "families": [],
+                            "tags": [],
+                            "result_family": "workfile"
+                        },
+                        {
+                            "is_sequence": True,
+                            "extensions": [
+                                "png",
+                                "exr",
+                                "tiff",
+                                "tif"
+                            ],
+                            "families": [
+                                "review"
+                            ],
+                            "tags": [
+                                "review"
+                            ],
+                            "result_family": "render"
+                        }
+                    ],
+                }, {
+                    "name": "Layout",
+                    "task_types": [
+                        {
+                            "is_sequence": False,
+                            "extensions": [
+                                "psd"
+                            ],
+                            "families": [],
+                            "tags": [],
+                            "result_family": "workfile"
+                        },
+                        {
+                            "is_sequence": False,
+                            "extensions": [
+                                "png",
+                                "jpg",
+                                "jpeg",
+                                "tiff",
+                                "tif"
+                            ],
+                            "families": [
+                                "review"
+                            ],
+                            "tags": [
+                                "review"
+                            ],
+                            "result_family": "image"
+                        }
+                    ],
+                }, {
+                    "name": "default_task_type",
+                    "task_types": [
+                        {
+                            "is_sequence": False,
+                            "extensions": [
+                                "tvp",
+                                "psd"
+                            ],
+                            "families": [],
+                            "tags": [],
+                            "result_family": "workfile"
+                        },
+                        {
+                            "is_sequence": True,
+                            "extensions": [
+                                "png",
+                                "exr",
+                                "tiff",
+                                "tif"
+                            ],
+                            "families": [
+                                "review"
+                            ],
+                            "tags": [
+                                "review"
+                            ],
+                            "result_family": "render"
+                        }
+                    ]
+                }
+            ]
         },
         "CollectTVPaintInstances": {
             "layer_name_regex": "(?P<layer>L[0-9]{3}_\\w+)_(?P<pass>.+)"
