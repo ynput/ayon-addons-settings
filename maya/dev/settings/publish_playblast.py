@@ -33,11 +33,11 @@ class CodecSetting(BaseSettingsModel):
 
 class DisplayOptionsSetting(BaseSettingsModel):
     _layout = "expanded"
-    background: ColorRGBA_uint8 = Field((125, 125, 125, 255),
+    background: ColorRGBA_uint8 = Field((125, 125, 125, 1.0),
         title="Background Color")
-    backgroundBottom: ColorRGBA_uint8 = Field((125, 125, 125, 255),
+    backgroundBottom: ColorRGBA_uint8 = Field((125, 125, 125, 1.0),
         title="Background Bottom")
-    backgroundTop: ColorRGBA_uint8 = Field((125, 125, 125, 255),
+    backgroundTop: ColorRGBA_uint8 = Field((125, 125, 125, 1.0),
         title="Background Top")
     override_display: bool = Field(title="Override display options")
 
@@ -156,117 +156,117 @@ class ExtractPlayblastSetting(BaseSettingsModel):
 
 DEFAULT_PLAYBLAST_SETTING = {
     "capture_preset": {
-                "Codec": {
-                    "compression": "jpg",
-                    "format": "image",
-                    "quality": 95
-                },
-                "DisplayOptions": {
-                    "background":[
-                        125,
-                        125,
-                        125,
-                        255
-                    ],
-                    "backgroundBottom": [
-                        125,
-                        125,
-                        125,
-                        255
-                    ],
-                    "backgroundTop":  [
-                        125,
-                        125,
-                        125,
-                        255
-                    ],
-                    "override_display": True
-                },
-                "Generic": {
-                    "isolate_view": True,
-                    "off_screen": True
-                },
-                "Renderer": {
-                    "rendererName": "vp2Renderer"
-                },
-                "Resolution": {
-                    "width": 1920,
-                    "height": 1080
-                },
-                "ViewportOptions": {
-                    "override_viewport_options": True,
-                    "displayLights": "default",
-                    "displayTextures": True,
-                    "textureMaxResolution": 1024,
-                    "renderDepthOfField": True,
-                    "shadows": True,
-                    "twoSidedLighting": True,
-                    "lineAAEnable": True,
-                    "multiSample": 8,
-                    "ssaoEnable": False,
-                    "ssaoAmount": 1,
-                    "ssaoRadius": 16,
-                    "ssaoFilterRadius": 16,
-                    "ssaoSamples": 16,
-                    "fogging": False,
-                    "hwFogFalloff": "0",
-                    "hwFogDensity": 0.0,
-                    "hwFogStart": 0,
-                    "hwFogEnd": 100,
-                    "hwFogAlpha": 0,
-                    "hwFogColorR": 1.0,
-                    "hwFogColorG": 1.0,
-                    "hwFogColorB": 1.0,
-                    "motionBlurEnable": False,
-                    "motionBlurSampleCount": 8,
-                    "motionBlurShutterOpenFraction": 0.2,
-                    "cameras": False,
-                    "clipGhosts": False,
-                    "deformers": False,
-                    "dimensions": False,
-                    "dynamicConstraints": False,
-                    "dynamics": False,
-                    "fluids": False,
-                    "follicles": False,
-                    "gpuCacheDisplayFilter": False,
-                    "greasePencils": False,
-                    "grid": False,
-                    "hairSystems": True,
-                    "handles": False,
-                    "headsUpDisplay": False,
-                    "ikHandles": False,
-                    "imagePlane": True,
-                    "joints": False,
-                    "lights": False,
-                    "locators": False,
-                    "manipulators": False,
-                    "motionTrails": False,
-                    "nCloths": False,
-                    "nParticles": False,
-                    "nRigids": False,
-                    "controlVertices": False,
-                    "nurbsCurves": False,
-                    "hulls": False,
-                    "nurbsSurfaces": False,
-                    "particleInstancers": False,
-                    "pivots": False,
-                    "planes": False,
-                    "pluginShapes": False,
-                    "polymeshes": True,
-                    "strokes": False,
-                    "subdivSurfaces": False,
-                    "textures": False
-                },
-                "CameraOptions": {
-                    "displayGateMask": False,
-                    "displayResolution": False,
-                    "displayFilmGate": False,
-                    "displayFieldChart": False,
-                    "displaySafeAction": False,
-                    "displaySafeTitle": False,
-                    "displayFilmPivot": False,
-                    "displayFilmOrigin": False,
-                    "overscan": 1.0
-                }
-            }
+        "Codec": {
+            "compression": "jpg",
+            "format": "image",
+            "quality": 95
+        },
+        "DisplayOptions": {
+            "background":[
+                125,
+                125,
+                125,
+                1.0
+            ],
+            "backgroundBottom": [
+                125,
+                125,
+                125,
+                1.0
+            ],
+            "backgroundTop":  [
+                125,
+                125,
+                125,
+                1.0
+            ],
+            "override_display": True
+        },
+        "Generic": {
+            "isolate_view": True,
+            "off_screen": True
+        },
+        "Renderer": {
+            "rendererName": "vp2Renderer"
+        },
+        "Resolution": {
+            "width": 1920,
+            "height": 1080
+        },
+        "ViewportOptions": {
+            "override_viewport_options": True,
+            "displayLights": "default",
+            "displayTextures": True,
+            "textureMaxResolution": 1024,
+            "renderDepthOfField": True,
+            "shadows": True,
+            "twoSidedLighting": True,
+            "lineAAEnable": True,
+            "multiSample": 8,
+            "ssaoEnable": False,
+            "ssaoAmount": 1,
+            "ssaoRadius": 16,
+            "ssaoFilterRadius": 16,
+            "ssaoSamples": 16,
+            "fogging": False,
+            "hwFogFalloff": "0",
+            "hwFogDensity": 0.0,
+            "hwFogStart": 0,
+            "hwFogEnd": 100,
+            "hwFogAlpha": 0,
+            "hwFogColorR": 1.0,
+            "hwFogColorG": 1.0,
+            "hwFogColorB": 1.0,
+            "motionBlurEnable": False,
+            "motionBlurSampleCount": 8,
+            "motionBlurShutterOpenFraction": 0.2,
+            "cameras": False,
+            "clipGhosts": False,
+            "deformers": False,
+            "dimensions": False,
+            "dynamicConstraints": False,
+            "dynamics": False,
+            "fluids": False,
+            "follicles": False,
+            "gpuCacheDisplayFilter": False,
+            "greasePencils": False,
+            "grid": False,
+            "hairSystems": True,
+            "handles": False,
+            "headsUpDisplay": False,
+            "ikHandles": False,
+            "imagePlane": True,
+            "joints": False,
+            "lights": False,
+            "locators": False,
+            "manipulators": False,
+            "motionTrails": False,
+            "nCloths": False,
+            "nParticles": False,
+            "nRigids": False,
+            "controlVertices": False,
+            "nurbsCurves": False,
+            "hulls": False,
+            "nurbsSurfaces": False,
+            "particleInstancers": False,
+            "pivots": False,
+            "planes": False,
+            "pluginShapes": False,
+            "polymeshes": True,
+            "strokes": False,
+            "subdivSurfaces": False,
+            "textures": False
+        },
+        "CameraOptions": {
+            "displayGateMask": False,
+            "displayResolution": False,
+            "displayFilmGate": False,
+            "displayFieldChart": False,
+            "displaySafeAction": False,
+            "displaySafeTitle": False,
+            "displayFilmPivot": False,
+            "displayFilmOrigin": False,
+            "overscan": 1.0
+        }
+    }
 }
