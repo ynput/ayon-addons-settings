@@ -1,7 +1,6 @@
 from pydantic import Field, validator
 from ayon_server.settings import (
     BaseSettingsModel,
-    normalize_name,
     ensure_unique_names,
     task_types_enum,
 )
@@ -25,20 +24,15 @@ class TaskTypeToFamilyItemModel(BaseSettingsModel):
     extensions: list[str] = Field(default_factory=list, title="Extensions")
     families: list[str] = Field(default_factory=list, title="Families")
     tags: list[str] = Field(default_factory=list, title="Tags")
-    result_family: list[str] = Field(default_factory=list, title="Resulting family")
+    result_family: str = Field(title="Resulting family")
 
 
 class TaskTypeToFamilyModel(BaseSettingsModel):
     _layout = "expanded"
     name: str = Field("", title="Task type")
-    task_type: list[TaskTypeToFamilyItemModel] = Field(
+    value: list[TaskTypeToFamilyItemModel] = Field(
         default_factory=list
     )
-
-    @validator("name")
-    def validate_name(cls, value):
-        """Ensure name does not contain weird characters"""
-        return normalize_name(value)
   
 
 class CollectPublishedFilesModel(BaseSettingsModel):
@@ -76,7 +70,7 @@ class PublishPluginsModel(BaseSettingsModel):
         default_factory=CollectPublishedFilesModel, 
         title="Collect published files",
         description="")
-    collectTVPaintInstances: CollectTVPaintInstancesModel = Field(
+    CollectTVPaintInstances: CollectTVPaintInstancesModel = Field(
         default_factory=CollectTVPaintInstancesModel,
         title="Collect TVPaint instances"
     )
@@ -105,7 +99,7 @@ DEFAULT_VALUES = {
             "task_type_to_family": [
                 {
                     "name": "Animation",
-                    "task_types": [
+                    "value": [
                         {
                             "is_sequence": False,
                             "extensions": [
@@ -134,7 +128,7 @@ DEFAULT_VALUES = {
                     ],
                 }, {
                     "name": "Compositing",
-                    "task_types": [
+                    "value": [
                         {
                             "is_sequence": False,
                             "extensions": [
@@ -163,7 +157,7 @@ DEFAULT_VALUES = {
                     ],
                 }, {
                     "name": "Layout",
-                    "task_types": [
+                    "value": [
                         {
                             "is_sequence": False,
                             "extensions": [
@@ -193,7 +187,7 @@ DEFAULT_VALUES = {
                     ],
                 }, {
                     "name": "default_task_type",
-                    "task_types": [
+                    "value": [
                         {
                             "is_sequence": False,
                             "extensions": [
