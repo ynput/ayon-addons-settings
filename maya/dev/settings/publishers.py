@@ -1,9 +1,7 @@
 from pydantic import Field, validator
 import json
-from ayon_server.settings import BaseSettingsModel
+from ayon_server.settings import BaseSettingsModel, MultiplatformPathModel
 from ayon_server.exceptions import BadRequestException
-from .publishers_model import ModelPublishSetting, DEFAULT_MODEL_PUBLISH_SETTING
-from .publishers_rig import RigPublishSetting, DEFAULT_RIG_PUBLISH_SETTING
 from .publish_playblast import ExtractPlayblastSetting, DEFAULT_PLAYBLAST_SETTING
 
 
@@ -27,6 +25,85 @@ def angular_unit_enum():
         {"label": "rad", "value": "radian"},
     ]
 
+
+class BasicValidateModel(BaseSettingsModel):
+    enabled: bool = Field(title="Enabled")
+    optional: bool = Field(title="Optional")
+    active: bool = Field(title="Active")
+
+
+class ValidateMeshUVSetMap1Model(BasicValidateModel):
+    """Validate model's default uv set exists and is named 'map1'."""
+    pass
+
+
+class ValidateNoAnimationModel(BasicValidateModel):
+    """Ensure no keyframes on nodes in the Instance."""
+    pass
+
+
+class ValidateRigOutSetNodeIdsModel(BaseSettingsModel):
+    enabled: bool = Field(title="ValidateSkinclusterDeformerSet")
+    optional: bool = Field(title="Optional")
+    allow_history_only: bool = Field(title="Allow history only")
+
+
+class ValidateModelNameModel(BaseSettingsModel):
+    enabled: bool = Field(title="Enabled")
+    database: bool = Field(title="Use database shader name definitions")
+    material_file: MultiplatformPathModel = Field(
+        default_factory=MultiplatformPathModel,
+        title="Material File",
+        description=("Path to material file defining list of material names to check.")
+    )
+    regex: str = Field(
+        "(.*)_(\\d)*_(?P<shader>.*)_(GEO)",
+        title="Validation regex",
+        description=(
+            "Regex for validating name of top level group name.You can use named capturing groups:(?P<asset>.*) for Asset name"
+        )
+    )
+    top_level_regex: str = Field(
+        ".*_GRP",
+        title="Top level group name regex",
+        description=("To check for asset in name so *_some_asset_name_GRP is valid, use:.*?_(?P<asset>.*)_GEO")
+    )
+
+
+class ValidateModelContentModel(BaseSettingsModel):
+    enabled: bool = Field(title="Enabled")
+    optional: bool = Field(title="Optional")
+    validate_top_group: bool = Field(title="Validate one top group")
+
+
+class ValidateTransformNamingSuffixModel(BaseSettingsModel):
+    enabled: bool = Field(title="Enabled")
+    optional: bool = Field(title="Optional")
+    SUFFIX_NAMING_TABLE: str = Field(
+        "{}",
+        title="Suffix Naming Tables",
+        widget="textarea",
+        description=("Validates transform suffix based on the type of its children shapes.")
+    )
+
+    @validator("SUFFIX_NAMING_TABLE")
+    def validate_json(cls, value):
+        if not value.strip():
+            return "{}"
+        try:
+            converted_value = json.loads(value)
+            success = isinstance(converted_value, dict)
+        except json.JSONDecodeError:
+            success = False
+
+        if not success:
+            raise BadRequestException(
+                "The text can't be parsed as json object"
+            )
+        return value
+    ALLOW_IF_NOT_IN_SUFFIX_TABLE: bool = Field(title="Allow if suffix not in table")
+
+
 class CollectMayaRenderModel(BaseSettingsModel):
     sync_workfile_version: bool = Field(title = "Sync render version with workfile")
 
@@ -37,18 +114,6 @@ class CollectFbxCameraModel(BaseSettingsModel):
 
 class CollectGLTFModel(BaseSettingsModel):
     enabled: bool = Field(title="CollectGLTF")
-
-
-class ValidateInstanceInContextModel(BaseSettingsModel):
-    enabled: bool = Field(title="ValidateInstanceInContext")
-    optional: bool = Field(title="Optional")
-    active: bool = Field(title="Active")
-
-
-class ValidateContainersModel(BaseSettingsModel):
-    enabled: bool = Field(title="ValidateContainers")
-    optional: bool = Field(title="Optional")
-    active: bool = Field(title="Active")
 
 
 class ValidateFrameRangeModel(BaseSettingsModel):
@@ -69,16 +134,11 @@ class ValidateShaderNameModel(BaseSettingsModel):
     regex: str = Field("(?P<asset>.*)_(.*)_SHD", title="Validation regex")
 
 
-class ValidateShadingEngineModel(BaseSettingsModel):
-    enabled: bool = Field(title="ValidateShadingEngine")
-    optional: bool = Field(title="Optional")
-    active: bool = Field(title="Active")
-
-
 class ValidateAttributesModel(BaseSettingsModel):
     enabled: bool = Field(title="ValidateAttributes")
-    attributes: str = Field("{}", title="Attributes",
-    widget="textarea")
+    attributes: str = Field(
+        "{}", title="Attributes", widget="textarea")
+
     @validator("attributes")
     def validate_json(cls, value):
         if not value.strip():
@@ -162,154 +222,35 @@ class ValidateRenderSettingsModel(BaseSettingsModel):
         default_factory=list, title="Renderman Render Attributes")
 
 
-class ValidateCurrentRenderLayerIsRenderableModel(BaseSettingsModel):
-    enabled: bool = Field(title="ValidateCurrentRenderLayerIsRenderable")
-    optional: bool = Field(title="Optional")
-    active: bool = Field(title="Active")
-
-
-class ValidateRenderImageRuleModel(BaseSettingsModel):
-    enabled: bool = Field(title="ValidateRenderImageRule")
-    optional: bool = Field(title="Optional")
-    active: bool = Field(title="Active")
-
-
-class ValidateRenderNoDefaultCamerasModel(BaseSettingsModel):
-    enabled: bool = Field(title="ValidateRenderNoDefaultCameras")
-    optional: bool = Field(title="Optional")
-    active: bool = Field(title="Active")
-
-
-class ValidateRenderSingleCameraModel(BaseSettingsModel):
-    enabled: bool = Field(title="ValidateRenderNoDefaultCameras")
-    optional: bool = Field(title="Optional")
-    active: bool = Field(title="Active")
-
-
-class ValidateRenderLayerAOVsModel(BaseSettingsModel):
-    enabled: bool = Field(title="ValidateRenderLayerAOVs")
-    optional: bool = Field(title="Optional")
-    active: bool = Field(title="Active")
-
-
-class ValidateStepSizeModel(BaseSettingsModel):
-    enabled: bool = Field(title="ValidateStepSize")
-    optional: bool = Field(title="Optional")
-    active: bool = Field(title="Active")
-
-
-class ValidateVRayDistributedRenderingModel(BaseSettingsModel):
-    enabled: bool = Field(title="ValidateVRayDistributedRendering")
-    optional: bool = Field(title="Optional")
-    active: bool = Field(title="Active")
-
-
-class ValidateVrayReferencedAOVsModel(BaseSettingsModel):
-    enabled: bool = Field(title="ValidateVrayReferencedAOVs")
-    optional: bool = Field(title="Optional")
-    active: bool = Field(title="Active")
-
-
-class ValidateVRayTranslatorEnabledModel(BaseSettingsModel):
-    enabled: bool = Field(title="ValidateVRayTranslatorEnabled")
-    optional: bool = Field(title="Optional")
-    active: bool = Field(title="Active")
-
-
-class ValidateVrayProxyModel(BaseSettingsModel):
-    enabled: bool = Field(title="ValidateVrayProxy")
-    optional: bool = Field(title="Optional")
-    active: bool = Field(title="Active")
-
-
-class ValidateVrayProxyMembersModel(BaseSettingsModel):
-    enabled: bool = Field(title="ValidateVrayProxyMembers")
-    optional: bool = Field(title="Optional")
-    active: bool = Field(title="Active")
-
-
-class ValidateYetiRenderScriptCallbacksModel(BaseSettingsModel):
-    enabled: bool = Field(title="ValidateYetiRenderScriptCallbacks")
-    optional: bool = Field(title="Optional")
-    active: bool = Field(title="Active")
-
-
-class ValidateYetiRigCacheStateModel(BaseSettingsModel):
-    enabled: bool = Field(title="ValidateYetiRigCacheState")
-    optional: bool = Field(title="Optional")
-    active: bool = Field(title="Active")
-
-
-class ValidateYetiRigInputShapesInInstanceModel(BaseSettingsModel):
-    enabled: bool = Field(title="ValidateYetiRigInputShapesInInstance")
-    optional: bool = Field(title="Optional")
-    active: bool = Field(title="Active")
-
-
-class ValidateYetiRigSettingsModel(BaseSettingsModel):
-    enabled: bool = Field(title="ValidateYetiRigSettings")
-    optional: bool = Field(title="Optional")
-    active: bool = Field(title="Active")
-
-
-class ValidateCameraAttributesModel(BaseSettingsModel):
-    enabled: bool = Field(title="ValidateCameraAttributes")
-    optional: bool = Field(title="Optional")
-    active: bool = Field(title="Active")
-
-
-class ValidateAssemblyNameModel(BaseSettingsModel):
-    enabled: bool = Field(title="ValidateAssemblyName")
-    optional: bool = Field(title="Optional")
-    active: bool = Field(title="Active")
-
-
-class ValidateAssemblyNamespacesModel(BaseSettingsModel):
-    enabled: bool = Field(title="ValidateAssemblyNamespaces")
-    optional: bool = Field(title="Optional")
-    active: bool = Field(title="Active")
-
-
-class ValidateAssemblyModelTransformsModel(BaseSettingsModel):
-    enabled: bool = Field(title="ValidateAssemblyModelTransforms")
-    optional: bool = Field(title="Optional")
-    active: bool = Field(title="Active")
-
-
-class ValidateAssRelativePathsModel(BaseSettingsModel):
-    enabled: bool = Field(title="ValidateAssRelativePaths")
-    optional: bool = Field(title="Optional")
-    active: bool = Field(title="Active")
-
-
-class ValidateInstancerContentModel(BaseSettingsModel):
-    enabled: bool = Field(title="ValidateInstancerContent")
-    optional: bool = Field(title="Optional")
-    active: bool = Field(title="Active")
-
-
-class ValidateInstancerFrameRangesModel(BaseSettingsModel):
-    enabled: bool = Field(title="ValidateInstancerFrameRanges")
-    optional: bool = Field(title="Optional")
-    active: bool = Field(title="Active")
-
-
-class ValidateNoDefaultCamerasModel(BaseSettingsModel):
-    enabled: bool = Field(title="ValidateNoDefaultCameras")
-    optional: bool = Field(title="Optional")
-    active: bool = Field(title="Active")
-
-
-class ValidateUnrealUpAxisModel(BaseSettingsModel):
-    enabled: bool = Field(title="ValidateUnrealUpAxis")
+class BasicValidateModel(BaseSettingsModel):
+    enabled: bool = Field(title="Enabled")
     optional: bool = Field(title="Optional")
     active: bool = Field(title="Active")
 
 
 class ValidateCameraContentsModel(BaseSettingsModel):
-    enabled: bool = Field(title="ValidateUnrealUpAxis")
+    enabled: bool = Field(title="Enabled")
     optional: bool = Field(title="Optional")
     validate_shapes: bool = Field(title="Validate presence of shapes")
+
+
+class ExtractProxyAlembicModel(BaseSettingsModel):
+    enabled: bool = Field(title="Enabled")
+    families: list[str] = Field(
+        default_factory=list,
+        title="Families")
+
+
+class ExtractAlembicModel(BaseSettingsModel):
+    enabled: bool = Field(title="Enabled")
+    families: list[str] = Field(
+        default_factory=list,
+        title="Families")
+
+
+class ExtractObjModel(BaseSettingsModel):
+    enabled: bool = Field(title="Enabled")
+    optional: bool = Field(title="Optional")
 
 
 class ExtractMayaSceneRawModel(BaseSettingsModel):
@@ -358,13 +299,13 @@ class PublishersModel(BaseSettingsModel):
         default_factory=CollectGLTFModel,
         title="Collect Assets for GLB/GLTF export"
     )
-    ValidateInstanceInContext: ValidateInstanceInContextModel = Field(
-        default_factory = ValidateInstanceInContextModel,
+    ValidateInstanceInContext: BasicValidateModel = Field(
+        default_factory = BasicValidateModel,
         title="Validate Instance In Context",
         section="Validators"
     )
-    ValidateContainers: ValidateContainersModel = Field(
-        default_factory=ValidateContainersModel,
+    ValidateContainers: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
         title="Validate Containers"
     )
     ValidateFrameRange: ValidateFrameRangeModel = Field(
@@ -375,8 +316,8 @@ class PublishersModel(BaseSettingsModel):
         default_factory=ValidateShaderNameModel,
         title="Validate Shader Name"
     )
-    ValidateShadingEngine: ValidateShadingEngineModel = Field(
-        default_factory=ValidateShadingEngineModel,
+    ValidateShadingEngine: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
         title="Validate Look Shading Engine Naming"
     )
     ValidateAttributes: ValidateAttributesModel = Field(
@@ -403,108 +344,276 @@ class PublishersModel(BaseSettingsModel):
         default_factory=ValidateRenderSettingsModel,
         title="Validate Render Settings"
     )
-    ValidateCurrentRenderLayerIsRenderable: ValidateCurrentRenderLayerIsRenderableModel = Field(
-        default_factory=ValidateCurrentRenderLayerIsRenderableModel,
+    ValidateCurrentRenderLayerIsRenderable: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
         title="Validate Current Render Layer Has Renderable Camera"
     )
-    ValidateRenderImageRule: ValidateRenderImageRuleModel = Field(
-        default_factory=ValidateRenderImageRuleModel,
+    ValidateRenderImageRule: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
         title="Validate Render Image Rule (Workspace)"
     )
-    ValidateRenderNoDefaultCameras: ValidateRenderNoDefaultCamerasModel = Field(
-        default_factory=ValidateRenderNoDefaultCamerasModel,
+    ValidateRenderNoDefaultCameras: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
         title="Validate No Default Cameras Renderable"
     )
-    ValidateRenderSingleCamera: ValidateRenderSingleCameraModel = Field(
-        default_factory=ValidateRenderSingleCameraModel,
+    ValidateRenderSingleCamera: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
         title="Validate Render Single Camera "
     )
-    ValidateRenderLayerAOVs: ValidateRenderLayerAOVsModel = Field(
-        default_factory=ValidateRenderLayerAOVsModel,
+    ValidateRenderLayerAOVs: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
         title="Validate Render Passes/AOVs Are Registered"
     )
-    ValidateStepSize: ValidateStepSizeModel = Field(
-        default_factory= ValidateStepSizeModel,
+    ValidateStepSize: BasicValidateModel = Field(
+        default_factory= BasicValidateModel,
         title="Validate Step Size"
     )
-    ValidateVRayDistributedRendering: ValidateVRayDistributedRenderingModel = Field(
-        default_factory=ValidateVRayDistributedRenderingModel,
+    ValidateVRayDistributedRendering: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
         title="VRay Distributed Rendering"
     )
-    ValidateVrayReferencedAOVs: ValidateVrayReferencedAOVsModel = Field(
-        default_factory=ValidateVrayReferencedAOVsModel,
+    ValidateVrayReferencedAOVs: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
         title="VRay Referenced AOVs"
     )
-    ValidateVRayTranslatorEnabled: ValidateVRayTranslatorEnabledModel = Field(
-        default_factory=ValidateVRayTranslatorEnabledModel,
+    ValidateVRayTranslatorEnabled: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
         title="VRay Translator Settings"
     )
-    ValidateVrayProxy: ValidateVrayProxyModel = Field(
-        default_factory=ValidateVrayProxyModel,
+    ValidateVrayProxy: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
         title="VRay Proxy Settings"
     )
-    ValidateVrayProxyMembers: ValidateVrayProxyMembersModel = Field(
-        default_factory=ValidateVrayProxyMembersModel,
+    ValidateVrayProxyMembers: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
         title="VRay Proxy Members"
     )
-    ValidateYetiRenderScriptCallbacks: ValidateYetiRenderScriptCallbacksModel = Field(
-        default_factory=ValidateYetiRenderScriptCallbacksModel,
+    ValidateYetiRenderScriptCallbacks: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
         title="Yeti Render Script Callbacks"
     )
-    ValidateYetiRigCacheState: ValidateYetiRigCacheStateModel = Field(
-        default_factory=ValidateYetiRigCacheStateModel,
+    ValidateYetiRigCacheState: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
         title="Yeti Rig Cache State"
     )
-    ValidateYetiRigInputShapesInInstance: ValidateYetiRigInputShapesInInstanceModel = Field(
-        default_factory=ValidateYetiRigInputShapesInInstanceModel,
+    ValidateYetiRigInputShapesInInstance: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
         title="Yeti Rig Input Shapes In Instance"
     )
-    ValidateYetiRigSettings: ValidateYetiRigSettingsModel = Field(
-        default_factory=ValidateYetiRigSettingsModel,
+    ValidateYetiRigSettings: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
         title="Yeti Rig Settings"
     )
-    model: ModelPublishSetting = Field(
-        default_factory=ModelPublishSetting,
-        title="Model"
+    # Model - START
+    ValidateModelName: ValidateModelNameModel = Field(
+        default_factory=ValidateModelNameModel,
+        title="Validate Model Name",
+        section="Model",
     )
-    rig: RigPublishSetting = Field(
-        default_factory=RigPublishSetting,
-        title="Rig"
+    ValidateModelContent: ValidateModelContentModel = Field(
+        default_factory=ValidateModelContentModel,
+        title="Validate Model Content",
     )
-    ValidateCameraAttributes: ValidateCameraAttributesModel = Field(
-        default_factory=ValidateCameraAttributesModel,
+    ValidateTransformNamingSuffix: ValidateTransformNamingSuffixModel = Field(
+        default_factory=ValidateTransformNamingSuffixModel,
+        title="Validate Transform Naming Suffix",
+    )
+    ValidateColorSets: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate Color Sets",
+    )
+    ValidateMeshHasOverlappingUVs: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate Mesh Has Overlapping UVs",
+    )
+    ValidateMeshArnoldAttributes: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate Mesh Arnold Attributes",
+    )
+    ValidateMeshShaderConnections: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate Mesh Shader Connections",
+    )
+    ValidateMeshSingleUVSet: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate Mesh Single UV Set",
+    )
+    ValidateMeshHasUVs: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate Mesh Has UVs",
+    )
+    ValidateMeshLaminaFaces: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate Mesh Lamina Faces",
+    )
+    ValidateMeshNgons: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate Mesh Ngons",
+    )
+    ValidateMeshNonManifold: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate Mesh Non-Manifold",
+    )
+    ValidateMeshNoNegativeScale: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate Mesh No Negative Scale",
+    )
+    ValidateMeshNonZeroEdgeLength: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate Mesh Edge Length Non Zero",
+    )
+    ValidateMeshNormalsUnlocked: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate Mesh Normals Unlocked",
+    )
+    ValidateMeshUVSetMap1: ValidateMeshUVSetMap1Model = Field(
+        default_factory=ValidateMeshUVSetMap1Model,
+        title="Validate Mesh UV Set Map 1",
+    )
+    ValidateMeshVerticesHaveEdges: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate Mesh Vertices Have Edges",
+    )
+    ValidateNoAnimation: ValidateNoAnimationModel = Field(
+        default_factory=ValidateNoAnimationModel,
+        title="Validate No Animation",
+    )
+    ValidateNoNamespace: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate No Namespace",
+    )
+    ValidateNoNullTransforms: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate No Null Transforms",
+    )
+    ValidateNoUnknownNodes: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate No Unknown Nodes",
+    )
+    ValidateNodeNoGhosting: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate Node No Ghosting",
+    )
+    ValidateShapeDefaultNames: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate Shape Default Names",
+    )
+    ValidateShapeRenderStats: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate Shape Render Stats",
+    )
+    ValidateShapeZero: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate Shape Zero",
+    )
+    ValidateTransformZero: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate Transform Zero",
+    )
+    ValidateUniqueNames: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate Unique Names",
+    )
+    ValidateNoVRayMesh: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate No V-Ray Proxies (VRayMesh)",
+    )
+    ValidateUnrealMeshTriangulated: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate if Mesh is Triangulated",
+    )
+    ValidateAlembicVisibleOnly: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate Alembic Visible Node",
+    )
+    ExtractProxyAlembic: ExtractProxyAlembicModel = Field(
+        default_factory=ExtractProxyAlembicModel,
+        title="Extract Proxy Alembic",
+        section="Model Extractors",
+    )
+    ExtractAlembic: ExtractAlembicModel = Field(
+        default_factory=ExtractAlembicModel,
+        title="Extract Alembic",
+    )
+    ExtractObj: ExtractObjModel = Field(
+        default_factory=ExtractObjModel,
+        title="Extract OBJ"
+    )
+    # Model - END
+
+    # Rig - START
+    ValidateRigContents: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate Rig Contents",
+        section="Rig",
+    )
+    ValidateRigJointsHidden: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate Rig Joints Hidden",
+    )
+    ValidateRigControllers: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate Rig Controllers",
+    )
+    ValidateAnimationContent: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate Animation Content",
+    )
+    ValidateOutRelatedNodeIds: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate Animation Out Set Related Node Ids",
+    )
+    ValidateRigControllersArnoldAttributes: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate Rig Controllers (Arnold Attributes)",
+    )
+    ValidateSkeletalMeshHierarchy: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate Skeletal Mesh Top Node",
+    )
+    ValidateSkinclusterDeformerSet: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate Skincluster Deformer Relationships",
+    )
+    ValidateRigOutSetNodeIds: ValidateRigOutSetNodeIdsModel = Field(
+        default_factory=ValidateRigOutSetNodeIdsModel,
+        title="Validate Rig Out Set Node Ids",
+    )
+    # Rig - END
+    ValidateCameraAttributes: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
         title="Validate Camera Attributes"
     )
-    ValidateAssemblyName: ValidateAssemblyNameModel = Field(
-        default_factory=ValidateAssemblyNameModel,
+    ValidateAssemblyName: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
         title="Validate Assembly Name"
     )
-    ValidateAssemblyNamespaces: ValidateAssemblyNamespacesModel = Field(
-        default_factory=ValidateAssemblyNamespacesModel,
+    ValidateAssemblyNamespaces: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
         title="Validate Assembly Namespaces"
     )
-    ValidateAssemblyModelTransforms: ValidateAssemblyModelTransformsModel = Field(
-        default_factory=ValidateAssemblyModelTransformsModel,
+    ValidateAssemblyModelTransforms: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
         title="Validate Assembly Model Transforms"
     )
-    ValidateAssRelativePaths: ValidateAssRelativePathsModel = Field(
-        default_factory=ValidateAssRelativePathsModel,
+    ValidateAssRelativePaths: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
         title="Validate Ass Relative Paths"
     )
-    ValidateInstancerContent: ValidateInstancerContentModel = Field(
-        default_factory=ValidateInstancerContentModel,
+    ValidateInstancerContent: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
         title="Validate Instancer Content"
     )
-    ValidateInstancerFrameRanges: ValidateInstancerFrameRangesModel = Field(
-        default_factory=ValidateInstancerFrameRangesModel,
+    ValidateInstancerFrameRanges: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
         title="Validate Instancer Cache Frame Ranges"
     )
-    ValidateNoDefaultCameras: ValidateNoDefaultCamerasModel = Field(
-        default_factory=ValidateNoDefaultCamerasModel,
+    ValidateNoDefaultCameras: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
         title="Validate No Default Cameras"
     )
-    ValidateUnrealUpAxis: ValidateUnrealUpAxisModel = Field(
-        default_factory=ValidateUnrealUpAxisModel,
+    ValidateUnrealUpAxis: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
         title="Validate Unreal Up-Axis Check"
     )
     ValidateCameraContents: ValidateCameraContentsModel = Field(
@@ -525,7 +634,7 @@ class PublishersModel(BaseSettingsModel):
         title="Extract Camera Alembic"
     )
 
-
+DEFAULT_SUFFIX_NAMING = "{\n    \"mesh\": [\n        \"_GEO\",\n        \"_GES\",\n        \"_GEP\",\n        \"_OSD\"\n    ],\n    \"nurbsCurve\": [\n        \"_CRV\"\n    ],\n    \"nurbsSurface\": [\n        \"_NRB\"\n    ],\n    \"locator\": [\n        \"_LOC\"\n    ],\n    \"group\": [\n        \"_GRP\"\n    ]\n}"
 DEFAULT_PUBLISH_SETTINGS = {
     "CollectMayaRender": {
         "sync_workfile_version": False
@@ -547,201 +656,420 @@ DEFAULT_PUBLISH_SETTINGS = {
         "active": True
     },
     "ValidateFrameRange": {
-            "enabled": True,
-            "optional": True,
-            "active": True,
-            "exclude_families": [
-                "model",
-                "rig",
-                "staticMesh"
+        "enabled": True,
+        "optional": True,
+        "active": True,
+        "exclude_families": [
+            "model",
+            "rig",
+            "staticMesh"
         ]
     },
     "ValidateShaderName": {
-            "enabled": False,
-            "optional": True,
-            "regex": "(?P<asset>.*)_(.*)_SHD"
+        "enabled": False,
+        "optional": True,
+        "regex": "(?P<asset>.*)_(.*)_SHD"
     },
     "ValidateShadingEngine": {
-            "enabled": True,
-            "optional": True,
-            "active": True
+        "enabled": True,
+        "optional": True,
+        "active": True
     },
     "ValidateAttributes": {
-            "enabled": False,
-            "attributes": "{}"
+        "enabled": False,
+        "attributes": "{}"
     },
     "ValidateLoadedPlugin": {
-            "enabled": False,
-            "optional": True,
-            "whitelist_native_plugins": False,
-            "authorized_plugins": []
+        "enabled": False,
+        "optional": True,
+        "whitelist_native_plugins": False,
+        "authorized_plugins": []
     },
     "ValidateMayaUnits": {
-            "enabled": True,
-            "optional": False,
-            "validate_linear_units": True,
-            "linear_units": "cm",
-            "validate_angular_units": True,
-            "angular_units": "deg",
-            "validate_fps": True
+        "enabled": True,
+        "optional": False,
+        "validate_linear_units": True,
+        "linear_units": "cm",
+        "validate_angular_units": True,
+        "angular_units": "deg",
+        "validate_fps": True
     },
     "ValidateUnrealStaticMeshName": {
-            "enabled": True,
-            "optional": True,
-            "validate_mesh": False,
-            "validate_collision": True
+        "enabled": True,
+        "optional": True,
+        "validate_mesh": False,
+        "validate_collision": True
     },
     "ValidateCycleError": {
-            "enabled": True,
-            "optional": False,
-            "families": [
-                "rig"
-            ]
+        "enabled": True,
+        "optional": False,
+        "families": [
+            "rig"
+        ]
     },
     "ValidateRenderSettings": {
-            "arnold_render_attributes": [],
-            "vray_render_attributes": [],
-            "redshift_render_attributes": [],
-            "renderman_render_attributes": []
+        "arnold_render_attributes": [],
+        "vray_render_attributes": [],
+        "redshift_render_attributes": [],
+        "renderman_render_attributes": []
     },
     "ValidateCurrentRenderLayerIsRenderable": {
-            "enabled": True,
-            "optional": False,
-            "active": True
+        "enabled": True,
+        "optional": False,
+        "active": True
     },
     "ValidateRenderImageRule": {
-            "enabled": True,
-            "optional": False,
-            "active": True
+        "enabled": True,
+        "optional": False,
+        "active": True
     },
     "ValidateRenderNoDefaultCameras": {
-            "enabled": True,
-            "optional": False,
-            "active": True
+        "enabled": True,
+        "optional": False,
+        "active": True
     },
     "ValidateRenderSingleCamera": {
-            "enabled": True,
-            "optional": False,
-            "active": True
+        "enabled": True,
+        "optional": False,
+        "active": True
     },
     "ValidateRenderLayerAOVs": {
-            "enabled": True,
-            "optional": False,
-            "active": True
+        "enabled": True,
+        "optional": False,
+        "active": True
     },
     "ValidateStepSize": {
-            "enabled": True,
-            "optional": False,
-            "active": True
+        "enabled": True,
+        "optional": False,
+        "active": True
     },
     "ValidateVRayDistributedRendering": {
-            "enabled": True,
-            "optional": False,
-            "active": True
+        "enabled": True,
+        "optional": False,
+        "active": True
     },
     "ValidateVrayReferencedAOVs": {
-            "enabled": True,
-            "optional": False,
-            "active": True
+        "enabled": True,
+        "optional": False,
+        "active": True
     },
     "ValidateVRayTranslatorEnabled": {
-            "enabled": True,
-            "optional": False,
-            "active": True
+        "enabled": True,
+        "optional": False,
+        "active": True
     },
     "ValidateVrayProxy": {
-            "enabled": True,
-            "optional": False,
-            "active": True
+        "enabled": True,
+        "optional": False,
+        "active": True
     },
     "ValidateVrayProxyMembers": {
-            "enabled": True,
-            "optional": False,
-            "active": True
+        "enabled": True,
+        "optional": False,
+        "active": True
     },
     "ValidateYetiRenderScriptCallbacks": {
-            "enabled": True,
-            "optional": False,
-            "active": True
+        "enabled": True,
+        "optional": False,
+        "active": True
     },
     "ValidateYetiRigCacheState": {
-            "enabled": True,
-            "optional": False,
-            "active": True
+        "enabled": True,
+        "optional": False,
+        "active": True
     },
     "ValidateYetiRigInputShapesInInstance": {
-            "enabled": True,
-            "optional": False,
-            "active": True
+        "enabled": True,
+        "optional": False,
+        "active": True
     },
     "ValidateYetiRigSettings": {
-            "enabled": True,
-            "optional": False,
-            "active": True
+        "enabled": True,
+        "optional": False,
+        "active": True
     },
-    "model":DEFAULT_MODEL_PUBLISH_SETTING,
-    "rig": DEFAULT_RIG_PUBLISH_SETTING,
+    "ValidateModelName": {
+        "enabled": False,
+        "database": True,
+        "material_file": {
+            "windows": "",
+            "darwin": "",
+            "linux": ""
+        },
+        "regex": "(.*)_(\\d)*_(?P<shader>.*)_(GEO)",
+        "top_level_regex": ".*_GRP"
+    },
+    "ValidateModelContent": {
+        "enabled": True,
+        "optional": False,
+        "validate_top_group": True
+    },
+    "ValidateTransformNamingSuffix": {
+        "enabled": True,
+        "optional": True,
+        "SUFFIX_NAMING_TABLE": DEFAULT_SUFFIX_NAMING,
+        "ALLOW_IF_NOT_IN_SUFFIX_TABLE": True
+    },
+    "ValidateColorSets": {
+        "enabled": True,
+        "optional": True,
+        "active": True
+    },
+    "ValidateMeshHasOverlappingUVs": {
+        "enabled": False,
+        "optional": True,
+        "active": True
+    },
+    "ValidateMeshArnoldAttributes": {
+        "enabled": False,
+        "optional": True,
+        "active": True
+    },
+    "ValidateMeshShaderConnections": {
+        "enabled": True,
+        "optional": True,
+        "active": True
+    },
+    "ValidateMeshSingleUVSet": {
+        "enabled": False,
+        "optional": True,
+        "active": True
+    },
+    "ValidateMeshHasUVs": {
+        "enabled": True,
+        "optional": True,
+        "active": True
+    },
+    "ValidateMeshLaminaFaces": {
+        "enabled": False,
+        "optional": True,
+        "active": True
+    },
+    "ValidateMeshNgons": {
+        "enabled": False,
+        "optional": True,
+        "active": True
+    },
+    "ValidateMeshNonManifold": {
+        "enabled": False,
+        "optional": True,
+        "active": True
+    },
+    "ValidateMeshNoNegativeScale": {
+        "enabled": True,
+        "optional": False,
+        "active": True
+    },
+    "ValidateMeshNonZeroEdgeLength": {
+        "enabled": True,
+        "optional": True,
+        "active": True
+    },
+    "ValidateMeshNormalsUnlocked": {
+        "enabled": False,
+        "optional": True,
+        "active": True
+    },
+    "ValidateMeshUVSetMap1": {
+        "enabled": False,
+        "optional": True,
+        "active": True
+    },
+    "ValidateMeshVerticesHaveEdges": {
+        "enabled": True,
+        "optional": True,
+        "active": True
+    },
+    "ValidateNoAnimation": {
+        "enabled": False,
+        "optional": True,
+        "active": True
+    },
+    "ValidateNoNamespace": {
+        "enabled": True,
+        "optional": False,
+        "active": True
+    },
+    "ValidateNoNullTransforms": {
+        "enabled": True,
+        "optional": False,
+        "active": True
+    },
+    "ValidateNoUnknownNodes": {
+        "enabled": True,
+        "optional": False,
+        "active": True
+    },
+    "ValidateNodeNoGhosting": {
+        "enabled": False,
+        "optional": False,
+        "active": True
+    },
+    "ValidateShapeDefaultNames": {
+        "enabled": False,
+        "optional": True,
+        "active": True
+    },
+    "ValidateShapeRenderStats": {
+        "enabled": False,
+        "optional": True,
+        "active": True
+    },
+    "ValidateShapeZero": {
+        "enabled": False,
+        "optional": True,
+        "active": True
+    },
+    "ValidateTransformZero": {
+        "enabled": False,
+        "optional": True,
+        "active": True
+    },
+    "ValidateUniqueNames": {
+        "enabled": False,
+        "optional": True,
+        "active": True
+    },
+    "ValidateNoVRayMesh": {
+        "enabled": True,
+        "optional": False,
+        "active": True
+    },
+    "ValidateUnrealMeshTriangulated": {
+        "enabled": False,
+        "optional": True,
+        "active": True
+    },
+    "ValidateAlembicVisibleOnly": {
+        "enabled": True,
+        "optional": False,
+        "active": True
+    },
+    "ExtractProxyAlembic": {
+        "enabled": True,
+        "families": [
+            "proxyAbc"
+        ]
+    },
+    "ExtractAlembic": {
+        "enabled": True,
+        "families": [
+            "pointcache",
+            "model",
+            "vrayproxy"
+        ]
+    },
+    "ExtractObj": {
+        "enabled": False,
+        "optional": True,
+        "active": True
+    },
+    "ValidateRigContents": {
+        "enabled": False,
+        "optional": True,
+        "active": True
+    },
+    "ValidateRigJointsHidden": {
+        "enabled": False,
+        "optional": True,
+        "active": True
+    },
+    "ValidateRigControllers": {
+        "enabled": False,
+        "optional": True,
+        "active": True
+    },
+    "ValidateAnimationContent": {
+        "enabled": True,
+        "optional": False,
+        "active": True
+    },
+    "ValidateOutRelatedNodeIds": {
+        "enabled": True,
+        "optional": False,
+        "active": True
+    },
+    "ValidateRigControllersArnoldAttributes": {
+        "enabled": True,
+        "optional": False,
+        "active": True
+    },
+    "ValidateSkeletalMeshHierarchy": {
+        "enabled": True,
+        "optional": False,
+        "active": True
+    },
+    "ValidateSkinclusterDeformerSet": {
+        "enabled": True,
+        "optional": False,
+        "active": True
+    },
+    "ValidateRigOutSetNodeIds": {
+        "enabled": True,
+        "optional": False,
+        "allow_history_only": False
+    },
     "ValidateCameraAttributes": {
-            "enabled": False,
-            "optional": True,
-            "active": True
+        "enabled": False,
+        "optional": True,
+        "active": True
     },
     "ValidateAssemblyName": {
-            "enabled": True,
-            "optional": True,
-            "active": True
+        "enabled": True,
+        "optional": True,
+        "active": True
     },
     "ValidateAssemblyNamespaces": {
-            "enabled": True,
-            "optional": False,
-            "active": True
+        "enabled": True,
+        "optional": False,
+        "active": True
     },
     "ValidateAssemblyModelTransforms": {
-            "enabled": True,
-            "optional": False,
-            "active": True
+        "enabled": True,
+        "optional": False,
+        "active": True
     },
     "ValidateAssRelativePaths": {
-            "enabled": True,
-            "optional": False,
-            "active": True
+        "enabled": True,
+        "optional": False,
+        "active": True
     },
     "ValidateInstancerContent": {
-            "enabled": True,
-            "optional": False,
-            "active": True
+        "enabled": True,
+        "optional": False,
+        "active": True
     },
     "ValidateInstancerFrameRanges": {
-            "enabled": True,
-            "optional": False,
-            "active": True
+        "enabled": True,
+        "optional": False,
+        "active": True
     },
     "ValidateNoDefaultCameras": {
-            "enabled": True,
-            "optional": False,
-            "active": True
+        "enabled": True,
+        "optional": False,
+        "active": True
     },
     "ValidateUnrealUpAxis": {
-            "enabled": False,
-            "optional": True,
-            "active": True
+        "enabled": False,
+        "optional": True,
+        "active": True
     },
     "ValidateCameraContents": {
-            "enabled": True,
-            "optional": False,
-            "validate_shapes": True
+        "enabled": True,
+        "optional": False,
+        "validate_shapes": True
     },
     "ExtractPlayblast": DEFAULT_PLAYBLAST_SETTING,
     "ExtractMayaSceneRaw": {
-            "enabled": True,
-            "add_for_families": [
-                "layout"
-            ]
-        },
+        "enabled": True,
+        "add_for_families": [
+            "layout"
+        ]
+    },
     "ExtractCameraAlembic": {
-            "enabled": True,
-            "optional": True,
-            "active": True,
-            "bake_attributes": "[]"
+        "enabled": True,
+        "optional": True,
+        "active": True,
+        "bake_attributes": "[]"
     }
 }
