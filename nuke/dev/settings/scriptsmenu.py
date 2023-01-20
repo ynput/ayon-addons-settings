@@ -17,13 +17,14 @@ class ScriptsmenuSettings(BaseSettingsModel):
     """Nuke script menu project settings."""
     _isGroup = True
 
-    name: str = Field(title="Name")
+    # TODO: in api rename key `name` to `menu_name`
+    menu_name: str = Field(title="Menu Name")
     definition: list[ScriptsmenuSubmodel] = Field(
         default_factory=list, title="Definition", description="Scriptmenu Items Definition")
 
 
 DEFAULT_SCRIPTSMENU_SETTINGS = {
-    "name": "OpenPype Tools",
+    "menu_name": "OpenPype Tools",
     "definition": [
         {
             "type": "action",
