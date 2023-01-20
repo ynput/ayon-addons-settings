@@ -56,7 +56,7 @@ class ValidateFrameRangeModel(BaseSettingsModel):
     optional: bool = Field(title="Optional")
     active: bool = Field(title="Active")
     exclude_families: list[str] = Field(
-        default_factory=["model", "rig", "staticMesh"],
+        default_factory=list,
         title="Families"
     )
 
@@ -100,7 +100,7 @@ class ValidateLoadedPluginModel(BaseSettingsModel):
     enabled: bool = Field(title="ValidateLoadedPlugin")
     optional: bool = Field(title="Optional")
     whitelist_native_plugins : bool = Field(title="Whitelist Maya Native Plugins")
-    authorized_plugins: list[str] = Field(default_factory=[], title="Authorized plugins")
+    authorized_plugins: list[str] = Field(default_factory=list, title="Authorized plugins")
 
 
 class ValidateMayaUnitsModel(BaseSettingsModel):
@@ -123,7 +123,7 @@ class ValidateUnrealStaticMeshNameModel(BaseSettingsModel):
 class ValidateCycleErrorModel(BaseSettingsModel):
     enabled: bool = Field(title="ValidateCycleError")
     optional: bool = Field(title="Optional")
-    families: list[str] = Field(default_factory=["rig"], title="Families")
+    families: list[str] = Field(default_factory=list, title="Families")
 
 
 # Validate Render Setting
@@ -315,7 +315,7 @@ class ValidateCameraContentsModel(BaseSettingsModel):
 class ExtractMayaSceneRawModel(BaseSettingsModel):
     """Add loaded instances to those published families:"""
     enabled: bool = Field(title="ExtractMayaSceneRaw")
-    add_for_families: list[str] = Field(default_factory=["layout"], title="Families")
+    add_for_families: list[str] = Field(default_factory=list, title="Families")
 
 
 class ExtractCameraAlembicModel(BaseSettingsModel):
