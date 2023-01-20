@@ -327,6 +327,22 @@ class ExtractCameraAlembicModel(BaseSettingsModel):
     active: bool = Field(title="Active")
     bake_attributes: str = Field("[]", title="Base Attributes", widget="textarea")
 
+    @validator("bake_attributes")
+    def validate_json_list(cls, value):
+        if not value.strip():
+            return "[]"
+        try:
+            converted_value = json.loads(value)
+            success = isinstance(converted_value, list)
+        except json.JSONDecodeError:
+            success = False
+
+        if not success:
+            raise BadRequestException(
+                "The text can't be parsed as json object"
+            )
+        return value
+
 
 class PublishersModel(BaseSettingsModel):
     CollectMayaRender: CollectMayaRenderModel = Field(
