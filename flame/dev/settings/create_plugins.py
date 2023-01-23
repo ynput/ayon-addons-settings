@@ -94,7 +94,7 @@ class CreatePuginsModel(BaseSettingsModel):
     )
 
 
-DEFAULT_FLAME_CREATE_SETTINGS = {
+DEFAULT_CREATE_SETTINGS = {
     "CreateShotClip": {
         "hierarchy": "{folder}/{sequence}",
         "useShotName": True,
