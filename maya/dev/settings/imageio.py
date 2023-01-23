@@ -13,9 +13,9 @@ class PathsTemplate(BaseSettingsModel):
     Todo:
         This should be unified across the addons.
     """
-    windows: str = Field("", title="Windows")
-    darwin: str = Field("", title="MacOS")
-    linux: str = Field("", title="Linux")
+    windows: list[str] = Field(title="Windows")
+    darwin: list[str] = Field(title="MacOS")
+    linux: list[str] = Field(title="Linux")
 
 
 class ColorManagementPreferencesModel(BaseSettingsModel):
@@ -60,9 +60,9 @@ DEFAULT_IMAGEIO_SETTINGS = {
         "ColorManagementPreferences": {
             "enabled": True,
             "configFilePath": {
-                "windows": "",
-                "darwin": "",
-                "linux": ""
+                "windows": [""],
+                "darwin": [""],
+                "linux": [""]
             },
             "renderSpace": "ACEScg",
             "displayName": "sRGB",
@@ -70,9 +70,9 @@ DEFAULT_IMAGEIO_SETTINGS = {
         },
         "ColorManagementPreferencesLegacy": {
             "configFilePath": {
-                "windows": "",
-                "darwin": "",
-                "linux": ""
+                "windows": [""],
+                "darwin": [""],
+                "linux": [""]
             },
             "renderSpace": "scene-linear Rec 709/sRGB",
             "viewTransform": "sRGB gamma"
