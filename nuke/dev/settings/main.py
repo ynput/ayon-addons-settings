@@ -37,8 +37,8 @@ from .create_plugins import (
 )
 
 from .publish_plugins import (
-    PublisherPluginsSettings,
-    DEFAULT_PUBLISH_SETTINGS
+    PublishPuginsModel,
+    DEFAULT_PUBLISH_PLUGIN_SETTINGS
 )
 
 from .loader_plugins import (
@@ -91,8 +91,8 @@ class NukeSettings(BaseSettingsModel):
         title="Creator Plugins",
     )
 
-    publish: PublisherPluginsSettings = Field(
-        default_factory=PublisherPluginsSettings,
+    publish: PublishPuginsModel = Field(
+        default_factory=PublishPuginsModel,
         title="Publish Plugins",
     )
 
@@ -129,7 +129,7 @@ DEFAULT_VALUES = {
     "scriptsmenu": DEFAULT_SCRIPTSMENU_SETTINGS,
     "gizmo": [DEFAULT_GIZMO_ITEM],
     "create": DEFAULT_CREATE_SETTINGS,
-    "publish": DEFAULT_PUBLISH_SETTINGS,
+    "publish": DEFAULT_PUBLISH_PLUGIN_SETTINGS,
     "load": DEFAULT_LOAD_SETTINGS,
     "workfile_builder": DEFAULT_WORKFILE_BUILDER_SETTINGS,
     "templated_workfile_build": DEFAULT_TEMPLATED_WORKFILE_BUILD_SETTINGS

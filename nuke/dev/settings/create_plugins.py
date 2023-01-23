@@ -54,10 +54,6 @@ class CreateWriteRenderModel(BaseSettingsModel):
         default_factory=list
     )
     instance_attributes: list[str] = Field(
-        title="Default variants",
-        default_factory=list
-    )
-    instance_attributes: list[str] = Field(
         default_factory=list,
         enum_resolver=instance_attributes_enum,
         title="Instance attributes"
@@ -87,10 +83,6 @@ class CreateWritePrerenderModel(BaseSettingsModel):
         default_factory=list
     )
     instance_attributes: list[str] = Field(
-        title="Default variants",
-        default_factory=list
-    )
-    instance_attributes: list[str] = Field(
         default_factory=list,
         enum_resolver=instance_attributes_enum,
         title="Instance attributes"
@@ -116,10 +108,6 @@ class CreateWriteImageModel(BaseSettingsModel):
         title="Temporary rendering path template"
     )
     default_variants: list[str] = Field(
-        title="Default variants",
-        default_factory=list
-    )
-    instance_attributes: list[str] = Field(
         title="Default variants",
         default_factory=list
     )
