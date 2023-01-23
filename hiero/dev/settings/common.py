@@ -59,8 +59,7 @@ knob_types_enum = [
     {"value": "decimal_number", "label": "Decimal number"},
     {"value": "vector_2d", "label": "2D vector"},
     {"value": "vector_3d", "label": "3D vector"},
-    {"value": "color", "label": "Color"},
-    {"value": "expression", "label": "Expression"}
+    {"value": "color", "label": "Color"}
 ]
 
 
@@ -100,9 +99,5 @@ class KnobModel(BaseSettingsModel):
     )
     formatable: Formatable = Field(
         default_factory=VectorColor,
-        title="Formatable"
-    )
-    expression: str = Field(
-        "",
-        title="Expression"
+        title="Value"
     )
