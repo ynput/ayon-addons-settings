@@ -1,12 +1,15 @@
 from typing import Literal
-from pydantic import validator
-from ayon_server.settings import BaseSettingsModel, Field
+from pydantic import validator, Field
+from ayon_server.settings import (
+    BaseSettingsModel,
+    ensure_unique_names
+)
 
 from .common import PathsTemplate, KnobModel
 
 
 class NodesModel(BaseSettingsModel):
-    """TODO: This needs to be somehow labeled in settings panel
+    """# TODO: This needs to be somehow labeled in settings panel
     or at least it could show gist of configuration
     """
     plugins: list[str] = Field(
@@ -16,9 +19,8 @@ class NodesModel(BaseSettingsModel):
         title="Nuke Node Class",
     )
 
-    """TODO:
-    Need complete rework of knob types in nuke integration.
-    We could not support v3 style of settings.
+    """ # TODO: Need complete rework of knob types
+    in nuke integration. We could not support v3 style of settings.
     """
     # TODO: this is not setting by default dict, why?
     knobs: list[KnobModel] = Field(
@@ -57,8 +59,8 @@ ocio_configs_switcher_enum = [
 
 class WorkfileColorspaceSettings(BaseSettingsModel):
     """Nuke workfile colorspace preset. """
-    """TODO:
-    we need to add mapping to resolve properly keys.
+    """# TODO: add mapping to resolve properly keys
+
     Nuke is excpecting camel case key names,
     but for better code consistency we are using snake_case:
 
@@ -78,9 +80,8 @@ class WorkfileColorspaceSettings(BaseSettingsModel):
         title="Color Management"
     )
 
-    """TODO:
-    we need to do mapping to convert underscore in aces versions
-    to dot version > aces_1_0_2 = aces_1.0.2
+    """# TODO: we need to do mapping to convert underscore
+     in aces versions to dot version > aces_1_0_2 = aces_1.0.2
     """
     ocio_config: str = Field(
         title="OpenColorIO Config",
@@ -89,8 +90,7 @@ class WorkfileColorspaceSettings(BaseSettingsModel):
         conditionalEnum=True
     )
 
-    """TODO:
-    In v3 nuke is excpecting key `customOCIOConfigPath`
+    """# TODO: In v3 nuke is excpecting key `customOCIOConfigPath`
     but here it is `config`
     """
     custom: PathsTemplate = Field(
@@ -120,14 +120,22 @@ class WorkfileColorspaceSettings(BaseSettingsModel):
         title="Float files"
     )
 
+
+class ReadColorspaceRulesItems(BaseSettingsModel):
+    _layout = "expanded"
+
+    regex: str = Field("", title="Regex expression")
+    colorspace: str = Field("", title="Colorspace")
+
+
 class ImageIOSettings(BaseSettingsModel):
     """Nuke color management project settings. """
     _isGroup: bool = True
 
     enabled: bool
 
-    """ TODO:
-    need to be remapped in nuke code to accept new position
+    """ # TODO: need to be remapped in nuke code
+    to accept new position
 
     originally: nuke/imageio/viewer/viewerProcess
     new: nuke/imageio/viewer
@@ -138,8 +146,8 @@ class ImageIOSettings(BaseSettingsModel):
         Creation of new viewer node at knob viewerProcess"""
     )
 
-    """ TODO:
-    need to be remapped in nuke code to accept new position
+    """ # TODO: need to be remapped in nuke code
+    to accept new position
 
     originally: nuke/imageio/baking/viewerProcess
     new: nuke/imageio/baking
@@ -159,6 +167,16 @@ class ImageIOSettings(BaseSettingsModel):
         default_factory=NodesSetting,
         title="Nodes"
     )
+    """# TODO: Changes in host api:
+    - old settings are using `regexInputs` key
+    - removed `inputs` middle part not it is
+      directly on regex_inputs
+    """
+    regex_inputs: list[ReadColorspaceRulesItems] = Field(
+        default_factory=list,
+        title="Assign colorspace to read nodes via rules"
+    )
+
 
 DEFAULT_IMAGEIO_SETTINGS = {
     "enabled": True,
@@ -336,12 +354,10 @@ DEFAULT_IMAGEIO_SETTINGS = {
         ],
         "override_nodes": []
     },
-    "regexInputs": {
-        "inputs": [
-            {
-                "regex": "(beauty).*(?=.exr)",
-                "colorspace": "linear"
-            }
-        ]
-    }
+    "regex_inputs": [
+        {
+            "regex": "(beauty).*(?=.exr)",
+            "colorspace": "linear"
+        }
+    ]
 }

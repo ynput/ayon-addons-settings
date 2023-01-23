@@ -402,73 +402,73 @@ DEFAULT_TOOLS_VALUES = {
             }
         ]
     },
-    "publish": {{
-            "template_name_profiles": [
-                {
-                    "families": [],
-                    "hosts": [],
-                    "task_types": [],
-                    "task_names": [],
-                    "template_name": "publish"
-                },
-                {
-                    "families": [
-                        "review",
-                        "render",
-                        "prerender"
-                    ],
-                    "hosts": [],
-                    "task_types": [],
-                    "task_names": [],
-                    "template_name": "render"
-                },
-                {
-                    "families": [
-                        "simpleUnrealTexture"
-                    ],
-                    "hosts": [
-                        "standalonepublisher"
-                    ],
-                    "task_types": [],
-                    "task_names": [],
-                    "template_name": "simpleUnrealTexture"
-                },
-                {
-                    "families": [
-                        "staticMesh",
-                        "skeletalMesh"
-                    ],
-                    "hosts": [
-                        "maya"
-                    ],
-                    "task_types": [],
-                    "task_names": [],
-                    "template_name": "maya2unreal"
-                },
-                {
-                    "families": [
-                        "online"
-                    ],
-                    "hosts": [
-                        "traypublisher"
-                    ],
-                    "task_types": [],
-                    "task_names": [],
-                    "template_name": "online"
-                }
-            ],
-            "hero_template_name_profiles": [
-                {
-                    "families": [
-                        "simpleUnrealTexture"
-                    ],
-                    "hosts": [
-                        "standalonepublisher"
-                    ],
-                    "task_types": [],
-                    "task_names": [],
-                    "template_name": "simpleUnrealTextureHero"
-                }
-            ]
-        }
+    "publish": {
+        "template_name_profiles": [
+            {
+                "families": [],
+                "hosts": [],
+                "task_types": [],
+                "task_names": [],
+                "template_name": "publish"
+            },
+            {
+                "families": [
+                    "review",
+                    "render",
+                    "prerender"
+                ],
+                "hosts": [],
+                "task_types": [],
+                "task_names": [],
+                "template_name": "render"
+            },
+            {
+                "families": [
+                    "simpleUnrealTexture"
+                ],
+                "hosts": [
+                    "standalonepublisher"
+                ],
+                "task_types": [],
+                "task_names": [],
+                "template_name": "simpleUnrealTexture"
+            },
+            {
+                "families": [
+                    "staticMesh",
+                    "skeletalMesh"
+                ],
+                "hosts": [
+                    "maya"
+                ],
+                "task_types": [],
+                "task_names": [],
+                "template_name": "maya2unreal"
+            },
+            {
+                "families": [
+                    "online"
+                ],
+                "hosts": [
+                    "traypublisher"
+                ],
+                "task_types": [],
+                "task_names": [],
+                "template_name": "online"
+            }
+        ],
+        "hero_template_name_profiles": [
+            {
+                "families": [
+                    "simpleUnrealTexture"
+                ],
+                "hosts": [
+                    "standalonepublisher"
+                ],
+                "task_types": [],
+                "task_names": [],
+                "template_name": "simpleUnrealTextureHero"
+            }
+        ]
+    }
 }

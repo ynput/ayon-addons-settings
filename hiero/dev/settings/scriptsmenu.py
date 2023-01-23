@@ -18,7 +18,7 @@ class ScriptsmenuSettings(BaseSettingsModel):
     _isGroup = True
 
     # TODO: in api rename key `name` to `menu_name`
-    menu_name: str = Field(title="Menu Name")
+    menu_name: str = Field(title="Menu name")
     definition: list[ScriptsmenuSubmodel] = Field(
         default_factory=list, title="Definition", description="Scriptmenu Items Definition")
 
@@ -30,8 +30,8 @@ DEFAULT_SCRIPTSMENU_SETTINGS = {
             "type": "action",
             "sourcetype": "python",
             "title": "OpenPype Docs",
-            "command": "import webbrowser;webbrowser.open(url='https://openpype.io/docs/artist_hosts_nuke_tut')",
-            "tooltip": "Open the OpenPype Nuke user doc page",
+            "command": "import webbrowser;webbrowser.open(url='https://openpype.io/docs/artist_hosts_hiero')",
+            "tooltip": "Open the OpenPype Hiero user doc page",
             "tags": [
                 "OpenPype",
                 "docs"
