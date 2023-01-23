@@ -57,7 +57,7 @@ class LoadClipBatchModel(BaseSettingsModel):
     )
 
 
-class LoaderPuginsModel(BaseSettingsModel):
+class LoaderPluginsModel(BaseSettingsModel):
     LoadClip: LoadClipModel = Field(
         default_factory=LoadClipModel,
         title="Load Clip"
@@ -68,7 +68,7 @@ class LoaderPuginsModel(BaseSettingsModel):
     )
 
 
-DEFAULT_FLAME_LOADER_SETTINGS = {
+DEFAULT_LOADER_SETTINGS = {
     "LoadClip": {
         "enabled": True,
         "families": [

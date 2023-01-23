@@ -153,7 +153,7 @@ class PublishPuginsModel(BaseSettingsModel):
     )
 
 
-DEFAULT_FLAME_PUBLISH_SETTINGS = {
+DEFAULT_PUBLISH_SETTINGS = {
     "CollectTimelineInstances": {
         "xml_preset_attrs_from_comments": [
             {
