@@ -1,14 +1,89 @@
-from ayon_server.settings import BaseSettingsModel, Field
+from ayon_server.settings import Field, BaseSettingsModel
 
 
-class LoaderPluginsSettings(BaseSettingsModel):
-    """Nuke loader plugins project settings."""
+class LoadImageModel(BaseSettingsModel):
+    enabled: bool = Field(
+        title="Enabled"
+    )
+    """# TODO: v3 api used `_representation`
+    New api is hiding it so it had to be renamed
+    to `representations_include`
+    """
+    representations_include: list[str] = Field(
+        default_factory=list,
+        title="Include representations"
+    )
 
-    sub_input_field_one: str = Field(
-        title="Sub input field one"
+    clip_name_template: str = Field(
+        title="Read node name template"
     )
 
 
-DEFAULT_LOAD_SETTINGS = {
-    "sub_input_field_one": "This Text"
+class LoadClipOptionsModel(BaseSettingsModel):
+    start_at_workfile: bool = Field(
+        title="Start at workfile's start frame"
+    )
+    add_retime: bool = Field(
+        title="Add retime"
+    )
+
+
+class LoadClipModel(BaseSettingsModel):
+    enabled: bool = Field(
+        title="Enabled"
+    )
+    """# TODO: v3 api used `_representation`
+    New api is hiding it so it had to be renamed
+    to `representations_include`
+    """
+    representations_include: list[str] = Field(
+        default_factory=list,
+        title="Include representations"
+    )
+
+    clip_name_template: str = Field(
+        title="Read node name template"
+    )
+    options_defaults: LoadClipOptionsModel = Field(
+        default_factory=LoadClipOptionsModel,
+        title="Loader option defaults"
+    )
+
+
+class LoaderPuginsModel(BaseSettingsModel):
+    LoadImage: LoadImageModel = Field(
+        default_factory=LoadImageModel,
+        title="Load Image"
+    )
+    LoadClip: LoadClipModel = Field(
+        default_factory=LoadClipModel,
+        title="Load Clip"
+    )
+
+
+DEFAULT_LOADER_PLUGINS_SETTINGS = {
+    "LoadImage": {
+        "enabled": True,
+        "representations_include": [
+            "exr",
+            "dpx",
+            "jpg",
+            "jpeg",
+            "png",
+            "psd",
+            "tiff"
+        ],
+        "clip_name_template": "{class_name}_{ext}"
+    },
+    "LoadClip": {
+        "enabled": True,
+        "representations_include": [
+            "h264_jpg"
+        ],
+        "clip_name_template": "{class_name}_{ext}",
+        "options_defaults": {
+            "start_at_workfile": True,
+            "add_retime": True
+        }
+    }
 }

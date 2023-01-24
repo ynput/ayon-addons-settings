@@ -42,8 +42,8 @@ from .publish_plugins import (
 )
 
 from .loader_plugins import (
-    LoaderPluginsSettings,
-    DEFAULT_LOAD_SETTINGS
+    LoaderPuginsModel,
+    DEFAULT_LOADER_PLUGINS_SETTINGS
 )
 
 from .workfile_builder import (
@@ -96,8 +96,8 @@ class NukeSettings(BaseSettingsModel):
         title="Publish Plugins",
     )
 
-    load: LoaderPluginsSettings = Field(
-        default_factory=LoaderPluginsSettings,
+    load: LoaderPuginsModel = Field(
+        default_factory=LoaderPuginsModel,
         title="Loader Plugins",
     )
 
@@ -130,7 +130,7 @@ DEFAULT_VALUES = {
     "gizmo": [DEFAULT_GIZMO_ITEM],
     "create": DEFAULT_CREATE_SETTINGS,
     "publish": DEFAULT_PUBLISH_PLUGIN_SETTINGS,
-    "load": DEFAULT_LOAD_SETTINGS,
+    "load": DEFAULT_LOADER_PLUGINS_SETTINGS,
     "workfile_builder": DEFAULT_WORKFILE_BUILDER_SETTINGS,
     "templated_workfile_build": DEFAULT_TEMPLATED_WORKFILE_BUILD_SETTINGS
 }
