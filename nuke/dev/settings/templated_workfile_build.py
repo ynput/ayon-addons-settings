@@ -1,14 +1,25 @@
-from ayon_server.settings import BaseSettingsModel, Field
+from ayon_server.settings import (
+    BaseSettingsModel,
+    task_types_enum,
+    Field
+)
+from .common import PathsTemplate
 
 
-class TemplatedWorkfileBuildSettings(BaseSettingsModel):
-    """Nuke templated workfile build project settings. """
-
-    sub_input_field_one: str = Field(
-        title="Sub input field one"
+class TemplatedWorkfileProfileModel(BaseSettingsModel):
+    task_types: list[str] = Field(
+        default_factory=list,
+        title="Task types",
+        enum_resolver=task_types_enum
     )
-
-
-DEFAULT_TEMPLATED_WORKFILE_BUILD_SETTINGS = {
-    "sub_input_field_one": "This Text"
-}
+    task_names: list[str] = Field(
+        default_factory=list,
+        title="Task names"
+    )
+    path: PathsTemplate = Field(
+        default_factory=PathsTemplate,
+        title="Path to template"
+    )
+    keep_placeholder: bool = Field(
+        False,
+        title="Keep placeholders")
