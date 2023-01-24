@@ -17,7 +17,6 @@ class LoadClipModel(BaseSettingsModel):
     )
 
     clip_name_template: str = Field(
-        "{asset}_{subset}<_{output}>",
         title="Clip name template"
     )
 
