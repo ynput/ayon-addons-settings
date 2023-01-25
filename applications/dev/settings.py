@@ -38,6 +38,10 @@ class AppVariant(BaseSettingsModel):
     )
     environment: str = Field("{}", title="Environment", widget="textarea")
 
+    @validator("environment")
+    def validate_json(cls, value):
+        return validate_json_dict(value)
+
 
 class AppVariantWithPython(AppVariant):
     use_python_2: bool = Field(False, title="Use Python 2")

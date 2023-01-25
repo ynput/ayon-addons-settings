@@ -9,7 +9,7 @@
       "variants": [
         {
           "name": "2023",
-          "label": "Maya 2023",
+          "label": "2023",
           "executables": {
             "windows": [
               "C:\\Program Files\\Autodesk\\Maya2023\\bin\\maya.exe"
@@ -28,7 +28,7 @@
         },
         {
           "name": "2022",
-          "label": "Maya 2022",
+          "label": "2022",
           "executables": {
             "windows": [
               "C:\\Program Files\\Autodesk\\Maya2022\\bin\\maya.exe"
@@ -47,7 +47,7 @@
         },
         {
           "name": "2020",
-          "label": "Maya 2020",
+          "label": "2020",
           "executables": {
             "windows": [
               "C:\\Program Files\\Autodesk\\Maya2020\\bin\\maya.exe"
@@ -67,7 +67,7 @@
         },
         {
           "name": "2019",
-          "label": "Maya 2019",
+          "label": "2019",
           "executables": {
             "windows": [
               "C:\\Program Files\\Autodesk\\Maya2019\\bin\\maya.exe"
@@ -87,7 +87,7 @@
         },
         {
           "name": "2018",
-          "label": "Maya 2018",
+          "label": "2018",
           "executables": {
             "windows": [
               "C:\\Program Files\\Autodesk\\Maya2018\\bin\\maya.exe"
@@ -116,7 +116,7 @@
       "variants": [
         {
           "name": "2021",
-          "label": "Flame 2021",
+          "label": "2021",
           "executables": {
             "windows": [],
             "darwin": [
@@ -136,7 +136,7 @@
         },
         {
           "name": "2021_1",
-          "label": "Flame 2021_1",
+          "label": "2021.1",
           "executables": {
             "windows": [],
             "darwin": [
@@ -165,7 +165,7 @@
       "variants": [
         {
           "name": "13-0",
-          "label": "Nuke 13-0",
+          "label": "13.0",
           "executables": {
             "windows": [
               "C:\\Program Files\\Nuke13.0v1\\Nuke13.0.exe"
@@ -184,7 +184,7 @@
         },
         {
           "name": "12-2",
-          "label": "Nuke 12-2",
+          "label": "12.2",
           "executables": {
             "windows": [
               "C:\\Program Files\\Nuke12.2v3\\Nuke12.2.exe"
@@ -204,7 +204,7 @@
         },
         {
           "name": "12-0",
-          "label": "Nuke 12-0",
+          "label": "12.0",
           "executables": {
             "windows": [
               "C:\\Program Files\\Nuke12.0v1\\Nuke12.0.exe"
@@ -224,7 +224,7 @@
         },
         {
           "name": "11-3",
-          "label": "Nuke 11-3",
+          "label": "11.3",
           "executables": {
             "windows": [
               "C:\\Program Files\\Nuke11.3v1\\Nuke11.3.exe"
@@ -244,7 +244,7 @@
         },
         {
           "name": "11-2",
-          "label": "Nuke 11-2",
+          "label": "11.2",
           "executables": {
             "windows": [
               "C:\\Program Files\\Nuke11.2v2\\Nuke11.2.exe"
@@ -271,7 +271,7 @@
       "variants": [
         {
           "name": "13-0",
-          "label": "Nuke X 13-0",
+          "label": "13.0",
           "executables": {
             "windows": [
               "C:\\Program Files\\Nuke13.0v1\\Nuke13.0.exe"
@@ -290,7 +290,7 @@
         },
         {
           "name": "12-2",
-          "label": "Nuke X 12-2",
+          "label": "12.2",
           "executables": {
             "windows": [
               "C:\\Program Files\\Nuke12.2v3\\Nuke12.2.exe"
@@ -310,7 +310,7 @@
         },
         {
           "name": "12-0",
-          "label": "Nuke X 12-0",
+          "label": "12.0",
           "executables": {
             "windows": [
               "C:\\Program Files\\Nuke12.0v1\\Nuke12.0.exe"
@@ -330,7 +330,7 @@
         },
         {
           "name": "11-3",
-          "label": "Nuke X 11-3",
+          "label": "11.3",
           "executables": {
             "windows": [
               "C:\\Program Files\\Nuke11.3v1\\Nuke11.3.exe"
@@ -356,7 +356,7 @@
         },
         {
           "name": "11-2",
-          "label": "Nuke X 11-2",
+          "label": "11.2",
           "executables": {
             "windows": [
               "C:\\Program Files\\Nuke11.2v2\\Nuke11.2.exe"
@@ -389,7 +389,7 @@
       "variants": [
         {
           "name": "13-0",
-          "label": "Nuke Studio 13-0",
+          "label": "13.0",
           "executables": {
             "windows": [
               "C:\\Program Files\\Nuke13.0v1\\Nuke13.0.exe"
@@ -408,7 +408,7 @@
         },
         {
           "name": "12-2",
-          "label": "Nuke Studio 12-2",
+          "label": "12.2",
           "executables": {
             "windows": [
               "C:\\Program Files\\Nuke12.2v3\\Nuke12.2.exe"
@@ -428,7 +428,7 @@
         },
         {
           "name": "12-0",
-          "label": "Nuke Studio 12-0",
+          "label": "12.0",
           "executables": {
             "windows": [
               "C:\\Program Files\\Nuke12.0v1\\Nuke12.0.exe"
@@ -448,7 +448,7 @@
         },
         {
           "name": "11-3",
-          "label": "Nuke Studio 11-3",
+          "label": "11.3",
           "executables": {
             "windows": [
               "C:\\Program Files\\Nuke11.3v1\\Nuke11.3.exe"
@@ -468,7 +468,7 @@
         },
         {
           "name": "11-2",
-          "label": "Nuke Studio 11-2",
+          "label": "11.2",
           "executables": {
             "windows": [],
             "darwin": [],
@@ -493,7 +493,7 @@
       "variants": [
         {
           "name": "13-0",
-          "label": "Hiero 13-0",
+          "label": "13.0",
           "executables": {
             "windows": [
               "C:\\Program Files\\Nuke13.0v1\\Nuke13.0.exe"
@@ -512,7 +512,7 @@
         },
         {
           "name": "12-2",
-          "label": "Hiero 12-2",
+          "label": "12.2",
           "executables": {
             "windows": [
               "C:\\Program Files\\Nuke12.2v3\\Nuke12.2.exe"
@@ -532,7 +532,7 @@
         },
         {
           "name": "12-0",
-          "label": "Hiero 12-0",
+          "label": "12.0",
           "executables": {
             "windows": [
               "C:\\Program Files\\Nuke12.0v1\\Nuke12.0.exe"
@@ -552,7 +552,7 @@
         },
         {
           "name": "11-3",
-          "label": "Hiero 11-3",
+          "label": "11.3",
           "executables": {
             "windows": [
               "C:\\Program Files\\Nuke11.3v1\\Nuke11.3.exe"
@@ -572,7 +572,7 @@
         },
         {
           "name": "11-2",
-          "label": "Hiero 11-2",
+          "label": "11.2",
           "executables": {
             "windows": [
               "C:\\Program Files\\Nuke11.2v2\\Nuke11.2.exe"
@@ -599,7 +599,7 @@
       "variants": [
         {
           "name": "17",
-          "label": "Fusion 17",
+          "label": "17",
           "executables": {
             "windows": [
               "C:\\Program Files\\Blackmagic Design\\Fusion 17\\Fusion.exe"
@@ -616,7 +616,7 @@
         },
         {
           "name": "16",
-          "label": "Fusion 16",
+          "label": "16",
           "executables": {
             "windows": [
               "C:\\Program Files\\Blackmagic Design\\Fusion 16\\Fusion.exe"
@@ -633,7 +633,7 @@
         },
         {
           "name": "9",
-          "label": "Fusion 9",
+          "label": "9",
           "executables": {
             "windows": [
               "C:\\Program Files\\Blackmagic Design\\Fusion 9\\Fusion.exe"
@@ -659,7 +659,7 @@
       "variants": [
         {
           "name": "stable",
-          "label": "Resolve stable",
+          "label": "stable",
           "executables": {
             "windows": [
               "C:/Program Files/Blackmagic Design/DaVinci Resolve/Resolve.exe"
@@ -685,7 +685,7 @@
       "variants": [
         {
           "name": "18-5",
-          "label": "Houdini 18-5",
+          "label": "18.5",
           "executables": {
             "windows": [
               "C:\\Program Files\\Side Effects Software\\Houdini 18.5.499\\bin\\houdini.exe"
@@ -703,7 +703,7 @@
         },
         {
           "name": "18",
-          "label": "Houdini 18",
+          "label": "18",
           "executables": {
             "windows": [],
             "darwin": [],
@@ -719,7 +719,7 @@
         },
         {
           "name": "17",
-          "label": "Houdini 17",
+          "label": "17",
           "executables": {
             "windows": [],
             "darwin": [],
@@ -744,7 +744,7 @@
       "variants": [
         {
           "name": "2-83",
-          "label": "Blender 2-83",
+          "label": "2.83",
           "executables": {
             "windows": [
               "C:\\Program Files\\Blender Foundation\\Blender 2.83\\blender.exe"
@@ -767,7 +767,7 @@
         },
         {
           "name": "2-90",
-          "label": "Blender 2-90",
+          "label": "2.90",
           "executables": {
             "windows": [
               "C:\\Program Files\\Blender Foundation\\Blender 2.90\\blender.exe"
@@ -790,7 +790,7 @@
         },
         {
           "name": "2-91",
-          "label": "Blender 2-91",
+          "label": "2.91",
           "executables": {
             "windows": [
               "C:\\Program Files\\Blender Foundation\\Blender 2.91\\blender.exe"
@@ -822,7 +822,7 @@
       "variants": [
         {
           "name": "21",
-          "label": "Harmony 21",
+          "label": "21",
           "executables": {
             "windows": [
               "c:\\Program Files (x86)\\Toon Boom Animation\\Toon Boom Harmony 21 Premium\\win64\\bin\\HarmonyPremium.exe"
@@ -841,7 +841,7 @@
         },
         {
           "name": "20",
-          "label": "Harmony 20",
+          "label": "20",
           "executables": {
             "windows": [
               "c:\\Program Files (x86)\\Toon Boom Animation\\Toon Boom Harmony 20 Premium\\win64\\bin\\HarmonyPremium.exe"
@@ -860,7 +860,7 @@
         },
         {
           "name": "17",
-          "label": "Harmony 17",
+          "label": "17",
           "executables": {
             "windows": [
               "c:\\Program Files (x86)\\Toon Boom Animation\\Toon Boom Harmony 17 Premium\\win64\\bin\\HarmonyPremium.exe"
@@ -888,7 +888,7 @@
       "variants": [
         {
           "name": "animation_11-64bits",
-          "label": "TVPaint animation_11-64bits",
+          "label": "11 (64bits)",
           "executables": {
             "windows": [
               "C:\\Program Files\\TVPaint Developpement\\TVPaint Animation 11 (64bits)\\TVPaint Animation 11 (64bits).exe"
@@ -905,7 +905,7 @@
         },
         {
           "name": "animation_11-32bits",
-          "label": "TVPaint animation_11-32bits",
+          "label": "11 (32bits)",
           "executables": {
             "windows": [
               "C:\\Program Files (x86)\\TVPaint Developpement\\TVPaint Animation 11 (32bits)\\TVPaint Animation 11 (32bits).exe"
@@ -931,7 +931,7 @@
       "variants": [
         {
           "name": "2020",
-          "label": "Photoshop 2020",
+          "label": "2020",
           "executables": {
             "windows": [
               "C:\\Program Files\\Adobe\\Adobe Photoshop 2020\\Photoshop.exe"
@@ -948,7 +948,7 @@
         },
         {
           "name": "2021",
-          "label": "Photoshop 2021",
+          "label": "2021",
           "executables": {
             "windows": [
               "C:\\Program Files\\Adobe\\Adobe Photoshop 2021\\Photoshop.exe"
@@ -965,7 +965,7 @@
         },
         {
           "name": "2022",
-          "label": "Photoshop 2022",
+          "label": "2022",
           "executables": {
             "windows": [
               "C:\\Program Files\\Adobe\\Adobe Photoshop 2022\\Photoshop.exe"
@@ -991,7 +991,7 @@
       "variants": [
         {
           "name": "2020",
-          "label": "AfterEffects 2020",
+          "label": "2020",
           "executables": {
             "windows": [
               ""
@@ -1008,7 +1008,7 @@
         },
         {
           "name": "2021",
-          "label": "AfterEffects 2021",
+          "label": "2021",
           "executables": {
             "windows": [
               "C:\\Program Files\\Adobe\\Adobe After Effects 2021\\Support Files\\AfterFX.exe"
@@ -1025,7 +1025,7 @@
         },
         {
           "name": "2022",
-          "label": "AfterEffects 2022",
+          "label": "2022",
           "executables": {
             "windows": [
               "C:\\Program Files\\Adobe\\Adobe After Effects 2022\\Support Files\\AfterFX.exe"
@@ -1051,7 +1051,7 @@
       "variants": [
         {
           "name": "local",
-          "label": "CelAction 2D local",
+          "label": "local",
           "executables": {
             "windows": [],
             "darwin": [],
@@ -1075,7 +1075,7 @@
       "variants": [
         {
           "name": "4-26",
-          "label": "Unreal Editor 4-26",
+          "label": "4.26",
           "executables": {},
           "arguments": {},
           "environment": "{}"
@@ -1091,7 +1091,7 @@
       "variants": [
         {
           "name": "1-1",
-          "label": "DJV View 1-1",
+          "label": "1.1",
           "executables": {
             "windows": [],
             "darwin": [],
