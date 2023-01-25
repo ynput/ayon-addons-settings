@@ -18,7 +18,7 @@ def get_enum_items_from_groups(groups):
                 continue
             variant_label = variant["label"] or variant_name
             full_name = f"{group_name}/{variant_name}"
-            full_label = f"{group_label} - {variant_label}"
+            full_label = f"{group_label} {variant_label}"
             label_by_name[full_name] = full_label
     enum_items = []
     for full_name in sorted(label_by_name):
