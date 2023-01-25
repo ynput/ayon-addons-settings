@@ -18,7 +18,7 @@ def get_enum_items_from_groups(groups):
                 continue
             variant_label = variant["label"] or variant_name
             full_name = f"{group_name}/{variant_name}"
-            full_label = f"{group_label} - {variant_label}"
+            full_label = f"{group_label} {variant_label}"
             label_by_name[full_name] = full_label
     enum_items = []
     for full_name in sorted(label_by_name):
@@ -58,13 +58,12 @@ class ApplicationsAddon(BaseServerAddon):
         """
 
         settings_model = await self.get_studio_settings()
-        settings = settings_model.dict()
-        applications = settings["applications"]
+        studio_settings = settings_model.dict()
+        applications = studio_settings["applications"]
         _applications = applications.pop("additional_apps")
         for name, value in applications.items():
             value["name"] = name
             _applications.append(value)
-
 
         query = "SELECT name, position, scope, data from public.attributes"
 
@@ -72,7 +71,7 @@ class ApplicationsAddon(BaseServerAddon):
         tools_attrib_name = "tools"
 
         apps_enum = get_enum_items_from_groups(_applications)
-        tools_enum = get_enum_items_from_groups(_applications)
+        tools_enum = get_enum_items_from_groups(studio_settings["tool_groups"])
         apps_attribute_data = {
             "type": "list_of_strings",
             "title": "Applications",
