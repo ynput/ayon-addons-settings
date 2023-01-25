@@ -64,7 +64,7 @@ class CreateAssModel(BasicCreatorModel):
     expandProcedurals: bool = Field(title="Expand Procedurals")
     motionBlur: bool = Field(title="Motion Blur")
     motionBlurKeys: int = Field(2, title="Motion Blur Keys")
-    motionBlurLength: int = Field(0.5, title="Motion Blur Length")
+    motionBlurLength: int = Field(0, title="Motion Blur Length")
     maskOptions: bool = Field(title="Mask Options")
     maskCamera: bool = Field(title="Mask Camera")
     maskLight: bool = Field(title="Mask Light")
@@ -87,8 +87,8 @@ class CreatorsModel(BaseSettingsModel):
         title="Create Render"
     )
     # "-" is not compatible in the new model
-    CreateUnrealStaticMesh: BasicCreatorModel = Field(
-        default_factory=BasicCreatorModel,
+    CreateUnrealStaticMesh: CreateUnrealStaticMeshModel = Field(
+        default_factory=CreateUnrealStaticMeshModel,
         title="Create Unreal_Static Mesh"
     )
     # "-" is not compatible in the new model
@@ -168,7 +168,7 @@ class CreatorsModel(BaseSettingsModel):
         default_factory=BasicCreatorModel,
         title="Create VRay Proxy"
     )
-    CreateVrayScene: BasicCreatorModel = Field(
+    CreateVRayScene: BasicCreatorModel = Field(
         default_factory=BasicCreatorModel,
         title="Create VRay Scene"
     )
@@ -275,7 +275,7 @@ DEFAULT_CREATORS_SETTINGS = {
             "expandProcedurals": False,
             "motionBlur": True,
             "motionBlurKeys": 2,
-            "motionBlurLength": 0.5,
+            "motionBlurLength": 0,
             "maskOptions": False,
             "maskCamera": False,
             "maskLight": False,
@@ -344,7 +344,7 @@ DEFAULT_CREATORS_SETTINGS = {
                 "Main"
             ]
         },
-        "CreateVrayScene": {
+        "CreateVRayScene": {
             "enabled": True,
             "defaults": [
                 "Main"
