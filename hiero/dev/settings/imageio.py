@@ -17,7 +17,7 @@ ocio_configs_switcher_enum = [
     {"value": "aces_1_0_3", "label": "aces_1.0.3"},
     {"value": "aces_1_1", "label": "aces_1.1"},
     {"value": "aces_1_2", "label": "aces_1.2"},
-     {"value": "aces_1_3", "label": "aces_1.3"},
+    {"value": "aces_1_3", "label": "aces_1.3"},
     {"value": "custom", "label": "custom"}
 ]
 
