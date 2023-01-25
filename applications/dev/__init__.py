@@ -58,13 +58,12 @@ class ApplicationsAddon(BaseServerAddon):
         """
 
         settings_model = await self.get_studio_settings()
-        settings = settings_model.dict()
-        applications = settings["applications"]
+        studio_settings = settings_model.dict()
+        applications = studio_settings["applications"]
         _applications = applications.pop("additional_apps")
         for name, value in applications.items():
             value["name"] = name
             _applications.append(value)
-
 
         query = "SELECT name, position, scope, data from public.attributes"
 
@@ -72,7 +71,7 @@ class ApplicationsAddon(BaseServerAddon):
         tools_attrib_name = "tools"
 
         apps_enum = get_enum_items_from_groups(_applications)
-        tools_enum = get_enum_items_from_groups(_applications)
+        tools_enum = get_enum_items_from_groups(studio_settings["tool_groups"])
         apps_attribute_data = {
             "type": "list_of_strings",
             "title": "Applications",
