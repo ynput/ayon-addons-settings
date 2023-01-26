@@ -11,15 +11,16 @@ ocio_configs_switcher_enum = [
     {"value": "nuke-default", "label": "nuke-default"},
     {"value": "spi-vfx", "label": "spi-vfx"},
     {"value": "spi-anim", "label": "spi-anim"},
-    {"value": "aces_0_1_1", "label": "aces_0.1.1"},
-    {"value": "aces_0_7_1" , "label": "aces_0.7.1"},
-    {"value": "aces_1_0_1", "label": "aces_1.0.1"},
-    {"value": "aces_1_0_3", "label": "aces_1.0.3"},
-    {"value": "aces_1_1", "label": "aces_1.1"},
-    {"value": "aces_1_2", "label": "aces_1.2"},
-     {"value": "aces_1_3", "label": "aces_1.3"},
+    {"value": "aces_0.1.1", "label": "aces_0.1.1"},
+    {"value": "aces_0.7.1" , "label": "aces_0.7.1"},
+    {"value": "aces_1.0.1", "label": "aces_1.0.1"},
+    {"value": "aces_1.0.3", "label": "aces_1.0.3"},
+    {"value": "aces_1.1", "label": "aces_1.1"},
+    {"value": "aces_1.2", "label": "aces_1.2"},
+    {"value": "aces_1.3", "label": "aces_1.3"},
     {"value": "custom", "label": "custom"}
 ]
+
 
 class WorkfileColorspaceSettings(BaseSettingsModel):
     """Hiero workfile colorspace preset. """
@@ -43,10 +44,6 @@ class WorkfileColorspaceSettings(BaseSettingsModel):
         title="Color Management"
     )
 
-    """# TODO: Changes in host api:
-    we need to do mapping to convert underscore in aces versions
-    to dot version > aces_1_0_2 = aces_1.0.2
-    """
     ocioConfigName: str = Field(
         title="OpenColorIO Config",
         description="Switch between OCIO configs",
