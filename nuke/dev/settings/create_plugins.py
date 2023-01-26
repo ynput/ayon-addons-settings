@@ -17,12 +17,13 @@ def instance_attributes_enum():
 
 class PrenodeModel(BaseSettingsModel):
     # TODO: missing in host api
+    # - good for `dependency`
     name: str = Field(
         title="Node name"
     )
 
-    # TODO: in v3 host api was `nodeclass`
-    nuke_node_class: str = Field(
+    # TODO: `nodeclass` should be renamed to `nuke_node_class`
+    nodeclass: str = Field(
         "",
         title="Node class"
     )
@@ -160,7 +161,7 @@ DEFAULT_CREATE_SETTINGS = {
         "prenodes": [
             {
                 "name": "Reformat01",
-                "nuke_node_class": "Reformat",
+                "nodeclass": "Reformat",
                 "dependent": "",
                 "knobs": [
                     {
@@ -205,7 +206,7 @@ DEFAULT_CREATE_SETTINGS = {
         "prenodes": [
             {
                 "name": "FrameHold01",
-                "nuke_node_class": "FrameHold",
+                "nodeclass": "FrameHold",
                 "dependent": "",
                 "knobs": [
                     {

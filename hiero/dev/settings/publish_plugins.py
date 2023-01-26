@@ -25,7 +25,7 @@ class PublishPuginsModel(BaseSettingsModel):
         default_factory=CollectInstanceVersionModel,
         title="Collect Instance Version"
     )
-    """# TODO: Changes in host api:
+    """# TODO: enhance settings with host api:
     Rename class name and plugin name
     to match title (it makes more sense)
     """

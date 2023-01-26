@@ -11,19 +11,20 @@ ocio_configs_switcher_enum = [
     {"value": "nuke-default", "label": "nuke-default"},
     {"value": "spi-vfx", "label": "spi-vfx"},
     {"value": "spi-anim", "label": "spi-anim"},
-    {"value": "aces_0_1_1", "label": "aces_0.1.1"},
-    {"value": "aces_0_7_1" , "label": "aces_0.7.1"},
-    {"value": "aces_1_0_1", "label": "aces_1.0.1"},
-    {"value": "aces_1_0_3", "label": "aces_1.0.3"},
-    {"value": "aces_1_1", "label": "aces_1.1"},
-    {"value": "aces_1_2", "label": "aces_1.2"},
-    {"value": "aces_1_3", "label": "aces_1.3"},
+    {"value": "aces_0.1.1", "label": "aces_0.1.1"},
+    {"value": "aces_0.7.1" , "label": "aces_0.7.1"},
+    {"value": "aces_1.0.1", "label": "aces_1.0.1"},
+    {"value": "aces_1.0.3", "label": "aces_1.0.3"},
+    {"value": "aces_1.1", "label": "aces_1.1"},
+    {"value": "aces_1.2", "label": "aces_1.2"},
+    {"value": "aces_1.3", "label": "aces_1.3"},
     {"value": "custom", "label": "custom"}
 ]
 
+
 class WorkfileColorspaceSettings(BaseSettingsModel):
     """Hiero workfile colorspace preset. """
-    """# TODO: Changes in host api:
+    """# TODO: enhance settings with host api:
     we need to add mapping to resolve properly keys.
     Hiero is excpecting camel case key names,
     but for better code consistency we are using snake_case:
@@ -43,45 +44,37 @@ class WorkfileColorspaceSettings(BaseSettingsModel):
         title="Color Management"
     )
 
-    """# TODO: Changes in host api:
-    we need to do mapping to convert underscore in aces versions
-    to dot version > aces_1_0_2 = aces_1.0.2
-    """
-    ocio_config: str = Field(
+    ocioConfigName: str = Field(
         title="OpenColorIO Config",
         description="Switch between OCIO configs",
         enum_resolver=lambda: ocio_configs_switcher_enum,
         conditionalEnum=True
     )
 
-    """# TODO: Changes in host api:
-    In v3 hiero is excpecting key `customOCIOConfigPath`
-    but here it is `config`
-    """
-    ocio_config_path: PathsTemplate = Field(
+    ocioconfigpath: PathsTemplate = Field(
         default_factory=PathsTemplate,
         title="Custom OCIO config path"
     )
 
-    working_space_name: str = Field(
+    workingSpace: str = Field(
         title="Working Space"
     )
-    viewer_name: str = Field(
+    viewerLut: str = Field(
         title="Viewer"
     )
-    int_8_name: str = Field(
+    eightBitLut: str = Field(
         title="8-bit files"
     )
-    int_16_name: str = Field(
+    sixteenBitLut: str = Field(
         title="16-bit files"
     )
-    log_name: str = Field(
+    logLut: str = Field(
         title="Log files"
     )
-    float_name: str = Field(
+    floatLut: str = Field(
         title="Float files"
     )
-    thumbnail_name: str = Field(
+    thumbnailLut: str = Field(
         title="Thumnails"
     )
 
@@ -93,6 +86,13 @@ class ClipColorspaceRulesItems(BaseSettingsModel):
     colorspace: str = Field("", title="Colorspace")
 
 
+class RegexInputsModel(BaseSettingsModel):
+    inputs: list[ClipColorspaceRulesItems] = Field(
+        default_factory=list,
+        title="Inputs"
+    )
+
+
 class ImageIOSettings(BaseSettingsModel):
     """Hiero color management project settings. """
     _isGroup: bool = True
@@ -101,13 +101,14 @@ class ImageIOSettings(BaseSettingsModel):
         default_factory=WorkfileColorspaceSettings,
         title="Workfile"
     )
-    """# TODO: Changes in host api:
-    - old settings are using `regexInputs` key
-    - removed `inputs` middle part not it is
-      directly on regex_inputs
+    """# TODO: enhance settings with host api:
+    - old settings are using `regexInputs` key but we
+      need to rename to `regex_inputs`
+    - no need for `inputs` middle part. It can stay
+      directly on `regex_inputs`
     """
-    regex_inputs: list[ClipColorspaceRulesItems] = Field(
-        default_factory=list,
+    regexInputs:  RegexInputsModel = Field(
+        default_factory=RegexInputsModel,
         title="Assign colorspace to clips via rules"
     )
 
@@ -115,24 +116,26 @@ class ImageIOSettings(BaseSettingsModel):
 DEFAULT_IMAGEIO_SETTINGS = {
     "workfile": {
         "color_management": "Nuke",
-        "ocio_config": "nuke-default",
-        "ocio_config_path": {
+        "ocioConfigName": "nuke-default",
+        "ocioconfigpath": {
             "windows": "",
             "darwin": "",
             "linux": ""
         },
-        "working_space_name": "linear",
-        "viewer_name": "sRGB",
-        "int_8_name": "sRGB",
-        "int_16_name": "sRGB",
-        "log_name": "Cineon",
-        "float_name": "linear",
-        "thumbnail_name": "sRGB"
+        "workingSpace": "linear",
+        "viewerLut": "sRGB",
+        "eightBitLut": "sRGB",
+        "sixteenBitLut": "sRGB",
+        "logLut": "Cineon",
+        "floatLut": "linear",
+        "thumbnailLut": "sRGB"
     },
-    "regex_inputs": [
-        {
-            "regex": "(beauty).*(?=.exr)",
-            "colorspace": "linear"
-        }
-    ]
+    "regexInputs": {
+        "inputs": [
+            {
+                "regex": "(beauty).*(?=.exr)",
+                "colorspace": "linear"
+            }
+        ]
+    }
 }
