@@ -30,8 +30,8 @@ class NodeModel(BaseSettingsModel):
     name: str = Field(
         title="Node name"
     )
-    # TODO: in v3 host api was `nodeclass`
-    nuke_node_class: str = Field(
+    # TODO: `nodeclass` rename to `nuke_node_class`
+    nodeclass: str = Field(
         "",
         title="Node class"
     )
@@ -324,7 +324,7 @@ DEFAULT_PUBLISH_PLUGIN_SETTINGS = {
         "nodes": [
             {
                 "name": "Reformat01",
-                "nuke_node_class": "Reformat",
+                "nodeclass": "Reformat",
                 "dependency": "",
                 "knobs": [
                     {
