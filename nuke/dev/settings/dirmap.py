@@ -12,7 +12,6 @@ class DirmapSettings(BaseSettingsModel):
     _isGroup: bool = True
 
     enabled: bool = Field(title="enabled")
-    use_env_var_as_root: bool = Field(title="Use env var placeholder in referenced paths")
     paths: DirmapPathsSubmodel = Field(default_factory=DirmapPathsSubmodel, title="Dirmap Paths")
 
 """# TODO:
@@ -30,7 +29,6 @@ following data inputs:
 
 DEFAULT_DIRMAP_SETTINGS = {
     "enabled": False,
-    "use_env_var_as_root": False,
     "paths": {
         "source_path": [],
         "destination_path": []
