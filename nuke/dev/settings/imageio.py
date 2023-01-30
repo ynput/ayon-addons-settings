@@ -141,8 +141,6 @@ class ImageIOSettings(BaseSettingsModel):
     """Nuke color management project settings. """
     _isGroup: bool = True
 
-    enabled: bool
-
     """# TODO: enhance settings with host api:
     to restruture settings for simplification.
 
@@ -191,7 +189,6 @@ class ImageIOSettings(BaseSettingsModel):
 
 
 DEFAULT_IMAGEIO_SETTINGS = {
-    "enabled": True,
     "viewer": {
         "viewerProcess": "sRGB"
     },
