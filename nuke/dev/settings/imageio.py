@@ -2,7 +2,7 @@ from typing import Literal
 from pydantic import validator, Field
 from ayon_server.settings import (
     BaseSettingsModel,
-    ensure_unique_names
+    ensure_unique_names,
     MultiplatformPathListModel,
 )
 
