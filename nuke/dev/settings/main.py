@@ -52,7 +52,7 @@ from .workfile_builder import (
 )
 
 from .templated_workfile_build import (
-    TemplatedWorkfileProfileModel
+    TemplatedWorkfileBuildModel
 )
 
 from .filters import PublishGUIFilterItemModel
@@ -106,8 +106,9 @@ class NukeSettings(BaseSettingsModel):
         title="Workfile Builder",
     )
 
-    templated_workfile_build: list[TemplatedWorkfileProfileModel] = Field(
-        title="Templated Workfile Build"
+    templated_workfile_build: TemplatedWorkfileBuildModel = Field(
+        title="Templated Workfile Build",
+        default_factory=TemplatedWorkfileBuildModel
     )
 
     filters: list[PublishGUIFilterItemModel] = Field(
@@ -131,6 +132,6 @@ DEFAULT_VALUES = {
     "publish": DEFAULT_PUBLISH_PLUGIN_SETTINGS,
     "load": DEFAULT_LOADER_PLUGINS_SETTINGS,
     "workfile_builder": DEFAULT_WORKFILE_BUILDER_SETTINGS,
-    "templated_workfile_build": [],
+    "templated_workfile_build": {"profiles": []},
     "filters": []
 }
