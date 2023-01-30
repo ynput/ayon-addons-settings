@@ -1,8 +1,26 @@
+import json
+from ayon_server.exceptions import BadRequestException
 from ayon_server.settings import BaseSettingsModel, Field
 from ayon_server.types import (
     ColorRGBA_float,
     ColorRGB_uint8
 )
+
+
+def validate_json_dict(value):
+    if not value.strip():
+        return "{}"
+    try:
+        converted_value = json.loads(value)
+        success = isinstance(converted_value, dict)
+    except json.JSONDecodeError:
+        success = False
+
+    if not success:
+        raise BadRequestException(
+            "Environment's can't be parsed as json object"
+        )
+    return value
 
 
 class PathsTemplate(BaseSettingsModel):

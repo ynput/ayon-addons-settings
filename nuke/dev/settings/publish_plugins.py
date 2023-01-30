@@ -4,7 +4,8 @@ from ayon_server.settings import (
     ensure_unique_names,
     task_types_enum
 )
-from .common import KnobModel
+from .common import KnobModel, validate_json_dict
+
 
 def nuke_render_families_enum():
     """Return all nuke render families available in creators."""
@@ -13,6 +14,7 @@ def nuke_render_families_enum():
         {"value": "prerender", "label": "Prerender"},
         {"value": "image", "label": "Image"}
     ]
+
 
 def nuke_families_enum():
     """Return all nuke families available in creators."""
@@ -79,10 +81,14 @@ class ValidateKnobsModel(BaseSettingsModel):
     optional: bool = Field(title="Optional")
     active: bool = Field(title="Active")
     knobs: str = Field(
-        "",
+        "{}",
         title="Knobs",
         widget="textarea",
     )
+
+    @validator("knobs")
+    def validate_json(cls, value):
+        return validate_json_dict(value)
 
 
 class ValidateGizmoModel(BaseSettingsModel):
@@ -295,11 +301,13 @@ DEFAULT_PUBLISH_PLUGIN_SETTINGS = {
         "enabled": False,
         "optional": True,
         "active": True,
-        "knobs": """{
-            "render": {
-                "review": True
-            }
-        }"""
+        "knobs": "\n".join([
+            '{',
+            '    "render": {',
+            '        "review": true',
+            '    }',
+            '}'
+        ])
     },
     "ValidateOutputResolution": {
         "enabled": True,
