@@ -1,6 +1,5 @@
-from typing import Literal
 from pydantic import Field
-from ayon_server.settings import BaseSettingsModel, MultiplatformPathModel
+from ayon_server.settings import BaseSettingsModel, MultiplatformPathListModel
 
 
 ocio_configs_switcher_enum = [
@@ -47,8 +46,8 @@ class WorkfileColorspaceSettings(BaseSettingsModel):
         conditionalEnum=True
     )
 
-    ocioconfigpath: MultiplatformPathModel = Field(
-        default_factory=MultiplatformPathModel,
+    ocioconfigpath: MultiplatformPathListModel = Field(
+        default_factory=MultiplatformPathListModel,
         title="Custom OCIO config path"
     )
 
@@ -114,9 +113,9 @@ DEFAULT_IMAGEIO_SETTINGS = {
         "color_management": "Nuke",
         "ocioConfigName": "nuke-default",
         "ocioconfigpath": {
-            "windows": "",
-            "darwin": "",
-            "linux": ""
+            "windows": [],
+            "darwin": [],
+            "linux": []
         },
         "workingSpace": "linear",
         "viewerLut": "sRGB",
@@ -129,8 +128,8 @@ DEFAULT_IMAGEIO_SETTINGS = {
     "regexInputs": {
         "inputs": [
             {
-                "regex": "(beauty).*(?=.exr)",
-                "colorspace": "linear"
+                "regex": "[^-a-zA-Z0-9](plateRef).*(?=mp4)",
+                "colorspace": "sRGB"
             }
         ]
     }
