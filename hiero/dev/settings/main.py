@@ -6,7 +6,6 @@ from .imageio import (
     ImageIOSettings,
     DEFAULT_IMAGEIO_SETTINGS
 )
-
 from .create_plugins import (
     CreatorPluginsSettings,
     DEFAULT_CREATE_SETTINGS
@@ -23,7 +22,7 @@ from .scriptsmenu import (
     ScriptsmenuSettings,
     DEFAULT_SCRIPTSMENU_SETTINGS
 )
-from .filters import PublishFiltersModel
+from .filters import PublishGUIFilterItemModel
 
 
 class HieroSettings(BaseSettingsModel):
@@ -50,14 +49,16 @@ class HieroSettings(BaseSettingsModel):
         default_factory=ScriptsmenuSettings,
         title="Scripts Menu Definition",
     )
-    filters: list[PublishFiltersModel] = Field(
+    filters: list[PublishGUIFilterItemModel] = Field(
         default_factory=list
     )
+
 
 DEFAULT_VALUES = {
     "imageio": DEFAULT_IMAGEIO_SETTINGS,
     "create": DEFAULT_CREATE_SETTINGS,
     "load": DEFAULT_LOADER_PLUGINS_SETTINGS,
     "publish": DEFAULT_PUBLISH_PLUGIN_SETTINGS,
-    "scriptsmenu": DEFAULT_SCRIPTSMENU_SETTINGS
+    "scriptsmenu": DEFAULT_SCRIPTSMENU_SETTINGS,
+    "filters": [],
 }
