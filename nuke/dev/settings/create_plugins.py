@@ -46,6 +46,7 @@ class PrenodeModel(BaseSettingsModel):
         ensure_unique_names(value)
         return value
 
+
 class CreateWriteRenderModel(BaseSettingsModel):
     temp_rendering_path_template: str = Field(
         title="Temporary rendering path template"
@@ -131,6 +132,7 @@ class CreateWriteImageModel(BaseSettingsModel):
         """Ensure name fields within the lists have unique names."""
         ensure_unique_names(value)
         return value
+
 
 class CreatorPluginsSettings(BaseSettingsModel):
     CreateWriteRender: CreateWriteRenderModel = Field(
