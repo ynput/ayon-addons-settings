@@ -26,15 +26,6 @@ class Vector3d(BaseSettingsModel):
     z: float = Field(1.0, title="Z")
 
 
-class VectorColor(BaseSettingsModel):
-    _layout = "compact"
-
-    r: float = Field(1.0, title="R")
-    g: float = Field(1.0, title="G")
-    b: float = Field(1.0, title="B")
-    a: float = Field(1.0, title="A")
-
-
 formatable_knob_type_enum = [
     {"value": "text", "label": "Text"},
     {"value": "number", "label": "Number"},
