@@ -283,8 +283,12 @@ class PublishPuginsModel(BaseSettingsModel):
 DEFAULT_PUBLISH_PLUGIN_SETTINGS = {
     "CollectInstanceData": {
         "sync_workfile_version_on_families": [
+            "nukenodes",
             "camera",
+            "gizmo",
+            "source",
             "render",
+            "write"
         ]
     },
     "ValidateCorrectAssetName": {
