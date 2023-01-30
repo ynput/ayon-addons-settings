@@ -6,11 +6,6 @@ from ayon_server.types import (
 )
 
 
-class PathsTemplate(BaseSettingsModel):
-    windows: str = Field("", title="Windows")
-    darwin: str = Field("", title="MacOS")
-    linux: str = Field("", title="Linux")
-
 class Vector2d(BaseSettingsModel):
     _layout = "compact"
 

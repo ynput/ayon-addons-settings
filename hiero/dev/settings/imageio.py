@@ -1,10 +1,6 @@
 from typing import Literal
 from pydantic import Field
-from ayon_server.settings import (
-    BaseSettingsModel
-)
-
-from .common import PathsTemplate
+from ayon_server.settings import BaseSettingsModel, MultiplatformPathModel
 
 
 ocio_configs_switcher_enum = [
@@ -51,8 +47,8 @@ class WorkfileColorspaceSettings(BaseSettingsModel):
         conditionalEnum=True
     )
 
-    ocioconfigpath: PathsTemplate = Field(
-        default_factory=PathsTemplate,
+    ocioconfigpath: MultiplatformPathModel = Field(
+        default_factory=MultiplatformPathModel,
         title="Custom OCIO config path"
     )
 
