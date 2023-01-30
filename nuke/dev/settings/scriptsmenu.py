@@ -10,7 +10,6 @@ class ScriptsmenuSubmodel(BaseSettingsModel):
     sourcetype: str = Field(title="Source Type")
     title: str = Field(title="Title")
     tooltip: str = Field(title="Tooltip")
-    tags: list[str] = Field(default_factory=list, title="A list of tags")
 
 
 class ScriptsmenuSettings(BaseSettingsModel):
@@ -31,11 +30,7 @@ DEFAULT_SCRIPTSMENU_SETTINGS = {
             "sourcetype": "python",
             "title": "OpenPype Docs",
             "command": "import webbrowser;webbrowser.open(url='https://openpype.io/docs/artist_hosts_nuke_tut')",
-            "tooltip": "Open the OpenPype Nuke user doc page",
-            "tags": [
-                "OpenPype",
-                "docs"
-            ]
+            "tooltip": "Open the OpenPype Nuke user doc page"
         }
     ]
 }
