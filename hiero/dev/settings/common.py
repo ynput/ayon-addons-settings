@@ -19,14 +19,6 @@ class Vector3d(BaseSettingsModel):
     y: float = Field(1.0, title="Y")
     z: float = Field(1.0, title="Z")
 
-class VectorColor(BaseSettingsModel):
-    _layout = "compact"
-
-    r: float = Field(1.0, title="R")
-    g: float = Field(1.0, title="G")
-    b: float = Field(1.0, title="B")
-    a: float = Field(1.0, title="A")
-
 
 formatable_knob_type_enum = [
     "Text", "Number", "Decimal number", "2D vector", "3D vector"
@@ -94,6 +86,6 @@ class KnobModel(BaseSettingsModel):
         title="RGBA Float"
     )
     formatable: Formatable = Field(
-        default_factory=VectorColor,
+        default_factory=Formatable,
         title="Value"
     )
