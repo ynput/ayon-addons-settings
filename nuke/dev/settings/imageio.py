@@ -3,9 +3,10 @@ from pydantic import validator, Field
 from ayon_server.settings import (
     BaseSettingsModel,
     ensure_unique_names
+    MultiplatformPathListModel,
 )
 
-from .common import PathsTemplate, KnobModel
+from .common import KnobModel
 
 
 class NodesModel(BaseSettingsModel):
@@ -91,8 +92,8 @@ class WorkfileColorspaceSettings(BaseSettingsModel):
         conditionalEnum=True
     )
 
-    customOCIOConfigPath: PathsTemplate = Field(
-        default_factory=PathsTemplate,
+    customOCIOConfigPath: MultiplatformPathListModel = Field(
+        default_factory=MultiplatformPathListModel,
         title="Custom OCIO config path"
     )
 
@@ -201,9 +202,9 @@ DEFAULT_IMAGEIO_SETTINGS = {
         "colorManagement": "Nuke",
         "OCIO_config": "nuke-default",
         "customOCIOConfigPath": {
-            "windows": "",
-            "darwin": "",
-            "linux": ""
+            "windows": [],
+            "darwin": [],
+            "linux": []
         },
         "workingSpaceLUT": "linear",
         "monitorLut": "sRGB",
