@@ -14,7 +14,7 @@ class LoadImageModel(BaseSettingsModel):
         title="Include representations"
     )
 
-    clip_name_template: str = Field(
+    node_name_template: str = Field(
         title="Read node name template"
     )
 
@@ -41,7 +41,7 @@ class LoadClipModel(BaseSettingsModel):
         title="Include representations"
     )
 
-    clip_name_template: str = Field(
+    node_name_template: str = Field(
         title="Read node name template"
     )
     options_defaults: LoadClipOptionsModel = Field(
@@ -73,14 +73,12 @@ DEFAULT_LOADER_PLUGINS_SETTINGS = {
             "psd",
             "tiff"
         ],
-        "clip_name_template": "{class_name}_{ext}"
+        "node_name_template": "{class_name}_{ext}"
     },
     "LoadClip": {
         "enabled": True,
-        "representations_include": [
-            "h264_jpg"
-        ],
-        "clip_name_template": "{class_name}_{ext}",
+        "representations_include": [],
+        "node_name_template": "{class_name}_{ext}",
         "options_defaults": {
             "start_at_workfile": True,
             "add_retime": True
