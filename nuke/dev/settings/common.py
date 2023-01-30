@@ -24,12 +24,6 @@ def validate_json_dict(value):
     return value
 
 
-class PathsTemplate(BaseSettingsModel):
-    windows: str = Field("", title="Windows")
-    darwin: str = Field("", title="MacOS")
-    linux: str = Field("", title="Linux")
-
-
 class Vector2d(BaseSettingsModel):
     _layout = "compact"
 

@@ -5,56 +5,45 @@ from ayon_server.settings import (
     ensure_unique_names
 )
 
-
 from .general import (
     GeneralSettings,
     DEFAULT_GENERAL_SETTINGS
 )
-
 from .imageio import (
     ImageIOSettings,
     DEFAULT_IMAGEIO_SETTINGS
 )
-
 from .dirmap import (
     DirmapSettings,
     DEFAULT_DIRMAP_SETTINGS
 )
-
 from .scriptsmenu import (
     ScriptsmenuSettings,
     DEFAULT_SCRIPTSMENU_SETTINGS
 )
-
 from .gizmo import (
     GizmoItem,
     DEFAULT_GIZMO_ITEM
 )
-
 from .create_plugins import (
     CreatorPluginsSettings,
     DEFAULT_CREATE_SETTINGS
 )
-
 from .publish_plugins import (
     PublishPuginsModel,
     DEFAULT_PUBLISH_PLUGIN_SETTINGS
 )
-
 from .loader_plugins import (
     LoaderPuginsModel,
     DEFAULT_LOADER_PLUGINS_SETTINGS
 )
-
 from .workfile_builder import (
     WorkfileBuilderModel,
     DEFAULT_WORKFILE_BUILDER_SETTINGS
 )
-
 from .templated_workfile_build import (
     TemplatedWorkfileBuildModel
 )
-
 from .filters import PublishGUIFilterItemModel
 
 

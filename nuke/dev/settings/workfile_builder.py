@@ -2,8 +2,8 @@ from pydantic import Field
 from ayon_server.settings import (
     BaseSettingsModel,
     task_types_enum,
+    MultiplatformPathModel,
 )
-from .common import PathsTemplate
 
 
 class CustomTemplateModel(BaseSettingsModel):
@@ -12,8 +12,8 @@ class CustomTemplateModel(BaseSettingsModel):
         title="Task types",
         enum_resolver=task_types_enum
     )
-    path: PathsTemplate = Field(
-        default_factory=PathsTemplate,
+    path: MultiplatformPathModel = Field(
+        default_factory=MultiplatformPathModel,
         title="Gizmo Directory Path"
     )
 
