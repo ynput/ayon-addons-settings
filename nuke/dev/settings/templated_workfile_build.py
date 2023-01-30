@@ -23,3 +23,9 @@ class TemplatedWorkfileProfileModel(BaseSettingsModel):
     keep_placeholder: bool = Field(
         False,
         title="Keep placeholders")
+
+
+class TemplatedWorkfileBuildModel(BaseSettingsModel):
+    profiles: list[TemplatedWorkfileProfileModel] = Field(
+        default_factory=list
+    )
