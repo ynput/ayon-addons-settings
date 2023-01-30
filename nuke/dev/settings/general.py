@@ -32,7 +32,7 @@ class GeneralSettings(BaseSettingsModel):
 
 DEFAULT_GENERAL_SETTINGS = {
     "menu": {
-        "create": "ctrl+shift+alt+c",
+        "create": "ctrl+alt+c",
         "publish": "ctrl+alt+p",
         "load": "ctrl+alt+l",
         "manage": "ctrl+alt+m",
