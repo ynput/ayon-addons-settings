@@ -2,8 +2,8 @@ from pydantic import Field
 from ayon_server.settings import (
     BaseSettingsModel,
     task_types_enum,
+    MultiplatformPathModel,
 )
-from .common import PathsTemplate
 
 
 class TemplatedWorkfileProfileModel(BaseSettingsModel):
@@ -16,8 +16,8 @@ class TemplatedWorkfileProfileModel(BaseSettingsModel):
         default_factory=list,
         title="Task names"
     )
-    path: PathsTemplate = Field(
-        default_factory=PathsTemplate,
+    path: MultiplatformPathModel = Field(
+        default_factory=MultiplatformPathModel,
         title="Path to template"
     )
     keep_placeholder: bool = Field(
