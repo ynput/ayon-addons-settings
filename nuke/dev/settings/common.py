@@ -104,7 +104,7 @@ class KnobModel(BaseSettingsModel):
         title="Value"
     )
     color: ColorRGBA_float = Field(
-        (0, 0, 1, 1),
+        (0.0, 0.0, 1.0, 1.0),
         title="RGBA Float"
     )
     formatable: Formatable = Field(
