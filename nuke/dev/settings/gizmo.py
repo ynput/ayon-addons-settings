@@ -1,5 +1,9 @@
-from ayon_server.settings import BaseSettingsModel, Field
-from .common import PathsTemplate
+from ayon_server.settings import (
+    BaseSettingsModel,
+    Field,
+    MultiplatformPathModel,
+    MultiplatformPathListModel,
+)
 
 
 class SubGizmoItem(BaseSettingsModel):
@@ -16,6 +20,7 @@ class SubGizmoItem(BaseSettingsModel):
         title="Hotkey"
     )
 
+
 class GizmoDefinitionItem(BaseSettingsModel):
     gizmo_toolbar_path: str = Field(
         title="Gizmo Menu"
@@ -23,18 +28,19 @@ class GizmoDefinitionItem(BaseSettingsModel):
     sub_gizmo_list: list[SubGizmoItem] = Field(
         default_factory=list, title="Sub Gizmo List")
 
+
 class GizmoItem(BaseSettingsModel):
     """Nuke gizmo item """
 
     toolbar_menu_name: str = Field(
         title="Toolbar Menu Name"
     )
-    gizmo_source_dir: PathsTemplate = Field(
-        default_factory=PathsTemplate,
+    gizmo_source_dir: MultiplatformPathListModel = Field(
+        default_factory=MultiplatformPathListModel,
         title="Gizmo Directory Path"
     )
-    toolbar_icon_path: PathsTemplate = Field(
-        default_factory=PathsTemplate,
+    toolbar_icon_path: MultiplatformPathModel = Field(
+        default_factory=MultiplatformPathModel,
         title="Toolbar Icon Path"
     )
     gizmo_definition: list[GizmoDefinitionItem] = Field(
@@ -44,9 +50,9 @@ class GizmoItem(BaseSettingsModel):
 DEFAULT_GIZMO_ITEM = {
     "toolbar_menu_name": "OpenPype Gizmo",
     "gizmo_source_dir": {
-        "windows": "",
-        "darwin": "",
-        "linux": ""
+        "windows": [],
+        "darwin": [],
+        "linux": []
     },
     "toolbar_icon_path": {
         "windows": "",
