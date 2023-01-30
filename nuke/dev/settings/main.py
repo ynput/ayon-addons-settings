@@ -47,7 +47,7 @@ from .loader_plugins import (
 )
 
 from .workfile_builder import (
-    WorkfileBuilderSettings,
+    WorkfileBuilderModel,
     DEFAULT_WORKFILE_BUILDER_SETTINGS
 )
 
@@ -101,8 +101,8 @@ class NukeSettings(BaseSettingsModel):
         title="Loader Plugins",
     )
 
-    workfile_builder: WorkfileBuilderSettings = Field(
-        default_factory=WorkfileBuilderSettings,
+    workfile_builder: WorkfileBuilderModel = Field(
+        default_factory=WorkfileBuilderModel,
         title="Workfile Builder",
     )
 
