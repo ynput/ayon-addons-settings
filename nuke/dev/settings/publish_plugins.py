@@ -78,8 +78,6 @@ class ValidateContainersModel(BaseSettingsModel):
 
 class ValidateKnobsModel(BaseSettingsModel):
     enabled: bool = Field(title="Enabled")
-    optional: bool = Field(title="Optional")
-    active: bool = Field(title="Active")
     knobs: str = Field(
         "{}",
         title="Knobs",
@@ -303,8 +301,6 @@ DEFAULT_PUBLISH_PLUGIN_SETTINGS = {
     },
     "ValidateKnobs": {
         "enabled": False,
-        "optional": True,
-        "active": True,
         "knobs": "\n".join([
             '{',
             '    "render": {',
