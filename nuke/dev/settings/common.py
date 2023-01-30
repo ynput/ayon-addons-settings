@@ -10,11 +10,13 @@ class PathsTemplate(BaseSettingsModel):
     darwin: str = Field("", title="MacOS")
     linux: str = Field("", title="Linux")
 
+
 class Vector2d(BaseSettingsModel):
     _layout = "compact"
 
     x: float = Field(1.0, title="X")
     y: float = Field(1.0, title="Y")
+
 
 class Vector3d(BaseSettingsModel):
     _layout = "compact"
@@ -22,6 +24,7 @@ class Vector3d(BaseSettingsModel):
     x: float = Field(1.0, title="X")
     y: float = Field(1.0, title="Y")
     z: float = Field(1.0, title="Z")
+
 
 class VectorColor(BaseSettingsModel):
     _layout = "compact"
