@@ -1,8 +1,6 @@
-from pydantic import validator, Field
+from pydantic import Field
 
-from ayon_server.settings import (
-    BaseSettingsModel
-)
+from ayon_server.settings import BaseSettingsModel
 
 from .imageio import (
     ImageIOSettings,

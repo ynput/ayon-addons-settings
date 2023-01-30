@@ -1,4 +1,5 @@
-from ayon_server.settings import Field, BaseSettingsModel
+from pydantic import Field
+from ayon_server.settings import BaseSettingsModel
 
 
 class LoadClipModel(BaseSettingsModel):

@@ -1,4 +1,5 @@
-from ayon_server.settings import BaseSettingsModel, Field
+from pydantic import Field
+from ayon_server.settings import BaseSettingsModel
 from ayon_server.types import (
     ColorRGBA_float,
     ColorRGB_uint8
