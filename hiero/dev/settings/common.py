@@ -12,6 +12,7 @@ class Vector2d(BaseSettingsModel):
     x: float = Field(1.0, title="X")
     y: float = Field(1.0, title="Y")
 
+
 class Vector3d(BaseSettingsModel):
     _layout = "compact"
 
@@ -64,7 +65,6 @@ class KnobModel(BaseSettingsModel):
         enum_resolver=lambda: knob_types_enum,
         conditionalEnum=True
     )
-
     name: str = Field(
         title="Name",
         placeholder="Name"
@@ -86,7 +86,7 @@ class KnobModel(BaseSettingsModel):
         title="Value"
     )
     color: ColorRGBA_float = Field(
-        (0, 0, 1, 1),
+        (0.0, 0.0, 1.0, 1.0),
         title="RGBA Float"
     )
     formatable: Formatable = Field(

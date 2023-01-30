@@ -28,6 +28,7 @@ class LoaderPuginsModel(BaseSettingsModel):
         title="Load Clip"
     )
 
+
 DEFAULT_LOADER_PLUGINS_SETTINGS = {
     "LoadClip": {
         "enabled": True,
@@ -48,6 +49,6 @@ DEFAULT_LOADER_PLUGINS_SETTINGS = {
             "mov",
             "mp4",
         ],
-        "clip_name_template": "{asset}_{subset}<_{output}>"
+        "clip_name_template": "{asset}_{subset}_{representation}"
     }
 }
