@@ -14,7 +14,6 @@ class ExtractReviewCutUpVideoModel(BaseSettingsModel):
         True,
         title="Enabled"
     )
-
     tags_addition: list[str] = Field(
         default_factory=list,
         title="Additional tags"
@@ -34,6 +33,7 @@ class PublishPuginsModel(BaseSettingsModel):
         default_factory=ExtractReviewCutUpVideoModel,
         title="Exctract Review Trim"
     )
+
 
 DEFAULT_PUBLISH_PLUGIN_SETTINGS = {
     "CollectInstanceVersion": {
