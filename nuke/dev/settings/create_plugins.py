@@ -194,7 +194,7 @@ DEFAULT_CREATE_SETTINGS = {
         "prenodes": []
     },
     "CreateWriteImage": {
-        "temp_rendering_path_template": "{work}/renders/nuke/{subset}/{subset}.{frame}.{ext}",
+        "temp_rendering_path_template": "{work}/renders/nuke/{subset}/{subset}.{ext}",
         "default_variants": [
             "StillFrame",
             "MPFrame",
