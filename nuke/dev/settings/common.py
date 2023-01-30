@@ -108,7 +108,7 @@ class KnobModel(BaseSettingsModel):
         title="RGBA Float"
     )
     formatable: Formatable = Field(
-        default_factory=VectorColor,
+        default_factory=Formatable,
         title="Formatable"
     )
     expression: str = Field(
