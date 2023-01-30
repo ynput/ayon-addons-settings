@@ -64,45 +64,34 @@ class WorkfileBuilderModel(BaseSettingsModel):
         title="Builder profiles")
 
 
-class WorkfileBuilderSettings(BaseSettingsModel):
-    """Nuke templated workfile build project settings. """
-
-    workfile_builder: WorkfileBuilderModel = Field(
-        default_factory=WorkfileBuilderModel,
-        title="Workfile Builder",
-    )
-
-
 DEFAULT_WORKFILE_BUILDER_SETTINGS = {
-    "workfile_builder": {
-        "create_first_version": False,
-        "custom_templates": [],
-        "builder_on_start": False,
-        "profiles": [
-            {
-                "task_types": [],
-                "tasks": [],
-                "current_context": [
-                    {
-                        "subset_name_filters": [],
-                        "families": [
-                            "render",
-                            "plate"
-                        ],
-                        "repre_names": [
-                            "exr",
-                            "dpx",
-                            "mov",
-                            "mp4",
-                            "h264"
-                        ],
-                        "loaders": [
-                            "LoadClip"
-                        ]
-                    }
-                ],
-                "linked_assets": []
-            }
-        ]
-    }
+    "create_first_version": False,
+    "custom_templates": [],
+    "builder_on_start": False,
+    "profiles": [
+        {
+            "task_types": [],
+            "tasks": [],
+            "current_context": [
+                {
+                    "subset_name_filters": [],
+                    "families": [
+                        "render",
+                        "plate"
+                    ],
+                    "repre_names": [
+                        "exr",
+                        "dpx",
+                        "mov",
+                        "mp4",
+                        "h264"
+                    ],
+                    "loaders": [
+                        "LoadClip"
+                    ]
+                }
+            ],
+            "linked_assets": []
+        }
+    ]
 }
