@@ -35,10 +35,6 @@ class WorkfileColorspaceSettings(BaseSettingsModel):
     thumbnail_name = thumbnailLut
     """
 
-    color_management: Literal["Nuke", "OCIO"] = Field(
-        title="Color Management"
-    )
-
     ocioConfigName: str = Field(
         title="OpenColorIO Config",
         description="Switch between OCIO configs",
@@ -110,7 +106,6 @@ class ImageIOSettings(BaseSettingsModel):
 
 DEFAULT_IMAGEIO_SETTINGS = {
     "workfile": {
-        "color_management": "Nuke",
         "ocioConfigName": "nuke-default",
         "ocioconfigpath": {
             "windows": [],
