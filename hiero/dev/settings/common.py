@@ -21,7 +21,11 @@ class Vector3d(BaseSettingsModel):
 
 
 formatable_knob_type_enum = [
-    "Text", "Number", "Decimal number", "2D vector", "3D vector"
+    {"value": "text", "label": "Text"},
+    {"value": "number", "label": "Number"},
+    {"value": "decimal_number", "label": "Decimal number"},
+    {"value": "2d_vector", "label": "2D vector"},
+    # "3D vector"
 ]
 class Formatable(BaseSettingsModel):
     _layout = "compact"
