@@ -32,7 +32,7 @@ DEFAULT_DIRMAP_SETTINGS = {
     "enabled": False,
     "use_env_var_as_root": False,
     "paths": {
-        "source_path": [""],
-        "destination_path": [""]
+        "source_path": [],
+        "destination_path": []
     }
 }
