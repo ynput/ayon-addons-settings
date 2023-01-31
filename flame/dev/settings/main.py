@@ -1,4 +1,4 @@
-from ayon_server.settings import Field, BaseSettingsModel, TemplateWorkfileOptions
+from ayon_server.settings import Field, BaseSettingsModel
 
 from .imageio import ImageIOModel, DEFAULT_IMAGEIO_SETTINGS
 from .create_plugins import CreatePuginsModel, DEFAULT_CREATE_SETTINGS
@@ -23,6 +23,7 @@ class FlameSettings(BaseSettingsModel):
         default_factory=LoaderPluginsModel,
         title="Loader plugins"
     )
+
 
 DEFAULT_VALUES = {
     "imageio": DEFAULT_IMAGEIO_SETTINGS,

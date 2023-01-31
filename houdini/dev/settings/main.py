@@ -1,6 +1,11 @@
 from pydantic import Field, validator
-from ayon_server.settings import BaseSettingsModel, ensure_unique_names
-
+from ayon_server.settings import (
+    BaseSettingsModel,
+    ensure_unique_names,
+    MultiplatformPathModel,
+    MultiplatformPathListModel,
+    ImageIOBaseModel,
+)
 
 from .publish_plugins import (
     PublishPluginsModel,
@@ -10,31 +15,15 @@ from .publish_plugins import (
 )
 
 
-class PathsTemplate(BaseSettingsModel):
-    """# TODO: This should be unified across the addons."""
-
-    windows: str = Field("", title="Windows")
-    darwin: str = Field("", title="MacOS")
-    linux: str = Field("", title="Linux")
-
-
-class MultiplatformStrList(BaseSettingsModel):
-    """# TODO: This should be unified across the addons."""
-
-    windows: list[str] = Field(default_factory=list, title="Windows")
-    linux: list[str] = Field(default_factory=list, title="Linux")
-    darwin: list[str] = Field(default_factory=list, title="MacOS")
-
-
 class ShelfToolsModel(BaseSettingsModel):
     name: str = Field(title="Name")
     help: str = Field(title="Help text")
-    script: PathsTemplate = Field(
-        default_factory=PathsTemplate,
+    script: MultiplatformPathModel = Field(
+        default_factory=MultiplatformPathModel,
         title="Script Path "
     )
-    icon: PathsTemplate = Field(
-        default_factory=PathsTemplate,
+    icon: MultiplatformPathModel = Field(
+        default_factory=MultiplatformPathModel,
         title="Icon Path "
     )
 
@@ -47,12 +36,13 @@ class ShelfDefinitionModel(BaseSettingsModel):
         title="Shelf Tools"
     )
 
+
 class ShelvesModel(BaseSettingsModel):
     _layout = "expanded"
     shelf_set_name: str = Field(title="Shelfs set name")
 
-    shelf_set_source_path: MultiplatformStrList = Field(
-        default_factory=MultiplatformStrList,
+    shelf_set_source_path: MultiplatformPathListModel = Field(
+        default_factory=MultiplatformPathListModel,
         title="Shelf Set Path (optional)"
     )
 
@@ -63,7 +53,10 @@ class ShelvesModel(BaseSettingsModel):
 
 
 class HoudiniSettings(BaseSettingsModel):
-
+    imageio: ImageIOBaseModel = Field(
+        default_factory=ImageIOBaseModel,
+        title="OCIO config"
+    )
     shelves: list[ShelvesModel] = Field(
         default_factory=list,
         title="Houdini Scripts Shelves",
