@@ -1,4 +1,8 @@
-from ayon_server.settings import BaseSettingsModel, Field
+from ayon_server.settings import (
+    Field,
+    BaseSettingsModel,
+    ImageIOBaseModel,
+)
 
 
 class ProjectSetup(BaseSettingsModel):
@@ -9,6 +13,10 @@ class ProjectSetup(BaseSettingsModel):
 
 
 class UnrealSettings(BaseSettingsModel):
+    imageio: ImageIOBaseModel = Field(
+        default_factory=ImageIOBaseModel,
+        title="OCIO config"
+    )
     level_sequences_for_layouts: bool = Field(
         False,
         title="Generate level sequences when loading layouts"
