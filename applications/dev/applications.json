@@ -24,7 +24,8 @@
             "darwin": [],
             "linux": []
           },
-          "environment": "{\n  \"MAYA_VERSION\": \"2023\"\n}"
+          "environment": "{\n  \"MAYA_VERSION\": \"2023\"\n}",
+          "use_python_2": false
         },
         {
           "name": "2022",
@@ -43,7 +44,8 @@
             "darwin": [],
             "linux": []
           },
-          "environment": "{\n  \"MAYA_VERSION\": \"2022\"\n}"
+          "environment": "{\n  \"MAYA_VERSION\": \"2022\"\n}",
+          "use_python_2": false
         },
         {
           "name": "2020",
@@ -63,7 +65,7 @@
             "linux": []
           },
           "environment": "{\n  \"MAYA_VERSION\": \"2020\"\n}",
-          "usePython2": true
+          "use_python_2": true
         },
         {
           "name": "2019",
@@ -83,7 +85,7 @@
             "linux": []
           },
           "environment": "{\n  \"MAYA_VERSION\": \"2019\"\n}",
-          "usePython2": true
+          "use_python_2": true
         },
         {
           "name": "2018",
@@ -103,7 +105,7 @@
             "linux": []
           },
           "environment": "{\n  \"MAYA_VERSION\": \"2018\"\n}",
-          "usePython2": true
+          "use_python_2": true
         }
       ]
     },
@@ -132,7 +134,7 @@
             "linux": []
           },
           "environment": "{\n  \"OPENPYPE_FLAME_PYTHON_EXEC\": \"/opt/Autodesk/python/2021/bin/python2.7\",\n  \"OPENPYPE_FLAME_PYTHONPATH\": \"/opt/Autodesk/flame_2021/python\",\n  \"OPENPYPE_WIRETAP_TOOLS\": \"/opt/Autodesk/wiretap/tools/2021\"\n}",
-          "usePython2": true
+          "use_python_2": true
         },
         {
           "name": "2021_1",
@@ -152,7 +154,7 @@
             "linux": []
           },
           "environment": "{\n  \"OPENPYPE_FLAME_PYTHON_EXEC\": \"/opt/Autodesk/python/2021.1/bin/python2.7\",\n  \"OPENPYPE_FLAME_PYTHONPATH\": \"/opt/Autodesk/flame_2021.1/python\",\n  \"OPENPYPE_WIRETAP_TOOLS\": \"/opt/Autodesk/wiretap/tools/2021.1\"\n}",
-          "usePython2": true
+          "use_python_2": true
         }
       ]
     },
@@ -180,7 +182,8 @@
             "darwin": [],
             "linux": []
           },
-          "environment": "{}"
+          "environment": "{}",
+          "use_python_2": false
         },
         {
           "name": "12-2",
@@ -200,7 +203,7 @@
             "linux": []
           },
           "environment": "{}",
-          "usePython2": true
+          "use_python_2": true
         },
         {
           "name": "12-0",
@@ -220,7 +223,7 @@
             "linux": []
           },
           "environment": "{}",
-          "usePython2": true
+          "use_python_2": true
         },
         {
           "name": "11-3",
@@ -240,7 +243,7 @@
             "linux": []
           },
           "environment": "{}",
-          "usePython2": true
+          "use_python_2": true
         },
         {
           "name": "11-2",
@@ -258,7 +261,7 @@
             "linux": []
           },
           "environment": "{}",
-          "usePython2": true
+          "use_python_2": true
         }
       ]
     },
@@ -286,7 +289,8 @@
             "darwin": ["--nukex"],
             "linux": ["--nukex"]
           },
-          "environment": "{}"
+          "environment": "{}",
+          "use_python_2": false
         },
         {
           "name": "12-2",
@@ -306,7 +310,7 @@
             "linux": ["--nukex"]
           },
           "environment": "{}",
-          "usePython2": true
+          "use_python_2": true
         },
         {
           "name": "12-0",
@@ -326,7 +330,7 @@
             "linux": ["--nukex"]
           },
           "environment": "{}",
-          "usePython2": true
+          "use_python_2": true
         },
         {
           "name": "11-3",
@@ -352,7 +356,7 @@
             ]
           },
           "environment": "{}",
-          "usePython2": true
+          "use_python_2": true
         },
         {
           "name": "11-2",
@@ -376,7 +380,7 @@
             ]
           },
           "environment": "{}",
-          "usePython2": true
+          "use_python_2": true
         }
       ]
     },
@@ -404,7 +408,8 @@
             "darwin": ["--studio"],
             "linux": ["--studio"]
           },
-          "environment": "{}"
+          "environment": "{}",
+          "use_python_2": false
         },
         {
           "name": "12-2",
@@ -424,7 +429,7 @@
             "linux": ["--studio"]
           },
           "environment": "{}",
-          "usePython2": true
+          "use_python_2": true
         },
         {
           "name": "12-0",
@@ -444,7 +449,7 @@
             "linux": ["--studio"]
           },
           "environment": "{}",
-          "usePython2": true
+          "use_python_2": true
         },
         {
           "name": "11-3",
@@ -464,7 +469,7 @@
             "linux": ["--studio"]
           },
           "environment": "{}",
-          "usePython2": true
+          "use_python_2": true
         },
         {
           "name": "11-2",
@@ -480,7 +485,7 @@
             "linux": ["--studio"]
           },
           "environment": "{}",
-          "usePython2": true
+          "use_python_2": true
         }
       ]
     },
@@ -508,7 +513,8 @@
             "darwin": ["--hiero"],
             "linux": ["--hiero"]
           },
-          "environment": "{}"
+          "environment": "{}",
+          "use_python_2": false
         },
         {
           "name": "12-2",
@@ -528,7 +534,7 @@
             "linux": ["--hiero"]
           },
           "environment": "{}",
-          "usePython2": true
+          "use_python_2": true
         },
         {
           "name": "12-0",
@@ -548,7 +554,7 @@
             "linux": ["--hiero"]
           },
           "environment": "{}",
-          "usePython2": true
+          "use_python_2": true
         },
         {
           "name": "11-3",
@@ -568,7 +574,7 @@
             "linux": ["--hiero"]
           },
           "environment": "{}",
-          "usePython2": true
+          "use_python_2": true
         },
         {
           "name": "11-2",
@@ -586,7 +592,7 @@
             "linux": ["--hiero"]
           },
           "environment": "{}",
-          "usePython2": true
+          "use_python_2": true
         }
       ]
     },
@@ -699,7 +705,7 @@
             "linux": []
           },
           "environment": "{}",
-          "usePython2": true
+          "use_python_2": true
         },
         {
           "name": "18",
@@ -715,7 +721,7 @@
             "linux": []
           },
           "environment": "{}",
-          "usePython2": true
+          "use_python_2": true
         },
         {
           "name": "17",
@@ -731,7 +737,7 @@
             "linux": []
           },
           "environment": "{}",
-          "usePython2": true
+          "use_python_2": true
         }
       ]
     },
