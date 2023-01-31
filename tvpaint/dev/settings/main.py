@@ -1,6 +1,7 @@
 from pydantic import Field, validator
 from ayon_server.settings import (
     BaseSettingsModel,
+    ImageIOBaseModel,
     ensure_unique_names,
 )
 
@@ -30,12 +31,20 @@ class PublishGUIFiltersModel(BaseSettingsModel):
 
 
 class TvpaintSettings(BaseSettingsModel):
+    imageio: ImageIOBaseModel = Field(
+        default_factory=ImageIOBaseModel,
+        title="OCIO config"
+    )
     stop_timer_on_application_exit: bool = Field(
         False,
         title="Stop timer on application exit")
 
-    publish: PublishPluginsModel = Field(default_factory=PublishPluginsModel, title="Publish plugins")
-    load: LoadPluginsModel = Field(default_factory=LoadPluginsModel, title="Load plugins")
+    publish: PublishPluginsModel = Field(
+        default_factory=PublishPluginsModel,
+        title="Publish plugins")
+    load: LoadPluginsModel = Field(
+        default_factory=LoadPluginsModel,
+        title="Load plugins")
     workfile_builder: WorkfileBuilderPlugin = Field(
         default_factory=WorkfileBuilderPlugin,
         title="Workfile Builder"
