@@ -3,6 +3,7 @@ from ayon_server.settings import (
     BaseSettingsModel,
     ensure_unique_names,
     task_types_enum,
+    ImageIOBaseModel,
 )
 
 
@@ -16,8 +17,8 @@ class TimeoutProfiles(BaseSettingsModel):
         enum_resolver=task_types_enum
     )
     timeout: int = Field(600, title="Timeout (sec)")
-    
-    
+
+
 class TaskTypeToFamilyItemModel(BaseSettingsModel):
     _layout = "expanded"
     is_sequence: bool = Field(False, title="Is sequence")
@@ -33,7 +34,7 @@ class TaskTypeToFamilyModel(BaseSettingsModel):
     value: list[TaskTypeToFamilyItemModel] = Field(
         default_factory=list
     )
-  
+
 
 class CollectPublishedFilesModel(BaseSettingsModel):
     """Select if all versions of published items should be kept same. (As max(published) + 1.). \n
@@ -67,7 +68,7 @@ Extracted pass: **"Hand"**
 
 class PublishPluginsModel(BaseSettingsModel):
     CollectPublishedFiles: CollectPublishedFilesModel = Field(
-        default_factory=CollectPublishedFilesModel, 
+        default_factory=CollectPublishedFilesModel,
         title="Collect published files",
         description="")
     CollectTVPaintInstances: CollectTVPaintInstancesModel = Field(
@@ -77,10 +78,17 @@ class PublishPluginsModel(BaseSettingsModel):
 
 
 class WebpublisherSettings(BaseSettingsModel):
+    imageio: ImageIOBaseModel = Field(
+        default_factory=ImageIOBaseModel,
+        title="OCIO config"
+    )
     timeout_profiles: list[TimeoutProfiles] = Field(
-        default_factory=list, 
+        default_factory=list,
         title="Timeout profiles")
-    publish: PublishPluginsModel = Field(default_factory=PublishPluginsModel, title="Publish plugins")
+    publish: PublishPluginsModel = Field(
+        default_factory=PublishPluginsModel,
+        title="Publish plugins"
+    )
 
 
 DEFAULT_VALUES = {
