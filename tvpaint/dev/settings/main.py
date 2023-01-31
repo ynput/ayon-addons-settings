@@ -67,7 +67,7 @@ DEFAULT_VALUES = {
             "render_layer": "Main"
         },
         "ExtractSequence": {
-            "review_bg": "#ffffff", #TODO: this used to have alpha
+            "review_bg": [255, 255, 255, 1.0],
             "families_to_review": [
                 "review",
                 "renderlayer",
