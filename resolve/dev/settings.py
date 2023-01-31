@@ -1,4 +1,4 @@
-from ayon_server.settings import BaseSettingsModel, Field
+from ayon_server.settings import BaseSettingsModel, Field, ImageIOBaseModel
 
 
 class CreateShotClipModels(BaseSettingsModel):
@@ -75,10 +75,15 @@ class CreatorPuginsModel(BaseSettingsModel):
 
 
 class ResolveSettings(BaseSettingsModel):
+    imageio: ImageIOBaseModel = Field(
+        default_factory=ImageIOBaseModel,
+        title="OCIO config"
+    )
     create: CreatorPuginsModel = Field(
         default_factory=CreatorPuginsModel,
         title="Creator plugins",
     )
+
 
 DEFAULT_VALUES = {
     "create": {
