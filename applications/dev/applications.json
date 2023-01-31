@@ -4,7 +4,7 @@
       "enabled": true,
       "label": "Maya",
       "icon": "{}/app_icons/maya.png",
-      "hostName": "maya",
+      "host_name": "maya",
       "enviroment": "{}",
       "variants": [
         {
@@ -111,7 +111,7 @@
       "enabled": true,
       "label": "Flame",
       "icon": "{}/app_icons/flame.png",
-      "hostName": "flame",
+      "host_name": "flame",
       "enviroment": "{}",
       "variants": [
         {
@@ -160,7 +160,7 @@
       "enabled": true,
       "label": "Nuke",
       "icon": "{}/app_icons/nuke.png",
-      "hostName": "nuke",
+      "host_name": "nuke",
       "enviroment": "{}",
       "variants": [
         {
@@ -266,7 +266,7 @@
       "enabled": true,
       "label": "Nuke X",
       "icon": "{}/app_icons/nuke.png",
-      "hostName": "nuke",
+      "host_name": "nuke",
       "enviroment": "{}",
       "variants": [
         {
@@ -384,7 +384,7 @@
       "enabled": true,
       "label": "Nuke Studio",
       "icon": "{}/app_icons/nuke.png",
-      "hostName": "hiero",
+      "host_name": "hiero",
       "enviroment": "{}",
       "variants": [
         {
@@ -488,7 +488,7 @@
       "enabled": true,
       "label": "Hiero",
       "icon": "{}/app_icons/hiero.png",
-      "hostName": "hiero",
+      "host_name": "hiero",
       "enviroment": "{}",
       "variants": [
         {
@@ -594,7 +594,7 @@
       "enabled": true,
       "label": "Fusion",
       "icon": "{}/app_icons/fusion.png",
-      "hostName": "fusion",
+      "host_name": "fusion",
       "enviroment": "{}",
       "variants": [
         {
@@ -654,7 +654,7 @@
       "enabled": true,
       "label": "Resolve",
       "icon": "{}/app_icons/resolve.png",
-      "hostName": "resolve",
+      "host_name": "resolve",
       "enviroment": "{}",
       "variants": [
         {
@@ -680,7 +680,7 @@
       "enabled": true,
       "label": "Houdini",
       "icon": "{}/app_icons/houdini.png",
-      "hostName": "houdini",
+      "host_name": "houdini",
       "enviroment": "{}",
       "variants": [
         {
@@ -739,7 +739,7 @@
       "enabled": true,
       "label": "Blender",
       "icon": "{}/app_icons/blender.png",
-      "hostName": "blender",
+      "host_name": "blender",
       "enviroment": "{}",
       "variants": [
         {
@@ -817,7 +817,7 @@
       "enabled": true,
       "label": "Harmony",
       "icon": "{}/app_icons/harmony.png",
-      "hostName": "harmony",
+      "host_name": "harmony",
       "enviroment": "{}",
       "variants": [
         {
@@ -883,7 +883,7 @@
       "enabled": true,
       "label": "TVPaint",
       "icon": "{}/app_icons/tvpaint.png",
-      "hostName": "tvpaint",
+      "host_name": "tvpaint",
       "enviroment": "{}",
       "variants": [
         {
@@ -926,7 +926,7 @@
       "enabled": true,
       "label": "Photoshop",
       "icon": "{}/app_icons/photoshop.png",
-      "hostName": "photoshop",
+      "host_name": "photoshop",
       "enviroment": "{}",
       "variants": [
         {
@@ -986,16 +986,14 @@
       "enabled": true,
       "label": "AfterEffects",
       "icon": "{}/app_icons/aftereffects.png",
-      "hostName": "aftereffects",
+      "host_name": "aftereffects",
       "enviroment": "{}",
       "variants": [
         {
           "name": "2020",
           "label": "2020",
           "executables": {
-            "windows": [
-              ""
-            ],
+            "windows": [],
             "darwin": [],
             "linux": []
           },
@@ -1046,7 +1044,7 @@
       "enabled": true,
       "label": "CelAction 2D",
       "icon": "app_icons/celaction.png",
-      "hostName": "celaction",
+      "host_name": "celaction",
       "enviroment": "{}",
       "variants": [
         {
@@ -1070,7 +1068,7 @@
       "enabled": true,
       "label": "Unreal Editor",
       "icon": "{}/app_icons/ue4.png",
-      "hostName": "unreal",
+      "host_name": "unreal",
       "enviroment": "{}",
       "variants": [
         {
@@ -1086,7 +1084,7 @@
       "enabled": true,
       "label": "DJV View",
       "icon": "{}/app_icons/djvView.png",
-      "hostName": "",
+      "host_name": "",
       "enviroment": "{}",
       "variants": [
         {
