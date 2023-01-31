@@ -50,7 +50,7 @@ class AppVariantWithPython(AppVariant):
 class AppGroup(BaseSettingsModel):
     enabled: bool = Field(True)
     label: str = Field("", title="Label")
-    host_hame: str = Field("", title="Host name")
+    host_name: str = Field("", title="Host name")
     icon: str = Field("", title="Icon")
     environment: str = Field("{}", title="Environment", widget="textarea")
 
@@ -80,7 +80,7 @@ class AdditionalAppGroup(BaseSettingsModel):
     enabled: bool = Field(True)
     name: str = Field("", title="Name")
     label: str = Field("", title="Label")
-    host_hame: str = Field("", title="Host name")
+    host_name: str = Field("", title="Host name")
     icon: str = Field("", title="Icon")
     environment: str = Field("{}", title="Environment", widget="textarea")
 
