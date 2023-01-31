@@ -1,9 +1,22 @@
-from ayon_server.settings import Field, BaseSettingsModel
+from pydantic import Field
+from ayon_server.settings import (
+    BaseSettingsModel,
+    ImageIOConfigModel,
+    ImageIOFileRulesModel,
+)
 
 
 class ProfileNamesMappingInputsModel(BaseSettingsModel):
     _layout = "expanded"
 
+    ocio_config: ImageIOConfigModel = Field(
+        default_factory=ImageIOConfigModel,
+        title="OCIO config"
+    )
+    file_rules: ImageIOFileRulesModel = Field(
+        default_factory=ImageIOFileRulesModel,
+        title="File Rules"
+    )
     flameName: str = Field("", title="Flame name")
     ocioName: str = Field("", title="OCIO name")
 
