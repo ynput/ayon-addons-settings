@@ -315,6 +315,66 @@ class RedshiftSettingsModel(BaseSettingsModel):
         description=("Add additional options - put attribute and value, like reflectionMaxTraceDepth"))
 
 
+def renderman_display_filters():
+    return [
+        "PxrBackgroundDisplayFilter",
+        "PxrCopyAOVDisplayFilter",
+        "PxrEdgeDetect",
+        "PxrFilmicTonemapperDisplayFilter",
+        "PxrGradeDisplayFilter",
+        "PxrHalfBufferErrorFilter",
+        "PxrImageDisplayFilter",
+        "PxrLightSaturation",
+        "PxrShadowDisplayFilter",
+        "PxrStylizedHatching",
+        "PxrStylizedLines",
+        "PxrStylizedToon",
+        "PxrWhitePointDisplayFilter"
+    ]
+
+
+def renderman_sample_filters_enum():
+    return [
+        "PxrBackgroundSampleFilter",
+        "PxrCopyAOVSampleFilter",
+        "PxrCryptomatte",
+        "PxrFilmicTonemapperSampleFilter",
+        "PxrGradeSampleFilter",
+        "PxrShadowFilter",
+        "PxrWatermarkFilter",
+        "PxrWhitePointSampleFilter"
+    ]
+
+
+class RendermanAdditionalOptions(BaseSettingsModel):
+    """Add additional options - put attribute and value, like <code>Ci</code>"""
+
+    name: str = Field("", title="Attribute")
+    value: str = Field("", title="Value")
+
+
+class RendermanSettingsModel(BaseSettingsModel):
+    image_prefix: str = Field("", title="Image prefix template")
+    image_dir: str = Field("", title="Image Output Directory")
+    display_filters: list[str] = Field(
+        default_factory=list,
+        title="Display Filters",
+        enum=renderman_display_filters
+    )
+    imageDisplay_dir: str = Field("", title="Image Display Filter Directory")
+    sample_filters: list[str] = Field(
+        default_factory=list,
+        title="Sample Filters",
+        enum=renderman_sample_filters_enum
+    )
+    cryptomatte_dir: str = Field("", title="Cryptomatte Output Directory")
+    watermark_dir: str = Field("", title="Watermark Filter Directory")
+    additional_options: list[RendermanAdditionalOptions] = Field(
+        default_factory=list,
+        title="Additional Renderer Options"
+    )
+
+
 class RenderSettingsModel(BaseSettingsModel):
     apply_render_settings: bool = Field(title="Apply Render Settings on creation")
     default_render_image_folder: str = Field(title="Default render image folder")
@@ -326,9 +386,14 @@ class RenderSettingsModel(BaseSettingsModel):
     )
     reset_current_frame: bool = Field(title="Reset Current Frame")
     remove_aovs: bool = Field(title="Remove existing AOVs")
-    arnold_renderer: ArnoldSettingsModel = Field(default_factory=ArnoldSettingsModel, title="Arnold Renderer")
-    vray_renderer: VraySettingsModel = Field(default_factory=VraySettingsModel, title="Vray Renderer")
-    redshift_renderer: RedshiftSettingsModel = Field(default_factory=RedshiftSettingsModel, title="Redshift Renderer")
+    arnold_renderer: ArnoldSettingsModel = Field(
+        default_factory=ArnoldSettingsModel, title="Arnold Renderer")
+    vray_renderer: VraySettingsModel = Field(
+        default_factory=VraySettingsModel, title="Vray Renderer")
+    redshift_renderer: RedshiftSettingsModel = Field(
+        default_factory=RedshiftSettingsModel, title="Redshift Renderer")
+    renderman_renderer: RendermanSettingsModel = Field(
+        default_factory=RendermanSettingsModel, title="Renderman Renderer")
 
 
 DEFAULT_RENDER_SETTINGS = {
@@ -361,6 +426,16 @@ DEFAULT_RENDER_SETTINGS = {
         "multilayer_exr": True,
         "force_combine": True,
         "aov_list": [],
+        "additional_options": []
+    },
+    "renderman_renderer": {
+        "image_prefix": "<layer>{aov_separator}<aov>.<f4>.<ext>",
+        "image_dir": "<scene>/<layer>",
+        "display_filters": [],
+        "imageDisplay_dir": "<imagedir>/<layer>{aov_separator}imageDisplayFilter.<f4>.<ext>",
+        "sample_filters": [],
+        "cryptomatte_dir": "<imagedir>/<layer>{aov_separator}cryptomatte.<f4>.<ext>",
+        "watermark_dir": "<imagedir>/<layer>{aov_separator}watermarkFilter.<f4>.<ext>",
         "additional_options": []
     }
 }
