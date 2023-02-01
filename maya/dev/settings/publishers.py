@@ -187,38 +187,20 @@ class ValidateCycleErrorModel(BaseSettingsModel):
 
 
 # Validate Render Setting
-class ArnoldRenderSubMol(BaseSettingsModel):
-    _layout = "compact"
-    type: str = Field(title="Type")
-    value: str = Field(title="Value")
-
-
-class VRayRenderSubMol(BaseSettingsModel):
-    _layout = "compact"
-    type: str = Field(title="Type")
-    value: str = Field(title="Value")
-
-
-class RedshiftRenderSubMol(BaseSettingsModel):
-    _layout = "compact"
-    type: str = Field(title="Type")
-    value: str = Field(title="Value")
-
-
-class RendermanRenderSubMol(BaseSettingsModel):
+class RendererAttributesModel(BaseSettingsModel):
     _layout = "compact"
     type: str = Field(title="Type")
     value: str = Field(title="Value")
 
 
 class ValidateRenderSettingsModel(BaseSettingsModel):
-    arnold_render_attributes: list[ArnoldRenderSubMol] = Field(
+    arnold_render_attributes: list[RendererAttributesModel] = Field(
         default_factory=list, title="Arnold Render Attributes")
-    vray_render_attributes: list[VRayRenderSubMol] = Field(
+    vray_render_attributes: list[RendererAttributesModel] = Field(
         default_factory=list, title="VRay Render Attributes")
-    redshift_render_attributes: list[RedshiftRenderSubMol] = Field(
+    redshift_render_attributes: list[RendererAttributesModel] = Field(
         default_factory=list, title="Redshift Render Attributes")
-    renderman_render_attributes: list[RendermanRenderSubMol] = Field(
+    renderman_render_attributes: list[RendererAttributesModel] = Field(
         default_factory=list, title="Renderman Render Attributes")
 
 

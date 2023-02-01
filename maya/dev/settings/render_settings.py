@@ -346,13 +346,6 @@ def renderman_sample_filters_enum():
     ]
 
 
-class RendermanAdditionalOptions(BaseSettingsModel):
-    """Add additional options - put attribute and value, like <code>Ci</code>"""
-
-    name: str = Field("", title="Attribute")
-    value: str = Field("", title="Value")
-
-
 class RendermanSettingsModel(BaseSettingsModel):
     image_prefix: str = Field("", title="Image prefix template")
     image_dir: str = Field("", title="Image Output Directory")
@@ -369,7 +362,7 @@ class RendermanSettingsModel(BaseSettingsModel):
     )
     cryptomatte_dir: str = Field("", title="Cryptomatte Output Directory")
     watermark_dir: str = Field("", title="Watermark Filter Directory")
-    additional_options: list[RendermanAdditionalOptions] = Field(
+    additional_options: list[AdditionalOptionsModel] = Field(
         default_factory=list,
         title="Additional Renderer Options"
     )
