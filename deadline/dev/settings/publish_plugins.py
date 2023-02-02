@@ -1,6 +1,10 @@
 from pydantic import Field, validator
 
-from ayon_server.settings import BaseSettingsModel, ensure_unique_names
+from ayon_server.settings import (
+    BaseSettingsModel,
+    ensure_unique_names,
+    task_types_enum
+)
 
 
 class CollectDefaultDeadlineServerModel(BaseSettingsModel):
@@ -54,6 +58,17 @@ class ScenePatchesSubmodel(BaseSettingsModel):
     line: str = Field(title="Patch line")
 
 
+class DisableStrictCheckProfileSubmodel(BaseSettingsModel):
+    """Profile to disable Strict Error Checking"""
+    task_types: list[str] = Field(
+        default_factory=list,
+        title="Task types",
+        enum_resolver=task_types_enum
+    )
+    task_names: list[str] = Field(default_factory=list, title="Task names")
+    subset_names: list[str] = Field(default_factory=list, title="Subset names")
+
+
 class MayaSubmitDeadlineModel(BaseSettingsModel):
     """Maya deadline submitter settings."""
 
@@ -86,6 +101,11 @@ class MayaSubmitDeadlineModel(BaseSettingsModel):
         default_factory=list,
         title="Scene patches",
     )
+    disable_strict_check_profiles: list[DisableStrictCheckProfileSubmodel] = \
+        Field(
+            default_factory=list,
+            title="Disable Strict Error Check profiles"
+        )
 
     @validator("limit", "scene_patches")
     def validate_unique_names(cls, value):
