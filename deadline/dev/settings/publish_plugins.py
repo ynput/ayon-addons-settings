@@ -101,11 +101,10 @@ class MayaSubmitDeadlineModel(BaseSettingsModel):
         default_factory=list,
         title="Scene patches",
     )
-    disable_strict_check_profiles: list[DisableStrictCheckProfileSubmodel] = \
-        Field(
-            default_factory=list,
-            title="Disable Strict Error Check profiles"
-        )
+    strict_error_checking: bool = Field(
+        False,
+        title="Disable Strict Error Check profiles"
+    )
 
     @validator("limit", "scene_patches")
     def validate_unique_names(cls, value):
