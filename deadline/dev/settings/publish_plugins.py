@@ -1,10 +1,7 @@
 from pydantic import Field, validator
 
-from ayon_server.settings import (
-    BaseSettingsModel,
-    ensure_unique_names,
-    task_types_enum
-)
+from ayon_server.settings import BaseSettingsModel, ensure_unique_names
+
 
 
 class CollectDefaultDeadlineServerModel(BaseSettingsModel):
