@@ -36,7 +36,6 @@ class PublishGUIFiltersModel(BaseSettingsModel):
 
 class MayaSettings(BaseSettingsModel):
     """Maya Project Settings."""
-    _layout = "expanded"
 
     imageio: ImageIOSettings = Field(
         default_factory=ImageIOSettings, title="Color Management (imageio)")
