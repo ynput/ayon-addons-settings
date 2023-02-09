@@ -1,7 +1,8 @@
+from pydantic import Field, validator
 from ayon_server.settings import (
-    Field,
     BaseSettingsModel,
-    TemplateWorkfileBaseOptions
+    TemplateWorkfileBaseOptions,
+    ImageIOBaseModel,
 )
 
 from .publish_plugins import (
@@ -11,6 +12,10 @@ from .publish_plugins import (
 
 
 class BlenderSettings(BaseSettingsModel):
+    imageio: ImageIOBaseModel = Field(
+        default_factory=ImageIOBaseModel,
+        title="OCIO config"
+    )
     workfile_builder: TemplateWorkfileBaseOptions = Field(
         default_factory=TemplateWorkfileBaseOptions,
         title="Workfile Builder"
@@ -20,6 +25,7 @@ class BlenderSettings(BaseSettingsModel):
         default_factory=PublishPuginsModel,
         title="Publish Plugins"
     )
+
 
 DEFAULT_VALUES = {
     "publish": DEFAULT_BLENDER_PUBLISH_SETTINGS,

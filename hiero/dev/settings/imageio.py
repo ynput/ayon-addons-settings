@@ -1,5 +1,10 @@
 from pydantic import Field
-from ayon_server.settings import BaseSettingsModel, MultiplatformPathListModel
+from ayon_server.settings import (
+    BaseSettingsModel,
+    MultiplatformPathListModel,
+    ImageIOConfigModel,
+    ImageIOFileRulesModel,
+)
 
 
 ocio_configs_switcher_enum = [
@@ -88,6 +93,14 @@ class ImageIOSettings(BaseSettingsModel):
     """Hiero color management project settings. """
     _isGroup: bool = True
 
+    ocio_config: ImageIOConfigModel = Field(
+        default_factory=ImageIOConfigModel,
+        title="OCIO config"
+    )
+    file_rules: ImageIOFileRulesModel = Field(
+        default_factory=ImageIOFileRulesModel,
+        title="File Rules"
+    )
     workfile: WorkfileColorspaceSettings = Field(
         default_factory=WorkfileColorspaceSettings,
         title="Workfile"

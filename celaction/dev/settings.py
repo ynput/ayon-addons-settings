@@ -1,4 +1,4 @@
-from ayon_server.settings import BaseSettingsModel, Field
+from ayon_server.settings import BaseSettingsModel, Field, ImageIOBaseModel
 
 
 class CollectRenderPathModel(BaseSettingsModel):
@@ -24,6 +24,10 @@ class PublishPuginsModel(BaseSettingsModel):
 
 
 class CelActionSettings(BaseSettingsModel):
+    imageio: ImageIOBaseModel = Field(
+        default_factory=ImageIOBaseModel,
+        title="OCIO config"
+    )
     publish: PublishPuginsModel = Field(
         default_factory=PublishPuginsModel,
         title="Publish plugins",
