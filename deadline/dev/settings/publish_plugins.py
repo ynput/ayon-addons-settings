@@ -3,6 +3,7 @@ from pydantic import Field, validator
 from ayon_server.settings import BaseSettingsModel, ensure_unique_names
 
 
+
 class CollectDefaultDeadlineServerModel(BaseSettingsModel):
     """Settings for event handlers running in ftrack service."""
 
@@ -85,6 +86,10 @@ class MayaSubmitDeadlineModel(BaseSettingsModel):
     scene_patches: list[ScenePatchesSubmodel] = Field(
         default_factory=list,
         title="Scene patches",
+    )
+    strict_error_checking: bool = Field(
+        False,
+        title="Disable Strict Error Check profiles"
     )
 
     @validator("limit", "scene_patches")
