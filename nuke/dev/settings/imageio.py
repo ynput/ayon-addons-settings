@@ -4,6 +4,8 @@ from ayon_server.settings import (
     BaseSettingsModel,
     ensure_unique_names,
     MultiplatformPathListModel,
+    ImageIOConfigModel,
+    ImageIOFileRulesModel,
 )
 
 from .common import KnobModel
@@ -147,6 +149,14 @@ class ImageIOSettings(BaseSettingsModel):
     now: nuke/imageio/viewer/viewerProcess
     future: nuke/imageio/viewer
     """
+    ocio_config: ImageIOConfigModel = Field(
+        default_factory=ImageIOConfigModel,
+        title="OCIO config"
+    )
+    file_rules: ImageIOFileRulesModel = Field(
+        default_factory=ImageIOFileRulesModel,
+        title="File Rules"
+    )
     viewer: ViewProcessModel = Field(
         default_factory=ViewProcessModel,
         title="Viewer",

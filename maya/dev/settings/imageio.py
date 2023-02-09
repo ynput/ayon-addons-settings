@@ -4,7 +4,12 @@ Note: Names were changed to get rid of the versions in class names.
 """
 from pydantic import Field
 
-from ayon_server.settings import BaseSettingsModel, MultiplatformPathListModel
+from ayon_server.settings import (
+    BaseSettingsModel,
+    MultiplatformPathListModel,
+    ImageIOConfigModel,
+    ImageIOFileRulesModel,
+)
 
 
 class ColorManagementPreferenceV2Model(BaseSettingsModel):
@@ -41,6 +46,14 @@ class ImageIOSettings(BaseSettingsModel):
 
     _isGroup: bool = True
 
+    ocio_config: ImageIOConfigModel = Field(
+        default_factory=ImageIOConfigModel,
+        title="OCIO config"
+    )
+    file_rules: ImageIOFileRulesModel = Field(
+        default_factory=ImageIOFileRulesModel,
+        title="File Rules"
+    )
     colorManagementPreference_v2: ColorManagementPreferenceV2Model = Field(
         default_factory=ColorManagementPreferenceV2Model,
         title="Color Management Preference v2 (Maya 2022+)"
@@ -52,24 +65,24 @@ class ImageIOSettings(BaseSettingsModel):
 
 
 DEFAULT_IMAGEIO_SETTINGS = {
-        "colorManagementPreference_v2": {
-            "enabled": True,
-            "configFilePath": {
-                "windows": [],
-                "darwin": [],
-                "linux": []
-            },
-            "renderSpace": "ACEScg",
-            "displayName": "sRGB",
-            "viewName": "ACES 1.0 SDR-video"
+    "colorManagementPreference_v2": {
+        "enabled": True,
+        "configFilePath": {
+            "windows": [],
+            "darwin": [],
+            "linux": []
         },
-        "colorManagementPreference": {
-            "configFilePath": {
-                "windows": [],
-                "darwin": [],
-                "linux": []
-            },
-            "renderSpace": "scene-linear Rec 709/sRGB",
-            "viewTransform": "sRGB gamma"
-        }
+        "renderSpace": "ACEScg",
+        "displayName": "sRGB",
+        "viewName": "ACES 1.0 SDR-video"
+    },
+    "colorManagementPreference": {
+        "configFilePath": {
+            "windows": [],
+            "darwin": [],
+            "linux": []
+        },
+        "renderSpace": "scene-linear Rec 709/sRGB",
+        "viewTransform": "sRGB gamma"
     }
+}
