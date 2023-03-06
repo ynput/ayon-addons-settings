@@ -352,13 +352,13 @@ class RendermanSettingsModel(BaseSettingsModel):
     display_filters: list[str] = Field(
         default_factory=list,
         title="Display Filters",
-        enum=renderman_display_filters
+        enum_resolver=renderman_display_filters
     )
     imageDisplay_dir: str = Field("", title="Image Display Filter Directory")
     sample_filters: list[str] = Field(
         default_factory=list,
         title="Sample Filters",
-        enum=renderman_sample_filters_enum
+        enum_resolver=renderman_sample_filters_enum
     )
     cryptomatte_dir: str = Field("", title="Cryptomatte Output Directory")
     watermark_dir: str = Field("", title="Watermark Filter Directory")
