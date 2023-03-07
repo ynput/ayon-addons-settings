@@ -1,6 +1,6 @@
 import json
 from pydantic import Field, validator
-from ayon_server.settings import BaseSettingsModel
+from ayon_server.settings import BaseSettingsModel, ImageIOFileRulesModel
 from ayon_server.exceptions import BadRequestException
 
 from .publish_plugins import PublishPuginsModel, DEFAULT_PUBLISH_VALUES
@@ -13,6 +13,19 @@ class MultiplatformStrList(BaseSettingsModel):
     darwin: list[str] = Field(default_factory=list, title="MacOS")
 
 
+class CoreImageIOConfigModel(BaseSettingsModel):
+    filepath: list[str] = Field(default_factory=list, title="Config path")
+
+
+class CoreImageIOBaseModel(BaseSettingsModel):
+    ocio_config: CoreImageIOConfigModel = Field(
+        default_factory=CoreImageIOConfigModel, title="OCIO config"
+    )
+    file_rules: ImageIOFileRulesModel = Field(
+        default_factory=ImageIOFileRulesModel, title="File Rules"
+    )
+
+
 class CoreSettings(BaseSettingsModel):
     studio_name: str = Field("", title="Studio name")
     studio_code: str = Field("", title="Studio code")
@@ -20,6 +33,10 @@ class CoreSettings(BaseSettingsModel):
     tools: GlobalToolsModel = Field(
         default_factory=GlobalToolsModel,
         title="Tools"
+    )
+    imageio: CoreImageIOBaseModel = Field(
+        default_factory=CoreImageIOBaseModel,
+        title="OCIO config"
     )
     publish: PublishPuginsModel = Field(
         default_factory=PublishPuginsModel,
@@ -63,6 +80,25 @@ class CoreSettings(BaseSettingsModel):
 
 
 DEFAULT_VALUES = {
+    "imageio": {
+        "ocio_config": {
+            "filepath": [
+                "{OPENPYPE_ROOT}/vendor/bin/ocioconfig/OpenColorIOConfigs/aces_1.2/config.ocio",
+                "{OPENPYPE_ROOT}/vendor/bin/ocioconfig/OpenColorIOConfigs/nuke-default/config.ocio"
+            ]
+        },
+        "file_rules": {
+            "enabled": False,
+            "rules": [
+                {
+                    "name": "example",
+                    "pattern": ".*(beauty).*",
+                    "colorspace": "ACES - ACEScg",
+                    "ext": "exr"
+                }
+            ]
+        }
+    },
     "studio_name": "",
     "studio_code": "",
     "environments": "{}",
