@@ -26,7 +26,7 @@ class PublishPuginsModel(BaseSettingsModel):
 class CelActionSettings(BaseSettingsModel):
     imageio: ImageIOBaseModel = Field(
         default_factory=ImageIOBaseModel,
-        title="OCIO config"
+        title="Color Management (ImageIO)"
     )
     publish: PublishPuginsModel = Field(
         default_factory=PublishPuginsModel,

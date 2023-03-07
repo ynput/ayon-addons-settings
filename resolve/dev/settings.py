@@ -77,7 +77,7 @@ class CreatorPuginsModel(BaseSettingsModel):
 class ResolveSettings(BaseSettingsModel):
     imageio: ImageIOBaseModel = Field(
         default_factory=ImageIOBaseModel,
-        title="OCIO config"
+        title="Color Management (ImageIO)"
     )
     create: CreatorPuginsModel = Field(
         default_factory=CreatorPuginsModel,

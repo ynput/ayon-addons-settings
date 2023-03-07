@@ -33,7 +33,7 @@ class PublishGUIFiltersModel(BaseSettingsModel):
 class TvpaintSettings(BaseSettingsModel):
     imageio: ImageIOBaseModel = Field(
         default_factory=ImageIOBaseModel,
-        title="OCIO config"
+        title="Color Management (ImageIO)"
     )
     stop_timer_on_application_exit: bool = Field(
         False,

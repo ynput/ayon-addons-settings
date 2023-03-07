@@ -14,7 +14,7 @@ from .publish_plugins import (
 class BlenderSettings(BaseSettingsModel):
     imageio: ImageIOBaseModel = Field(
         default_factory=ImageIOBaseModel,
-        title="OCIO config"
+        title="Color Management (ImageIO)"
     )
     workfile_builder: TemplateWorkfileBaseOptions = Field(
         default_factory=TemplateWorkfileBaseOptions,

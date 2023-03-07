@@ -15,7 +15,7 @@ class ProjectSetup(BaseSettingsModel):
 class UnrealSettings(BaseSettingsModel):
     imageio: ImageIOBaseModel = Field(
         default_factory=ImageIOBaseModel,
-        title="OCIO config"
+        title="Color Management (ImageIO)"
     )
     level_sequences_for_layouts: bool = Field(
         False,

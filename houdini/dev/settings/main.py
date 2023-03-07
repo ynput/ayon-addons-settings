@@ -55,7 +55,7 @@ class ShelvesModel(BaseSettingsModel):
 class HoudiniSettings(BaseSettingsModel):
     imageio: ImageIOBaseModel = Field(
         default_factory=ImageIOBaseModel,
-        title="OCIO config"
+        title="Color Management (ImageIO)"
     )
     shelves: list[ShelvesModel] = Field(
         default_factory=list,

@@ -17,7 +17,7 @@ class TraypublisherSettings(BaseSettingsModel):
     """Traypublisher Project Settings."""
     imageio: ImageIOBaseModel = Field(
         default_factory=ImageIOBaseModel,
-        title="OCIO config"
+        title="Color Management (ImageIO)"
     )
     simple_creators: list[SimpleCreatorPlugin] = Field(
         title="Creator plugins",
