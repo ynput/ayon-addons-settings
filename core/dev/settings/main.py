@@ -1,16 +1,14 @@
 import json
 from pydantic import Field, validator
-from ayon_server.settings import BaseSettingsModel, ImageIOFileRulesModel
+from ayon_server.settings import (
+    BaseSettingsModel,
+    ImageIOFileRulesModel,
+    MultiplatformPathListModel,
+)
 from ayon_server.exceptions import BadRequestException
 
 from .publish_plugins import PublishPuginsModel, DEFAULT_PUBLISH_VALUES
 from .tools import GlobalToolsModel, DEFAULT_TOOLS_VALUES
-
-
-class MultiplatformStrList(BaseSettingsModel):
-    windows: list[str] = Field(default_factory=list, title="Windows")
-    linux: list[str] = Field(default_factory=list, title="Linux")
-    darwin: list[str] = Field(default_factory=list, title="MacOS")
 
 
 class CoreImageIOConfigModel(BaseSettingsModel):
@@ -36,14 +34,14 @@ class CoreSettings(BaseSettingsModel):
     )
     imageio: CoreImageIOBaseModel = Field(
         default_factory=CoreImageIOBaseModel,
-        title="OCIO config"
+        title="Color Management (ImageIO)"
     )
     publish: PublishPuginsModel = Field(
         default_factory=PublishPuginsModel,
         title="Publish plugins"
     )
-    project_plugins: MultiplatformStrList = Field(
-        default_factory=MultiplatformStrList,
+    project_plugins: MultiplatformPathListModel = Field(
+        default_factory=MultiplatformPathListModel,
         title="Additional Project Plugin Paths",
     )
     project_folder_structure: str = Field(
