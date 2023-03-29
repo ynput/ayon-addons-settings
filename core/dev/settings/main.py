@@ -81,8 +81,8 @@ DEFAULT_VALUES = {
     "imageio": {
         "ocio_config": {
             "filepath": [
-                "{OPENPYPE_ROOT}/vendor/bin/ocioconfig/OpenColorIOConfigs/aces_1.2/config.ocio",
-                "{OPENPYPE_ROOT}/vendor/bin/ocioconfig/OpenColorIOConfigs/nuke-default/config.ocio"
+                "{BUILTIN_OCIO_ROOT}/aces_1.2/config.ocio",
+                "{BUILTIN_OCIO_ROOT}/nuke-default/config.ocio"
             ]
         },
         "file_rules": {
