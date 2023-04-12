@@ -96,6 +96,3 @@ DEFAULT_VALUES = {
         }
     }
 }
-
-
-
