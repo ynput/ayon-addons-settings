@@ -2,20 +2,12 @@ from ayon_server.settings import Field, BaseSettingsModel
 
 
 class LoadClipModel(BaseSettingsModel):
-    enabled: bool = Field(
-        True,
-        title="Enabled"
-    )
+    enabled: bool = Field(True)
 
     families: list[str] = Field(
         default_factory=list,
         title="Families"
     )
-    representations: list[str] = Field(
-        default_factory=list,
-        title="Representations"
-    )
-
     reel_group_name: str = Field(
         "OpenPype_Reels",
         title="Reel group name"
@@ -29,31 +21,31 @@ class LoadClipModel(BaseSettingsModel):
         "{asset}_{subset}<_{output}>",
         title="Clip name template"
     )
+    layer_rename_template: str = Field("", title="Layer name template")
+    layer_rename_patterns: list[str] = Field(
+        default_factory=list,
+        title="Layer rename patters",
+    )
 
 
 class LoadClipBatchModel(BaseSettingsModel):
-    enabled: bool = Field(
-        True,
-        title="Enabled"
-    )
-
+    enabled: bool = Field(True)
     families: list[str] = Field(
         default_factory=list,
         title="Families"
     )
-    representations: list[str] = Field(
-        default_factory=list,
-        title="Representations"
-    )
-
     reel_name: str = Field(
         "OP_LoadedReel",
         title="Reel name"
     )
-
     clip_name_template: str = Field(
         "{batch}_{asset}_{subset}<_{output}>",
         title="Clip name template"
+    )
+    layer_rename_template: str = Field("", title="Layer name template")
+    layer_rename_patterns: list[str] = Field(
+        default_factory=list,
+        title="Layer rename patters",
     )
 
 
@@ -78,20 +70,14 @@ DEFAULT_LOADER_SETTINGS = {
             "render",
             "review"
         ],
-        "representations": [
-            "exr",
-            "dpx",
-            "jpg",
-            "jpeg",
-            "png",
-            "h264",
-            "mov",
-            "mp4",
-            "exr16fpdwaa"
-        ],
         "reel_group_name": "OpenPype_Reels",
         "reel_name": "Loaded",
-        "clip_name_template": "{asset}_{subset}<_{output}>"
+        "clip_name_template": "{asset}_{subset}<_{output}>",
+        "layer_rename_template": "{asset}_{subset}<_{output}>",
+        "layer_rename_patterns": [
+            "rgb",
+            "rgba"
+        ]
     },
     "LoadClipBatch": {
         "enabled": True,
@@ -102,18 +88,12 @@ DEFAULT_LOADER_SETTINGS = {
             "render",
             "review"
         ],
-        "representations": [
-            "exr",
-            "dpx",
-            "jpg",
-            "jpeg",
-            "png",
-            "h264",
-            "mov",
-            "mp4",
-            "exr16fpdwaa"
-        ],
         "reel_name": "OP_LoadedReel",
-        "clip_name_template": "{batch}_{asset}_{subset}<_{output}>"
+        "clip_name_template": "{batch}_{asset}_{subset}<_{output}>",
+        "layer_rename_template": "{asset}_{subset}<_{output}>",
+        "layer_rename_patterns": [
+            "rgb",
+            "rgba"
+        ]
     }
 }
