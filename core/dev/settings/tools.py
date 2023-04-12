@@ -207,6 +207,23 @@ class PublishTemplateNameProfile(BaseSettingsModel):
     template_name: str = Field("", title="Template name")
 
 
+class CustomStagingDirProfileModel(BaseSettingsModel):
+    active: bool = Field(True, title="Is active")
+    hosts: list[str] = Field(default_factory=list, title="Host names")
+    task_types: list[str] = Field(
+        default_factory=list,
+        title="Task types",
+        enum_resolver=task_types_enum
+    )
+    task_names: list[str] = Field(default_factory=list, title="Task names")
+    families: list[str] = Field(default_factory=list, title="Families")
+    subsets: list[str] = Field(default_factory=list, title="Subset names")
+    custom_staging_dir_persistent: bool = Field(
+        False, title="Custom Staging Folder Persistent"
+    )
+    template_name: str = Field("", title="Template Name")
+
+
 class PublishToolModel(BaseSettingsModel):
     template_name_profiles: list[PublishTemplateNameProfile] = Field(
         default_factory=list,
@@ -215,6 +232,10 @@ class PublishToolModel(BaseSettingsModel):
     hero_template_name_profiles: list[PublishTemplateNameProfile] = Field(
         default_factory=list,
         title="Hero template name profiles"
+    )
+    custom_staging_dir_profiles: list[CustomStagingDirProfileModel] = Field(
+        default_factory=list,
+        title="Custom Staging Dir Profiles"
     )
 
 
