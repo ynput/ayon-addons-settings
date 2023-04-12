@@ -62,6 +62,7 @@ class MayaSubmitDeadlineModel(BaseSettingsModel):
     optional: bool = Field(title="Optional")
     active: bool = Field(title="Active")
     use_published: bool = Field(title="Use Published scene")
+    import_reference: bool = Field(title="Use Scene with Imported Reference")
     asset_dependencies: bool = Field(title="Use Asset dependencies")
     priority: int = Field(title="Priority")
     tile_priority: int = Field(title="Tile Priority")
@@ -88,7 +89,6 @@ class MayaSubmitDeadlineModel(BaseSettingsModel):
         title="Scene patches",
     )
     strict_error_checking: bool = Field(
-        False,
         title="Disable Strict Error Check profiles"
     )
 
@@ -96,6 +96,16 @@ class MayaSubmitDeadlineModel(BaseSettingsModel):
     def validate_unique_names(cls, value):
         ensure_unique_names(value)
         return value
+
+
+class MaxSubmitDeadlineModel(BaseSettingsModel):
+    enabled: bool = Field(True)
+    optional: bool = Field(title="Optional")
+    active: bool = Field(title="Active")
+    use_published: bool = Field(title="Use Published scene")
+    priority: int = Field(title="Priority")
+    chunk_size: int = Field(title="Frame per Task")
+    group: str = Field("", title="Group Name")
 
 
 class EnvSearchReplaceSubmodel(BaseSettingsModel):
@@ -119,7 +129,6 @@ class NukeSubmitDeadlineModel(BaseSettingsModel):
     enabled: bool = Field(title="Enabled")
     optional: bool = Field(title="Optional")
     active: bool = Field(title="Active")
-    use_published: bool =  Field(title="Use Published scene")
     priority: int = Field(title="Priority")
     chunk_size: int = Field(title="Chunk Size")
     concurrent_tasks: int = Field(title="Number of concurrent tasks")
@@ -239,6 +248,9 @@ class PublishPluginsModel(BaseSettingsModel):
     MayaSubmitDeadline: MayaSubmitDeadlineModel = Field(
         default_factory=MayaSubmitDeadlineModel,
         title="Maya Submit to deadline")
+    MaxSubmitDeadline: MaxSubmitDeadlineModel = Field(
+        default_factory=MaxSubmitDeadlineModel,
+        title="Max Submit to deadline")
     NukeSubmitDeadline: NukeSubmitDeadlineModel = Field(
         default_factory=NukeSubmitDeadlineModel,
         title="Nuke Submit to deadline")
@@ -280,9 +292,11 @@ DEFAULT_DEADLINE_PLUGINS_SETTINGS = {
         "enabled": True,
         "optional": False,
         "active": True,
-        "tile_assembler_plugin": "OpenPypeTileAssembler",
+        "tile_assembler_plugin": "DraftTileAssembler",
         "use_published": True,
+        "import_reference": False,
         "asset_dependencies": True,
+        "strict_error_checking": True,
         "priority": 50,
         "tile_priority": 50,
         "group": "none",
@@ -291,11 +305,19 @@ DEFAULT_DEADLINE_PLUGINS_SETTINGS = {
         "pluginInfo": "", #TODO: this used to be empty dict
         "scene_patches": []
     },
-    "NukeSubmitDeadline": {
+    "MaxSubmitDeadline": {
         "enabled": True,
         "optional": False,
         "active": True,
         "use_published": True,
+        "priority": 50,
+        "chunk_size": 10,
+        "group": "none"
+    },
+    "NukeSubmitDeadline": {
+        "enabled": True,
+        "optional": False,
+        "active": True,
         "priority": 50,
         "chunk_size": 10,
         "concurrent_tasks": 1,
@@ -367,6 +389,12 @@ DEFAULT_DEADLINE_PLUGINS_SETTINGS = {
             },
             {
                 "name": "harmony",
+                "value": [
+                    ".*"
+                ]
+            },
+            {
+                "name": "max",
                 "value": [
                     ".*"
                 ]
