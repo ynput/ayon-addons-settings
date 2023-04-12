@@ -1,64 +1,13 @@
 from ayon_server.settings import Field, BaseSettingsModel
 
 
-class ValidateCameraZeroKeyframeModel(BaseSettingsModel):
-    enabled: bool = Field(
-        True,
-        title="Validate Camera Zero Keyframe"
-    )
-    optional: bool = Field(
-        True,
-        title="Optional"
-    )
-    active: bool = Field(
-        True,
-        title="Active"
-    )
 
 
-class ValidateMeshHasUvsModel(BaseSettingsModel):
-    enabled: bool = Field(
-        True,
-        title="Validate Mesh Has Uvs"
-    )
-    optional: bool = Field(
-        True,
-        title="Optional"
-    )
-    active: bool = Field(
-        True,
-        title="Active"
-    )
 
-
-class ValidateMeshNoNegativeScaleModel(BaseSettingsModel):
-    enabled: bool = Field(
-        True,
-        title="Validate Mesh No Negative Scale"
-    )
-    optional: bool = Field(
-        False,
-        title="Optional"
-    )
-    active: bool = Field(
-        True,
-        title="Active"
-    )
-
-
-class ValidateTransformZeroModel(BaseSettingsModel):
-    enabled: bool = Field(
-        True,
-        title="Validate Transform Zero"
-    )
-    optional: bool = Field(
-        False,
-        title="Optional"
-    )
-    active: bool = Field(
-        True,
-        title="Active"
-    )
+class ValidatePluginModel(BaseSettingsModel):
+    enabled: bool = Field(True)
+    optional: bool = Field(title="Optional")
+    active: bool = Field(title="Active")
 
 
 class ExtractBlendModel(BaseSettingsModel):
@@ -80,112 +29,25 @@ class ExtractBlendModel(BaseSettingsModel):
     )
 
 
-class ExtractFBXModel(BaseSettingsModel):
-    enabled: bool = Field(
-        True,
-        title="Extract FBX"
-    )
-    optional: bool = Field(
-        True,
-        title="Optional"
-    )
-    active: bool = Field(
-        False,
-        title="Active"
-    )
 
-
-class ExtractABCModel(BaseSettingsModel):
-    enabled: bool = Field(
-        True,
-        title="Extract FBX"
-    )
-    optional: bool = Field(
-        True,
-        title="Optional"
-    )
-    active: bool = Field(
-        False,
-        title="Active"
-    )
-
-
-class ExtractBlendAnimationModel(BaseSettingsModel):
-    enabled: bool = Field(
-        True,
-        title="Extract FBX"
-    )
-    optional: bool = Field(
-        True,
-        title="Optional"
-    )
-    active: bool = Field(
-        True,
-        title="Active"
-    )
-
-
-class ExtractAnimationFBXModel(BaseSettingsModel):
-    enabled: bool = Field(
-        True,
-        title="Extract FBX"
-    )
-    optional: bool = Field(
-        True,
-        title="Optional"
-    )
-    active: bool = Field(
-        False,
-        title="Active"
-    )
-
-
-class ExtractCameraModel(BaseSettingsModel):
-    enabled: bool = Field(
-        True,
-        title="Extract FBX"
-    )
-    optional: bool = Field(
-        True,
-        title="Optional"
-    )
-    active: bool = Field(
-        True,
-        title="Active"
-    )
-
-
-class ExtractLayoutModel(BaseSettingsModel):
-    enabled: bool = Field(
-        True,
-        title="Extract FBX"
-    )
-    optional: bool = Field(
-        True,
-        title="Optional"
-    )
-    active: bool = Field(
-        False,
-        title="Active"
-    )
 
 
 class PublishPuginsModel(BaseSettingsModel):
-    ValidateCameraZeroKeyframe: ValidateCameraZeroKeyframeModel = Field(
-        default_factory=ValidateCameraZeroKeyframeModel,
+    ValidateCameraZeroKeyframe: ValidatePluginModel = Field(
+        default_factory=ValidatePluginModel,
         title="Validate Camera Zero Keyframe",
         section="Validators"
     )
-    ValidateMeshHasUvs: ValidateMeshHasUvsModel = Field(
-        default_factory=ValidateMeshHasUvsModel,
+    ValidateMeshHasUvs: ValidatePluginModel = Field(
+        default_factory=ValidatePluginModel,
         title="Validate Mesh Has Uvs"
     )
-    ValidateMeshNoNegativeScale: ValidateMeshNoNegativeScaleModel = Field(
-        default_factory=ValidateMeshNoNegativeScaleModel,
+    ValidateMeshNoNegativeScale: ValidatePluginModel = Field(
+        default_factory=ValidatePluginModel,
         title="Validate Mesh No Negative Scale"
     )
-    ValidateTransformZero: ValidateTransformZeroModel = Field(
-        default_factory=ValidateTransformZeroModel,
+    ValidateTransformZero: ValidatePluginModel = Field(
+        default_factory=ValidatePluginModel,
         title="Validate Transform Zero"
     )
     ExtractBlend: ExtractBlendModel = Field(
@@ -193,28 +55,28 @@ class PublishPuginsModel(BaseSettingsModel):
         title="Extract Blend",
         section="Extractors"
     )
-    ExtractFBX: ExtractFBXModel = Field(
-        default_factory=ExtractFBXModel,
+    ExtractFBX: ValidatePluginModel = Field(
+        default_factory=ValidatePluginModel,
         title="Extract FBX"
     )
-    ExtractABC: ExtractABCModel = Field(
-        default_factory=ExtractABCModel,
+    ExtractABC: ValidatePluginModel = Field(
+        default_factory=ValidatePluginModel,
         title="Extract ABC"
     )
-    ExtractBlendAnimation: ExtractBlendAnimationModel = Field(
-        default_factory=ExtractBlendAnimationModel,
+    ExtractBlendAnimation: ValidatePluginModel = Field(
+        default_factory=ValidatePluginModel,
         title="Extract Blend Animation"
     )
-    ExtractAnimationFBX: ExtractAnimationFBXModel = Field(
-        default_factory=ExtractAnimationFBXModel,
+    ExtractAnimationFBX: ValidatePluginModel = Field(
+        default_factory=ValidatePluginModel,
         title="Extract Animation FBX"
     )
-    ExtractCamera: ExtractCameraModel = Field(
-        default_factory=ExtractCameraModel,
+    ExtractCamera: ValidatePluginModel = Field(
+        default_factory=ValidatePluginModel,
         title="Extract Camera"
     )
-    ExtractLayout: ExtractLayoutModel = Field(
-        default_factory=ExtractLayoutModel,
+    ExtractLayout: ValidatePluginModel = Field(
+        default_factory=ValidatePluginModel,
         title="Extract Layout"
     )
 
