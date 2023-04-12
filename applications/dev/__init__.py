@@ -1,10 +1,11 @@
-import json
 import os
+import json
+import copy
 
 from ayon_server.addons import BaseServerAddon
 from ayon_server.lib.postgres import Postgres
 
-from .settings import ApplicationsAddonSettings
+from .settings import ApplicationsAddonSettings, DEFAULT_VALUES
 
 
 def get_enum_items_from_groups(groups):
@@ -36,7 +37,7 @@ class ApplicationsAddon(BaseServerAddon):
     async def get_default_settings(self):
         applications_path = os.path.join(self.addon_dir, "applications.json")
         tools_path = os.path.join(self.addon_dir, "tools.json")
-        default_values = {}
+        default_values = copy.deepcopy(DEFAULT_VALUES)
         with open(applications_path, "r") as stream:
             default_values.update(json.load(stream))
 
