@@ -1,6 +1,6 @@
-from pydantic import Field
+from pydantic import Field, validator
 
-from ayon_server.settings import BaseSettingsModel
+from ayon_server.settings import BaseSettingsModel, ensure_unique_names
 from ayon_server.types import ColorRGBA_uint8
 
 def hardware_falloff_enum():
@@ -40,12 +40,15 @@ class DisplayOptionsSetting(BaseSettingsModel):
     backgroundTop: ColorRGBA_uint8 = Field((125, 125, 125, 1.0),
         title="Background Top")
     override_display: bool = Field(title="Override display options")
+    displayGradient: bool = Field(title="Display background gradient")
 
 
 class GenericSetting(BaseSettingsModel):
     _layout = "expanded"
     isolate_view: bool = Field(title="Isolate View")
     off_screen: bool = Field(title="Off Screen")
+    pan_zoom: bool = Field(title="2D Pan/Zoom")
+
 
 class RendererSetting(BaseSettingsModel):
     _layout = "expanded"
@@ -58,6 +61,11 @@ class ResolutionSetting(BaseSettingsModel):
     height: int = Field(1080, title="Height")
 
 
+class PluginObjectsModel(BaseSettingsModel):
+    name: str = Field("", title="Name")
+    value: bool = Field(True, title="Enabled")
+
+
 class ViewportOptionsSetting(BaseSettingsModel):
     override_viewport_options: bool = Field(title="Override viewport options")
     displayLights: str = Field("default", enum_resolver=displayLights_enum, title="Display Lights")
@@ -68,6 +76,11 @@ class ViewportOptionsSetting(BaseSettingsModel):
     twoSidedLighting: bool = Field(title="Two Sided Lighting")
     lineAAEnable: bool = Field(title="Enable Anti-Aliasing", section="Anti-Aliasing")
     multiSample: int = Field(8, title="Anti Aliasing Samples")
+    useDefaultMaterial: bool = Field(title="Use Default Material")
+    wireframeOnShaded: bool = Field(title="Wireframe On Shaded")
+    xray: bool = Field(title="X-Ray")
+    jointXray: bool = Field(title="X-Ray Joints")
+    backfaceCulling: bool = Field(title="Backface Culling")
     ssaoEnable: bool = Field(title="Screen Space Ambient Occlusion", section="SSAO")
     ssaoAmount: int = Field(1, title="SSAO Amount")
     ssaoRadius: int = Field(16, title="SSAO Radius")
@@ -94,7 +107,6 @@ class ViewportOptionsSetting(BaseSettingsModel):
     dynamics: bool = Field(title="Dynamics")
     fluids: bool = Field(title="Fluids")
     follicles: bool = Field(title="Follicles")
-    gpuCacheDisplayFilter: bool = Field(title="GPU Cache")
     greasePencils: bool = Field(title="Grease Pencils")
     grid: bool = Field(title="Grid")
     hairSystems: bool = Field(title="Hair Systems")
@@ -122,6 +134,15 @@ class ViewportOptionsSetting(BaseSettingsModel):
     strokes: bool = Field(title="Strokes")
     subdivSurfaces: bool = Field(title="Subdiv Surfaces")
     textures: bool = Field(title="Texture Placements")
+    pluginObjects: list[PluginObjectsModel] = Field(
+        default_factory=list,
+        title="Plugin Objects"
+    )
+
+    @validator("pluginObjects")
+    def validate_unique_plugin_bjects(cls, value):
+        ensure_unique_names(value)
+        return value
 
 
 class CameraOptionsSetting(BaseSettingsModel):
@@ -137,27 +158,43 @@ class CameraOptionsSetting(BaseSettingsModel):
 
 
 class CapturePresetSetting(BaseSettingsModel):
-    Codec: CodecSetting = Field(default_factory= CodecSetting, title="Codec", section="Codec")
-    DisplayOptions: DisplayOptionsSetting = Field(default_factory=DisplayOptionsSetting,
-        title="Display Options", section="Display Options")
-    Generic: GenericSetting = Field(default_factory=GenericSetting, title="Generic",
+    Codec: CodecSetting = Field(
+        default_factory= CodecSetting,
+        title="Codec",
+        section="Codec")
+    DisplayOptions: DisplayOptionsSetting = Field(
+        default_factory=DisplayOptionsSetting,
+        title="Display Options",
+        section="Display Options")
+    Generic: GenericSetting = Field(
+        default_factory=GenericSetting,
+        title="Generic",
         section="Generic")
-    Renderer: RendererSetting = Field(default_factory=RendererSetting, title="Renderer",
+    Renderer: RendererSetting = Field(
+        default_factory=RendererSetting,
+        title="Renderer",
         section="Renderer")
-    Resolution: ResolutionSetting = Field(default_factory=ResolutionSetting, title="Resolution",
+    Resolution: ResolutionSetting = Field(
+        default_factory=ResolutionSetting,
+        title="Resolution",
         section="Resolution")
-    ViewportOptions: ViewportOptionsSetting = Field(default_factory=ViewportOptionsSetting, title="Viewport Options")
-    CameraOptions: CameraOptionsSetting = Field(default_factory=CameraOptionsSetting, title="Camera Options")
+    ViewportOptions: ViewportOptionsSetting = Field(
+        default_factory=ViewportOptionsSetting,
+        title="Viewport Options")
+    CameraOptions: CameraOptionsSetting = Field(
+        default_factory=CameraOptionsSetting,
+        title="Camera Options")
 
 class ExtractPlayblastSetting(BaseSettingsModel):
-    capture_preset: CapturePresetSetting = Field(default_factory=CapturePresetSetting,
-    title="Capture Preset")
+    capture_preset: CapturePresetSetting = Field(
+        default_factory=CapturePresetSetting,
+        title="Capture Preset")
 
 
 DEFAULT_PLAYBLAST_SETTING = {
     "capture_preset": {
         "Codec": {
-            "compression": "jpg",
+            "compression": "png",
             "format": "image",
             "quality": 95
         },
@@ -180,11 +217,13 @@ DEFAULT_PLAYBLAST_SETTING = {
                 125,
                 1.0
             ],
-            "override_display": True
+            "override_display": True,
+            "displayGradient": True
         },
         "Generic": {
             "isolate_view": True,
-            "off_screen": True
+            "off_screen": True,
+            "pan_zoom": False
         },
         "Renderer": {
             "rendererName": "vp2Renderer"
@@ -203,6 +242,11 @@ DEFAULT_PLAYBLAST_SETTING = {
             "twoSidedLighting": True,
             "lineAAEnable": True,
             "multiSample": 8,
+            "useDefaultMaterial": False,
+            "wireframeOnShaded": False,
+            "xray": False,
+            "jointXray": False,
+            "backfaceCulling": False,
             "ssaoEnable": False,
             "ssaoAmount": 1,
             "ssaoRadius": 16,
@@ -228,7 +272,6 @@ DEFAULT_PLAYBLAST_SETTING = {
             "dynamics": False,
             "fluids": False,
             "follicles": False,
-            "gpuCacheDisplayFilter": False,
             "greasePencils": False,
             "grid": False,
             "hairSystems": True,
@@ -255,7 +298,13 @@ DEFAULT_PLAYBLAST_SETTING = {
             "polymeshes": True,
             "strokes": False,
             "subdivSurfaces": False,
-            "textures": False
+            "textures": False,
+            "pluginObjects": [
+                {
+                    "name": "gpuCacheDisplayFilter",
+                    "value": False
+                }
+            ]
         },
         "CameraOptions": {
             "displayGateMask": False,
