@@ -40,6 +40,3 @@ class WorkfileBuilderPlugin(BaseSettingsModel):
     custom_templates: list[CustomBuilderTemplate] = Field(
         default_factory=CustomBuilderTemplate
     )
-
-
-

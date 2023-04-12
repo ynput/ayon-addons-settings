@@ -6,10 +6,11 @@ from ayon_server.settings import (
 )
 
 from .workfile_builder import WorkfileBuilderPlugin
-
-from .plugins import (
+from .create_plugins import CreatePluginsModel, DEFAULT_CREATE_SETTINGS
+from .publish_plugins import (
     PublishPluginsModel,
     LoadPluginsModel,
+    DEFAULT_PUBLISH_SETTINGS,
 )
 
 
@@ -36,9 +37,11 @@ class TvpaintSettings(BaseSettingsModel):
         title="Color Management (ImageIO)"
     )
     stop_timer_on_application_exit: bool = Field(
-        False,
         title="Stop timer on application exit")
-
+    create: CreatePluginsModel = Field(
+        default_factory=CreatePluginsModel,
+        title="Create plugins"
+    )
     publish: PublishPluginsModel = Field(
         default_factory=PublishPluginsModel,
         title="Publish plugins")
@@ -60,46 +63,9 @@ class TvpaintSettings(BaseSettingsModel):
 
 
 DEFAULT_VALUES = {
-    "stop_timer_on_application_exit": True,
-    "publish": {
-        "CollectRenderScene": {
-            "enabled": False,
-            "render_layer": "Main"
-        },
-        "ExtractSequence": {
-            "review_bg": [255, 255, 255, 1.0],
-            "families_to_review": [
-                "review",
-                "renderlayer",
-                "renderscene"
-            ]
-        },
-        "ValidateProjectSettings": {
-            "enabled": True,
-            "optional": True,
-            "active": True
-        },
-        "ValidateMarks": {
-            "enabled": True,
-            "optional": True,
-            "active": True
-        },
-        "ValidateStartFrame": {
-            "enabled": False,
-            "optional": True,
-            "active": True
-        },
-        "ValidateAssetName": {
-            "enabled": True,
-            "optional": True,
-            "active": True
-        },
-        "ExtractConvertToEXR": {
-            "enabled": False,
-            "replace_pngs": True,
-            "exr_compression": "ZIP"
-        }
-    },
+    "stop_timer_on_application_exit": False,
+    "create": DEFAULT_CREATE_SETTINGS,
+    "publish": DEFAULT_PUBLISH_SETTINGS,
     "load": {
         "LoadImage": {
             "defaults": {
