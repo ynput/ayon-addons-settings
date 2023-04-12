@@ -121,6 +121,8 @@ DEFAULT_VALUES = {
     "publish": DEFAULT_PUBLISH_PLUGIN_SETTINGS,
     "load": DEFAULT_LOADER_PLUGINS_SETTINGS,
     "workfile_builder": DEFAULT_WORKFILE_BUILDER_SETTINGS,
-    "templated_workfile_build": {"profiles": []},
+    "templated_workfile_build": {
+        "profiles": []
+    },
     "filters": []
 }
