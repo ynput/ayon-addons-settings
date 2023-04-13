@@ -96,7 +96,10 @@ class ExtractThumbnailModel(BaseSettingsModel):
 
 
 def _extract_oiio_transcoding_type():
-    return []
+    return [
+        {"value": "colorspace", "label": "Use Colorspace"},
+        {"value": "display", "label": "Use Display&View"}
+    ]
 
 
 class OIIOToolArgumentsModel(BaseSettingsModel):
@@ -665,7 +668,7 @@ class PublishPuginsModel(BaseSettingsModel):
     )
     # TODO remove when removed from client
     IntegrateAssetNew: IntegrateAssetNewModel = Field(
-        defalt_factory=IntegrateAssetNewModel,
+        default_factory=IntegrateAssetNewModel,
         title="IntegrateAsset (Legacy)"
     )
     IntegrateHeroVersion: IntegrateHeroVersionModel = Field(
