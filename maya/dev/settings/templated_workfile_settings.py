@@ -19,6 +19,5 @@ class TemplatedProfilesModel(BaseSettingsModel):
 
 
 DEFAULT_TEMPLATED_WORKFILE_SETTINGS = {
-        "profiles": []
+    "profiles": []
 }
-

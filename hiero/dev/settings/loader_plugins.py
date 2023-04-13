@@ -7,16 +7,10 @@ class LoadClipModel(BaseSettingsModel):
         True,
         title="Enabled"
     )
-
     families: list[str] = Field(
         default_factory=list,
         title="Families"
     )
-    representations: list[str] = Field(
-        default_factory=list,
-        title="Representations"
-    )
-
     clip_name_template: str = Field(
         title="Clip name template"
     )
@@ -38,16 +32,6 @@ DEFAULT_LOADER_PLUGINS_SETTINGS = {
             "plate",
             "render",
             "review"
-        ],
-        "representations": [
-            "exr",
-            "dpx",
-            "jpg",
-            "jpeg",
-            "png",
-            "h264",
-            "mov",
-            "mp4",
         ],
         "clip_name_template": "{asset}_{subset}_{representation}"
     }

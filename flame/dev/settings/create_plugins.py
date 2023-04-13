@@ -27,7 +27,7 @@ class CreateShotClipModel(BaseSettingsModel):
         10,
         title="Count sequence from"
     )
-    countStep: int = Field(
+    countSteps: int = Field(
         10,
         title="Stepping number"
     )
@@ -102,7 +102,7 @@ DEFAULT_CREATE_SETTINGS = {
         "clipName": "{sequence}{shot}",
         "segmentIndex": True,
         "countFrom": 10,
-        "countStep": 10,
+        "countSteps": 10,
         "folder": "shots",
         "episode": "ep01",
         "sequence": "a",

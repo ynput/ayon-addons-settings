@@ -38,35 +38,6 @@ class CollectTimelineInstancesModel(BaseSettingsModel):
     )
 
 
-class ExportPresetsMappingOtherParametersRepresentationModel(BaseSettingsModel):
-    representation_add_range: bool = Field(
-        True,
-        title="Add range to representation name"
-    )
-    representation_tags: list[str] = Field(
-        default_factory=list,
-        title="Representation tags"
-    )
-
-
-class ExportPresetsMappingOtherParametersLoadingDuringPublishModel(BaseSettingsModel):
-    load_to_batch_group: bool = Field(
-        True,
-        title="Load to batch group reel"
-    )
-    batch_group_loader_name: str = Field(
-        "LoadClipBatch",
-        title="Use loader name"
-    )
-
-
-class ExportPresetsMappingFilteringModel(BaseSettingsModel):
-    filter_path_regex: str = Field(
-        ".*",
-        title="Regex in clip path"
-    )
-
-
 class ExportPresetsMappingModel(BaseSettingsModel):
     _layout = "expanded"
 
@@ -102,17 +73,25 @@ class ExportPresetsMappingModel(BaseSettingsModel):
         True,
         title="Parsed comment attributes"
     )
-    representation: ExportPresetsMappingOtherParametersRepresentationModel = Field(
-        default_factory=ExportPresetsMappingOtherParametersRepresentationModel,
-        title="Representation"
+    representation_add_range: bool = Field(
+        True,
+        title="Add range to representation name"
     )
-    loading_during_publish: ExportPresetsMappingOtherParametersLoadingDuringPublishModel = Field(
-        default_factory=ExportPresetsMappingOtherParametersLoadingDuringPublishModel,
-        title="Loading during publish"
+    representation_tags: list[str] = Field(
+        default_factory=list,
+        title="Representation tags"
     )
-    filtering: ExportPresetsMappingFilteringModel = Field(
-        default_factory=ExportPresetsMappingFilteringModel,
-        title="Filtering"
+    load_to_batch_group: bool = Field(
+        True,
+        title="Load to batch group reel"
+    )
+    batch_group_loader_name: str = Field(
+        "LoadClipBatch",
+        title="Use loader name"
+    )
+    filter_path_regex: str = Field(
+        ".*",
+        title="Regex in clip path"
     )
 
 
@@ -195,12 +174,10 @@ DEFAULT_PUBLISH_SETTINGS = {
                 "ext": "exr",
                 "xml_preset_file": "OpenEXR (16-bit fp DWAA).xml",
                 "colorspace_out": "ACES - ACEScg",
-                "other_parameters": {
-                    "xml_preset_dir": "",
-                    "parsed_comment_attrs": True,
-                    "representation_add_range": True,
-                    "representation_tags": []
-                },
+                "xml_preset_dir": "",
+                "parsed_comment_attrs": True,
+                "representation_add_range": True,
+                "representation_tags": [],
                 "load_to_batch_group": True,
                 "batch_group_loader_name": "LoadClipBatch",
                 "filter_path_regex": ".*"

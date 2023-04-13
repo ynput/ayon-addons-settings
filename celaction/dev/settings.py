@@ -16,6 +16,31 @@ class CollectRenderPathModel(BaseSettingsModel):
     )
 
 
+def _workfile_submit_overrides():
+    return [
+        {
+            "value": "render_chunk",
+            "label": "Pass chunk size"
+        },
+        {
+            "value": "frame_range",
+            "label": "Pass frame range"
+        },
+        {
+            "value": "resolution",
+            "label": "Pass resolution"
+        }
+    ]
+
+
+class WorkfileModel(BaseSettingsModel):
+    submission_overrides: list[str] = Field(
+        default_factory=list,
+        title="Submission workfile overrides",
+        enum_resolver=_workfile_submit_overrides
+    )
+
+
 class PublishPuginsModel(BaseSettingsModel):
     CollectRenderPath: CollectRenderPathModel = Field(
         default_factory=CollectRenderPathModel,
@@ -28,6 +53,9 @@ class CelActionSettings(BaseSettingsModel):
         default_factory=ImageIOBaseModel,
         title="Color Management (ImageIO)"
     )
+    workfile: WorkfileModel = Field(
+        title="Workfile"
+    )
     publish: PublishPuginsModel = Field(
         default_factory=PublishPuginsModel,
         title="Publish plugins",
@@ -35,6 +63,23 @@ class CelActionSettings(BaseSettingsModel):
 
 
 DEFAULT_VALUES = {
+    "imageio": {
+        "ocio_config": {
+            "enabled": False,
+            "filepath": []
+        },
+        "file_rules": {
+            "enabled": False,
+            "rules": []
+        }
+    },
+    "workfile": {
+        "submission_overrides": [
+            "render_chunk",
+            "frame_range",
+            "resolution"
+        ]
+    },
     "publish": {
         "CollectRenderPath": {
             "output_extension": "png",

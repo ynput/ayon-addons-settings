@@ -15,7 +15,6 @@ class ServerListSubmodel(BaseSettingsModel):
 
 
 class DeadlineSettings(BaseSettingsModel):
-
     deadline_urls:  list[ServerListSubmodel] = Field(
         default_factory=list,
         title="System Deadline Webservice URLs",

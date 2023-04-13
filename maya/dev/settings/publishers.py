@@ -1,8 +1,15 @@
-from pydantic import Field, validator
 import json
-from ayon_server.settings import BaseSettingsModel, MultiplatformPathModel
+from pydantic import Field, validator
+from ayon_server.settings import (
+    BaseSettingsModel,
+    MultiplatformPathModel,
+    ensure_unique_names,
+)
 from ayon_server.exceptions import BadRequestException
-from .publish_playblast import ExtractPlayblastSetting, DEFAULT_PLAYBLAST_SETTING
+from .publish_playblast import (
+    ExtractPlayblastSetting,
+    DEFAULT_PLAYBLAST_SETTING,
+)
 
 
 def linear_unit_enum():
@@ -186,6 +193,32 @@ class ValidateCycleErrorModel(BaseSettingsModel):
     families: list[str] = Field(default_factory=list, title="Families")
 
 
+class ValidatePluginPathAttributesAttrModel(BaseSettingsModel):
+    name: str = Field(title="Node type")
+    value: str = Field(title="Attribute")
+
+
+class ValidatePluginPathAttributesModel(BaseSettingsModel):
+    """Fill in the node types and attributes you want to validate.
+
+    <p>e.g. <b>AlembicNode.abc_file</b>, the node type is <b>AlembicNode</b>
+    and the node attribute is <b>abc_file</b>
+    """
+
+    enabled: bool = True
+    optional: bool = Field(title="Optional")
+    active: bool = Field(title="Active")
+    attribute: list[ValidatePluginPathAttributesAttrModel] = Field(
+        default_factory=list,
+        title="File Attribute"
+    )
+
+    @validator("attribute")
+    def validate_unique_outputs(cls, value):
+        ensure_unique_names(value)
+        return value
+
+
 # Validate Render Setting
 class RendererAttributesModel(BaseSettingsModel):
     _layout = "compact"
@@ -267,6 +300,39 @@ class ExtractCameraAlembicModel(BaseSettingsModel):
         return value
 
 
+
+class ExtractGLBModel(BaseSettingsModel):
+    enabled: bool = True
+    active: bool = Field(title="Active")
+    ogsfx_path: str= Field(title="GLSL Shader Directory")
+
+
+class ExtractLookArgsModel(BaseSettingsModel):
+    argument: str = Field(title="Argument")
+    parameters: list[str] = Field(default_factory=list, title="Parameters")
+
+
+class ExtractLookModel(BaseSettingsModel):
+    maketx_arguments: list[ExtractLookArgsModel] = Field(
+        default_factory=list,
+        title="Extra arguments for maketx command line"
+    )
+
+
+class ExtractGPUCacheModel(BaseSettingsModel):
+    enabled: bool = True
+    families: list[str] = Field(default_factory=list, title="Families")
+    step: float = Field(1.0, ge=1.0, title="Step")
+    stepSave: int = Field(1, ge=1, title="Step Save")
+    optimize: bool = Field(title="Optimize Hierarchy")
+    optimizationThreshold: int = Field(1, ge=1, title="Optimization Threshold")
+    optimizeAnimationsForMotionBlur: bool = Field(
+        title="Optimize Animations For Motion Blur"
+    )
+    writeMaterials: bool = Field(title="Write Materials")
+    useBaseTessellation: bool = Field(title="User Base Tesselation")
+
+
 class PublishersModel(BaseSettingsModel):
     CollectMayaRender: CollectMayaRenderModel = Field(
         default_factory = CollectMayaRenderModel,
@@ -302,6 +368,10 @@ class PublishersModel(BaseSettingsModel):
         default_factory=BasicValidateModel,
         title="Validate Look Shading Engine Naming"
     )
+    ValidateMayaColorSpace: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate Colorspace"
+    )
     ValidateAttributes: ValidateAttributesModel = Field(
         default_factory=ValidateAttributesModel,
         title="Validate Attributes"
@@ -322,6 +392,10 @@ class PublishersModel(BaseSettingsModel):
         default_factory=ValidateCycleErrorModel,
         title="Validate Cycle Error"
     )
+    ValidatePluginPathAttributes: ValidatePluginPathAttributesModel = Field(
+        default_factory=ValidatePluginPathAttributesModel,
+        title="Plug-in Path Attributes"
+    )
     ValidateRenderSettings: ValidateRenderSettingsModel = Field(
         default_factory=ValidateRenderSettingsModel,
         title="Validate Render Settings"
@@ -329,6 +403,14 @@ class PublishersModel(BaseSettingsModel):
     ValidateCurrentRenderLayerIsRenderable: BasicValidateModel = Field(
         default_factory=BasicValidateModel,
         title="Validate Current Render Layer Has Renderable Camera"
+    )
+    ValidateGLSLMaterial: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate GLSL Material"
+    )
+    ValidateGLSLPlugin: BasicValidateModel = Field(
+        default_factory=BasicValidateModel,
+        title="Validate GLSL Plugin"
     )
     ValidateRenderImageRule: BasicValidateModel = Field(
         default_factory=BasicValidateModel,
@@ -615,6 +697,19 @@ class PublishersModel(BaseSettingsModel):
         default_factory=ExtractCameraAlembicModel,
         title="Extract Camera Alembic"
     )
+    ExtractGLB: ExtractGLBModel = Field(
+        default_factory=ExtractGLBModel,
+        title="Extract GLB"
+    )
+    ExtractLook: ExtractLookModel = Field(
+        default_factory=ExtractLookModel,
+        title="Extract Look"
+    )
+    ExtractGPUCache: ExtractGPUCacheModel = Field(
+        default_factory=ExtractGPUCacheModel,
+        title="Extract GPU Cache",
+    )
+
 
 DEFAULT_SUFFIX_NAMING = "{\n    \"mesh\": [\n        \"_GEO\",\n        \"_GES\",\n        \"_GEP\",\n        \"_OSD\"\n    ],\n    \"nurbsCurve\": [\n        \"_CRV\"\n    ],\n    \"nurbsSurface\": [\n        \"_NRB\"\n    ],\n    \"locator\": [\n        \"_LOC\"\n    ],\n    \"group\": [\n        \"_GRP\"\n    ]\n}"
 DEFAULT_PUBLISH_SETTINGS = {
@@ -657,6 +752,11 @@ DEFAULT_PUBLISH_SETTINGS = {
         "optional": True,
         "active": True
     },
+    "ValidateMayaColorSpace": {
+        "enabled": True,
+        "optional": True,
+        "active": True
+    },
     "ValidateAttributes": {
         "enabled": False,
         "attributes": "{}"
@@ -689,6 +789,45 @@ DEFAULT_PUBLISH_SETTINGS = {
             "rig"
         ]
     },
+    "ValidatePluginPathAttributes": {
+        "enabled": True,
+        "optional": False,
+        "active": True,
+        "attribute": [
+            {"name": "AlembicNode", "value": "abc_File"},
+            {"name": "VRayProxy", "value": "fileName"},
+            {"name": "RenderManArchive", "value": "filename"},
+            {"name": "pgYetiMaya", "value": "cacheFileName"},
+            {"name": "aiStandIn", "value": "dso"},
+            {"name": "RedshiftSprite", "value": "tex0"},
+            {"name": "RedshiftBokeh", "value": "dofBokehImage"},
+            {"name": "RedshiftCameraMap", "value": "tex0"},
+            {"name": "RedshiftEnvironment", "value": "tex2"},
+            {"name": "RedshiftDomeLight", "value": "tex1"},
+            {"name": "RedshiftIESLight", "value": "profile"},
+            {"name": "RedshiftLightGobo", "value": "tex0"},
+            {"name": "RedshiftNormalMap", "value": "tex0"},
+            {"name": "RedshiftProxyMesh", "value": "fileName"},
+            {"name": "RedshiftVolumeShape", "value": "fileName"},
+            {"name": "VRayTexGLSL", "value": "fileName"},
+            {"name": "VRayMtlGLSL", "value": "fileName"},
+            {"name": "VRayVRmatMtl", "value": "fileName"},
+            {"name": "VRayPtex", "value": "ptexFile"},
+            {"name": "VRayLightIESShape", "value": "iesFile"},
+            {"name": "VRayMesh", "value": "materialAssignmentsFile"},
+            {"name": "VRayMtlOSL", "value": "fileName"},
+            {"name": "VRayTexOSL", "value": "fileName"},
+            {"name": "VRayTexOCIO", "value": "ocioConfigFile"},
+            {"name": "VRaySettingsNode", "value": "pmap_autoSaveFile2"},
+            {"name": "VRayScannedMtl", "value": "file"},
+            {"name": "VRayScene", "value": "parameterOverrideFilePath"},
+            {"name": "VRayMtlMDL", "value": "filename"},
+            {"name": "VRaySimbiont", "value": "file"},
+            {"name": "dlOpenVDBShape", "value": "filename"},
+            {"name": "pgYetiMayaShape", "value": "liveABCFilename"},
+            {"name": "gpuCache", "value": "cacheFileName"},
+        ]
+    },
     "ValidateRenderSettings": {
         "arnold_render_attributes": [],
         "vray_render_attributes": [],
@@ -696,6 +835,16 @@ DEFAULT_PUBLISH_SETTINGS = {
         "renderman_render_attributes": []
     },
     "ValidateCurrentRenderLayerIsRenderable": {
+        "enabled": True,
+        "optional": False,
+        "active": True
+    },
+    "ValidateGLSLMaterial": {
+        "enabled": True,
+        "optional": False,
+        "active": True
+    },
+    "ValidateGLSLPlugin": {
         "enabled": True,
         "optional": False,
         "active": True
@@ -938,7 +1087,7 @@ DEFAULT_PUBLISH_SETTINGS = {
         "families": [
             "pointcache",
             "model",
-            "vrayproxy"
+            "vrayproxy.alembic"
         ]
     },
     "ExtractObj": {
@@ -1053,5 +1202,28 @@ DEFAULT_PUBLISH_SETTINGS = {
         "optional": True,
         "active": True,
         "bake_attributes": "[]"
-    }
+    },
+    "ExtractGLB": {
+            "enabled": True,
+            "active": True,
+            "ogsfx_path": "/maya2glTF/PBR/shaders/glTF_PBR.ogsfx"
+        },
+        "ExtractLook": {
+            "maketx_arguments": []
+        },
+        "ExtractGPUCache": {
+            "enabled": False,
+            "families": [
+                "model",
+                "animation",
+                "pointcache"
+            ],
+            "step": 1.0,
+            "stepSave": 1,
+            "optimize": True,
+            "optimizationThreshold": 40000,
+            "optimizeAnimationsForMotionBlur": True,
+            "writeMaterials": True,
+            "useBaseTessellation": True
+        }
 }

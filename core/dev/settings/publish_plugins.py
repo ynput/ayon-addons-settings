@@ -45,6 +45,11 @@ class CollectSceneVersionModel(BaseSettingsModel):
     )
 
 
+class CollectCommentPIModel(BaseSettingsModel):
+    enabled: bool = Field(True)
+    families: list[str] = Field(default_factory=list, title="Families")
+
+
 class ValidateIntentProfile(BaseSettingsModel):
     _layout = "expanded"
     hosts: list[str] = Field(default_factory=list, title="Host names")
@@ -87,6 +92,69 @@ class ExtractThumbnailModel(BaseSettingsModel):
     enabled: bool = Field(True)
     ffmpeg_args: ExtractThumbnailFFmpegModel = Field(
         default_factory=ExtractThumbnailFFmpegModel
+    )
+
+
+def _extract_oiio_transcoding_type():
+    return []
+
+
+class OIIOToolArgumentsModel(BaseSettingsModel):
+    additional_command_args: list[str] = Field(
+        default_factory=list, title="Arguments")
+
+
+class ExtractOIIOTranscodeOutputModel(BaseSettingsModel):
+    extension: str = Field("", title="Extension")
+    transcoding_type: str = Field(
+        "colorspace",
+        title="Transcoding type",
+        enum_resolver=_extract_oiio_transcoding_type
+    )
+    colorspace: str = Field("", title="Colorspace")
+    display: str = Field("", title="Display")
+    view: str = Field("", title="View")
+    oiiotool_args: OIIOToolArgumentsModel = Field(
+        default_factory=OIIOToolArgumentsModel,
+        title="OIIOtool arguments")
+
+    tags: list[str] = Field(default_factory=list, title="Tags")
+    custom_tags: list[str] = Field(default_factory=list, title="Custom Tags")
+
+
+class ExtractOIIOTranscodeProfileModel(BaseSettingsModel):
+    families: list[str] = Field(
+        default_factory=list,
+        title="Families"
+    )
+    hosts: list[str] = Field(
+        default_factory=list,
+        title="Host names"
+    )
+    task_types: list[str] = Field(
+        default_factory=list,
+        title="Task types",
+        enum_resolver=task_types_enum
+    )
+    task_names: list[str] = Field(
+        default_factory=list,
+        title="Task names"
+    )
+    subsets: list[str] = Field(
+        default_factory=list,
+        title="Subset names"
+    )
+    delete_original: bool = Field(True, title="Delete Original Representation")
+    outputs: list[ExtractOIIOTranscodeOutputModel] = Field(
+        default_factory=list,
+        title="Output Definitions",
+    )
+
+
+class ExtractOIIOTranscodeModel(BaseSettingsModel):
+    enabled: bool = Field(True)
+    profiles: list[ExtractOIIOTranscodeProfileModel] = Field(
+        default_factory=list, title="Profiles"
     )
 
 
@@ -435,17 +503,97 @@ class IntegrateSubsetGroupModel(BaseSettingsModel):
     )
 
 
+class IntegrateANSubsetGroupProfileModel(BaseSettingsModel):
+    families: list[str] = Field(
+        default_factory=list,
+        title="Families"
+    )
+    hosts: list[str] = Field(
+        default_factory=list,
+        title="Hosts"
+    )
+    task_types: list[str] = Field(
+        default_factory=list,
+        title="Task types",
+        enum_resolver=task_types_enum
+    )
+    tasks: list[str] = Field(
+        default_factory=list,
+        title="Task names"
+    )
+    template: str = Field("", title="Template")
+
+
+class IntegrateANTemplateNameProfileModel(BaseSettingsModel):
+    families: list[str] = Field(
+        default_factory=list,
+        title="Families"
+    )
+    hosts: list[str] = Field(
+        default_factory=list,
+        title="Hosts"
+    )
+    task_types: list[str] = Field(
+        default_factory=list,
+        title="Task types",
+        enum_resolver=task_types_enum
+    )
+    tasks: list[str] = Field(
+        default_factory=list,
+        title="Task names"
+    )
+    template_name: str = Field("", title="Template name")
+
+
+class IntegrateAssetNewModel(BaseSettingsModel):
+    subset_grouping_profiles: list[IntegrateANSubsetGroupProfileModel] = (
+        Field(
+            default_factory=list,
+            title="Subset grouping profiles (DEPRECATED)"
+        )
+    )
+    template_name_profiles: list[IntegrateANTemplateNameProfileModel] = (
+        Field(
+            default_factory=list,
+            title="Template name profiles (DEPRECATED)"
+        )
+    )
+
+
+class IntegrateHeroTemplateNameProfileModel(BaseSettingsModel):
+    families: list[str] = Field(
+        default_factory=list,
+        title="Families"
+    )
+    hosts: list[str] = Field(
+        default_factory=list,
+        title="Hosts"
+    )
+    task_types: list[str] = Field(
+        default_factory=list,
+        title="Task types",
+        enum_resolver=task_types_enum
+    )
+    task_names: list[str] = Field(
+        default_factory=list,
+        title="Task names"
+    )
+    template_name: str = Field("", title="Template name")
+
+
 class IntegrateHeroVersionModel(BaseSettingsModel):
     _isGroup = True
     enabled: bool = Field(True)
     optional: bool = Field(False, title="Optional")
     active: bool = Field(True, title="Active")
     families: list[str] = Field(default_factory=list, title="Families")
-    # TODO this has been removed as is marked as deprecated
-    # template_name_profiles: list[str] = Field(
-    #     default_factory=list,
-    #     title="Template name profiles"
-    # )
+    # TODO remove when removed from client code
+    template_name_profiles: list[IntegrateHeroTemplateNameProfileModel] = (
+        Field(
+            default_factory=list,
+            title="Template name profiles"
+        )
+    )
 
 
 class CleanUpModel(BaseSettingsModel):
@@ -475,6 +623,10 @@ class PublishPuginsModel(BaseSettingsModel):
         default_factory=CollectSceneVersionModel,
         title="Collect Version from Workfile"
     )
+    collect_comment_per_instance: CollectCommentPIModel = Field(
+        default_factory=CollectCommentPIModel,
+        title="Collect comment per instance",
+    )
     ValidateEditorialAssetName: ValidateBaseModel = Field(
         default_factory=ValidateBaseModel,
         title="Validate Editorial Asset Name"
@@ -491,6 +643,10 @@ class PublishPuginsModel(BaseSettingsModel):
         default_factory=ExtractThumbnailModel,
         title="Extract Thumbnail"
     )
+    ExtractOIIOTranscode: ExtractOIIOTranscodeModel = Field(
+        default_factory=ExtractOIIOTranscodeModel,
+        title="Extract OIIO Transcode"
+    )
     ExtractReview: ExtractReviewModel = Field(
         default_factory=ExtractReviewModel,
         title="Extract Review"
@@ -499,13 +655,19 @@ class PublishPuginsModel(BaseSettingsModel):
         default_factory=ExtractBurninModel,
         title="Extract Burnin"
     )
+    PreIntegrateThumbnails: PreIntegrateThumbnailsModel = Field(
+        default_factory=PreIntegrateThumbnailsModel,
+        title="Override Integrate Thumbnail Representations"
+    )
     IntegrateSubsetGroup: IntegrateSubsetGroupModel = Field(
         default_factory=IntegrateSubsetGroupModel,
         title="Integrate Subset Group"
     )
-    # TODO these keys have been removed
-    # IntegrateAssetNew
-    # IntegrateAsset
+    # TODO remove when removed from client
+    IntegrateAssetNew: IntegrateAssetNewModel = Field(
+        defalt_factory=IntegrateAssetNewModel,
+        title="IntegrateAsset (Legacy)"
+    )
     IntegrateHeroVersion: IntegrateHeroVersionModel = Field(
         default_factory=IntegrateHeroVersionModel,
         title="Integrate Hero Version"
@@ -545,6 +707,10 @@ DEFAULT_PUBLISH_VALUES = {
         ],
         "skip_hosts_headless_publish": []
     },
+    "collect_comment_per_instance": {
+        "enabled": False,
+        "families": []
+    },
     "ValidateEditorialAssetName": {
         "enabled": True,
         "optional": False,
@@ -567,6 +733,10 @@ DEFAULT_PUBLISH_VALUES = {
             ],
             "output": []
         }
+    },
+    "ExtractOIIOTranscode": {
+        "enabled": True,
+        "profiles": []
     },
     "ExtractReview": {
         "enabled": True,
@@ -617,7 +787,8 @@ DEFAULT_PUBLISH_VALUES = {
                         "ext": "mp4",
                         "tags": [
                             "burnin",
-                            "ftrackreview"
+                            "ftrackreview",
+                            "kitsureview"
                         ],
                         "burnins": [],
                         "ffmpeg_args": {
@@ -665,7 +836,7 @@ DEFAULT_PUBLISH_VALUES = {
         "options": {
             "font_size": 42,
             "font_color": [255, 255, 255, 1.0],
-            "bg_color": [255, 255, 255, 0.5],
+            "bg_color": [0, 0, 0, 0.5],
             "x_offset": 5,
             "y_offset": 5,
             "bg_padding": 5,
@@ -695,6 +866,30 @@ DEFAULT_PUBLISH_VALUES = {
                             "families": [],
                             "tags": []
                         }
+                    },
+                ]
+            },
+            {
+                "families": [],
+                "hosts": [
+                    "maya"
+                ],
+                "task_types": [],
+                "task_names": [],
+                "subsets": [],
+                "burnins": [
+                    {
+                        "name": "maya_burnin",
+                        "TOP_LEFT": "{yy}-{mm}-{dd}",
+                        "TOP_CENTERED": "{focalLength:.2f} mm",
+                        "TOP_RIGHT": "{anatomy[version]}",
+                        "BOTTOM_LEFT": "{username}",
+                        "BOTTOM_CENTERED": "{asset}",
+                        "BOTTOM_RIGHT": "{frame_start}-{current_frame}-{frame_end}",
+                        "filter": {
+                            "families": [],
+                            "tags": []
+                        }
                     }
                 ]
             }
@@ -715,6 +910,71 @@ DEFAULT_PUBLISH_VALUES = {
             }
         ]
     },
+    "IntegrateAssetNew": {
+        "subset_grouping_profiles": [
+            {
+                "families": [],
+                "hosts": [],
+                "task_types": [],
+                "tasks": [],
+                "template": ""
+            }
+        ],
+        "template_name_profiles": [
+            {
+                "families": [],
+                "hosts": [],
+                "task_types": [],
+                "tasks": [],
+                "template_name": "publish"
+            },
+            {
+                "families": [
+                    "review",
+                    "render",
+                    "prerender"
+                ],
+                "hosts": [],
+                "task_types": [],
+                "tasks": [],
+                "template_name": "render"
+            },
+            {
+                "families": [
+                    "simpleUnrealTexture"
+                ],
+                "hosts": [
+                    "standalonepublisher"
+                ],
+                "task_types": [],
+                "tasks": [],
+                "template_name": "simpleUnrealTexture"
+            },
+            {
+                "families": [
+                    "staticMesh",
+                    "skeletalMesh"
+                ],
+                "hosts": [
+                    "maya"
+                ],
+                "task_types": [],
+                "tasks": [],
+                "template_name": "maya2unreal"
+            },
+            {
+                "families": [
+                    "online"
+                ],
+                "hosts": [
+                    "traypublisher"
+                ],
+                "task_types": [],
+                "tasks": [],
+                "template_name": "online"
+            }
+        ]
+    },
     "IntegrateHeroVersion": {
         "enabled": True,
         "optional": True,
@@ -729,6 +989,19 @@ DEFAULT_PUBLISH_VALUES = {
             "layout",
             "mayaScene",
             "simpleUnrealTexture"
+        ],
+        "template_name_profiles": [
+            {
+                "families": [
+                    "simpleUnrealTexture"
+                ],
+                "hosts": [
+                    "standalonepublisher"
+                ],
+                "task_types": [],
+                "task_names": [],
+                "template_name": "simpleUnrealTextureHero"
+            }
         ]
     },
     "CleanUp": {

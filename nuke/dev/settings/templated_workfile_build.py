@@ -16,13 +16,16 @@ class TemplatedWorkfileProfileModel(BaseSettingsModel):
         default_factory=list,
         title="Task names"
     )
-    path: MultiplatformPathModel = Field(
-        default_factory=MultiplatformPathModel,
+    path: str = Field(
         title="Path to template"
     )
     keep_placeholder: bool = Field(
         False,
         title="Keep placeholders")
+    create_first_version: bool = Field(
+        True,
+        title="Create first version"
+    )
 
 
 class TemplatedWorkfileBuildModel(BaseSettingsModel):

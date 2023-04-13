@@ -16,6 +16,9 @@ class SubGizmoItem(BaseSettingsModel):
     command: str = Field(
         title="Python command"
     )
+    icon: str = Field(
+        title="Icon Path"
+    )
     shortcut: str = Field(
         title="Hotkey"
     )
@@ -47,6 +50,7 @@ class GizmoItem(BaseSettingsModel):
         default_factory=list, title="Gizmo Definition")
 
 
+
 DEFAULT_GIZMO_ITEM = {
     "toolbar_menu_name": "OpenPype Gizmo",
     "gizmo_source_dir": {
@@ -67,6 +71,7 @@ DEFAULT_GIZMO_ITEM = {
                     "sourcetype": "python",
                     "title": "Gizmo Note",
                     "command": "nuke.nodes.StickyNote(label='You can create your own toolbar menu in the Nuke GizmoMenu of OpenPype')",
+                    "icon": "",
                     "shortcut": ""
                 }
             ]

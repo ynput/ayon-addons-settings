@@ -1,41 +1,53 @@
 from pydantic import Field
-from ayon_server.settings import BaseSettingsModel
-
-
-class MultiplatformStrList(BaseSettingsModel):
-    """# TODO: This should be unified across the addons."""
-
-    windows: list[str] = Field(default_factory=list, title="Windows")
-    linux: list[str] = Field(default_factory=list, title="Linux")
-    darwin: list[str] = Field(default_factory=list, title="MacOS")
+from ayon_server.settings import BaseSettingsModel, MultiplatformPathModel
 
 
 class ServerListSubmodel(BaseSettingsModel):
     _layout = "compact"
-    name: str = Field(["default"], title="Name")
-    value: MultiplatformStrList = Field(
-        default_factory=MultiplatformStrList
+    name: str = Field("", title="Name")
+    value: MultiplatformPathModel = Field(
+        default_factory=MultiplatformPathModel
+    )
+
+
+class CollectSequencesFromJobModel(BaseSettingsModel):
+    review: bool = Field(True, title="Generate reviews from sequences")
+
+
+class PublishPluginsModel(BaseSettingsModel):
+    CollectSequencesFromJob: CollectSequencesFromJobModel = Field(
+        default_factory=CollectSequencesFromJobModel,
+        title="Collect Sequences from the Job"
     )
 
 
 class RoyalRenderSettings(BaseSettingsModel):
     enabled: bool = True
-
-    rr_paths:  list[ServerListSubmodel] = Field(
+    rr_paths: list[ServerListSubmodel] = Field(
         default_factory=list,
         title="Royal Render Root Paths",
+    )
+    publish: PublishPluginsModel = Field(
+        default_factory=PublishPluginsModel,
+        title="Publish plugins"
     )
 
 
 DEFAULT_VALUES = {
     "enabled": False,
-    "rr_paths": [{
-        "name": "default",
-        "value": {
-            "windows": "",
-            "darwin": "",
-            "linux": ""
+    "rr_paths": [
+        {
+            "name": "default",
+            "value": {
+                "windows": "",
+                "darwin": "",
+                "linux": ""
+            }
         }
+    ],
+    "publish": {
+        "CollectSequencesFromJob": {
+            "review": True
         }
-    ]
+    }
 }

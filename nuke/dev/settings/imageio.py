@@ -105,9 +105,6 @@ class WorkfileColorspaceSettings(BaseSettingsModel):
     monitorLut: str = Field(
         title="Monitor"
     )
-    monitorOutLut: str = Field(
-        title="Monitor Output"
-    )
     int8Lut: str = Field(
         title="8-bit files"
     )
@@ -215,7 +212,6 @@ DEFAULT_IMAGEIO_SETTINGS = {
         },
         "workingSpaceLUT": "linear",
         "monitorLut": "sRGB",
-        "monitorOutLut": "rec709",
         "int8Lut": "sRGB",
         "int16Lut": "sRGB",
         "logLut": "Cineon",

@@ -11,7 +11,8 @@ def validate_json_dict(value):
     try:
         converted_value = json.loads(value)
         success = isinstance(converted_value, dict)
-    except json.JSONDecodeError:
+    except json.JSONDecodeError as exc:
+        print(exc)
         success = False
 
     if not success:
@@ -133,21 +134,42 @@ class ApplicationsSettings(BaseSettingsModel):
 
     maya: AppGroupWithPython = Field(
         default_factory=AppGroupWithPython, title="Autodesk Maya")
+    adsk_3dsmax: AppGroupWithPython = Field(
+        default_factory=AppGroupWithPython, title="Autodesk 3ds Max")
     flame: AppGroupWithPython = Field(
         default_factory=AppGroupWithPython, title="Autodesk Flame")
     nuke: AppGroupWithPython = Field(
         default_factory=AppGroupWithPython, title="Nuke")
-    aftereffects: AppGroup = Field(
-        default_factory=AppGroupWithPython, title="Adobe After Effects")
-    photoshop: AppGroup = Field(
-        default_factory=AppGroupWithPython, title="Adobe Photoshop")
-    tvpaint: AppGroup = Field(
-        default_factory=AppGroupWithPython, title="TVPaint")
+    nukeassist: AppGroupWithPython = Field(
+        default_factory=AppGroupWithPython, title="Nuke Assist")
+    nukex: AppGroupWithPython = Field(
+        default_factory=AppGroupWithPython, title="Nuke X")
+    nukestudio: AppGroupWithPython = Field(
+        default_factory=AppGroupWithPython, title="Nuke Studio")
+    hiero: AppGroupWithPython = Field(
+        default_factory=AppGroupWithPython, title="Hiero")
+    fusion: AppGroup = Field(
+        default_factory=AppGroupWithPython, title="Fusion")
+    resolve: AppGroupWithPython = Field(
+        default_factory=AppGroupWithPython, title="Resolve")
+    houdini: AppGroupWithPython = Field(
+        default_factory=AppGroupWithPython, title="Houdini")
+    blender: AppGroup = Field(
+        default_factory=AppGroupWithPython, title="Blender")
     harmony: AppGroup = Field(
         default_factory=AppGroupWithPython, title="Harmony")
+    tvpaint: AppGroup = Field(
+        default_factory=AppGroupWithPython, title="TVPaint")
+    photoshop: AppGroup = Field(
+        default_factory=AppGroupWithPython, title="Adobe Photoshop")
+    aftereffects: AppGroup = Field(
+        default_factory=AppGroupWithPython, title="Adobe After Effects")
+    celaction: AppGroup = Field(
+        default_factory=AppGroupWithPython, title="Celaction 2D")
+    unreal: AppGroup = Field(
+        default_factory=AppGroupWithPython, title="Unreal Editor")
     additional_apps: list[AdditionalAppGroup] = Field(
-        default_factory=list, title="Additional Applications"
-    )
+        default_factory=list, title="Additional Applications")
 
     @validator("additional_apps")
     def validate_unique_name(cls, value):
@@ -161,8 +183,15 @@ class ApplicationsAddonSettings(BaseSettingsModel):
         title="Applications"
     )
     tool_groups: list[ToolGroupModel] = Field(default_factory=list)
+    only_available: bool = Field(
+        True, title="Show only available applications")
 
     @validator("tool_groups")
     def validate_unique_name(cls, value):
         ensure_unique_names(value)
         return value
+
+
+DEFAULT_VALUES = {
+    "only_available": False
+}

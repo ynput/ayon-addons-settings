@@ -64,14 +64,8 @@ class CollectInstanceDataModel(BaseSettingsModel):
     )
 
 
-class ValidateCorrectAssetNameModel(BaseSettingsModel):
-    enabled: bool = Field(title="Enabled")
-    optional: bool = Field(title="Optional")
-    active: bool = Field(title="Active")
-
-
-class ValidateContainersModel(BaseSettingsModel):
-    enabled: bool = Field(title="Enabled")
+class OptionalPluginModel(BaseSettingsModel):
+    enabled: bool = Field(True)
     optional: bool = Field(title="Optional")
     active: bool = Field(title="Active")
 
@@ -87,24 +81,6 @@ class ValidateKnobsModel(BaseSettingsModel):
     @validator("knobs")
     def validate_json(cls, value):
         return validate_json_dict(value)
-
-
-class ValidateGizmoModel(BaseSettingsModel):
-    enabled: bool = Field(title="Enabled")
-    optional: bool = Field(title="Optional")
-    active: bool = Field(title="Active")
-
-
-class ValidateOutputResolutionModel(BaseSettingsModel):
-    enabled: bool = Field(title="Enabled")
-    optional: bool = Field(title="Optional")
-    active: bool = Field(title="Active")
-
-
-class ValidateScriptModel(BaseSettingsModel):
-    enabled: bool = Field(title="Enabled")
-    optional: bool = Field(title="Optional")
-    active: bool = Field(title="Active")
 
 
 class ExtractThumbnailModel(BaseSettingsModel):
@@ -130,7 +106,7 @@ class ExtractReviewDataLutModel(BaseSettingsModel):
     enabled: bool = Field(title="Enabled")
 
 
-class BakeingStreamFilterModel(BaseSettingsModel):
+class BakingStreamFilterModel(BaseSettingsModel):
     task_types: list[str] = Field(
         default_factory=list,
         title="Task types",
@@ -144,25 +120,45 @@ class BakeingStreamFilterModel(BaseSettingsModel):
     subsets: list[str] = Field(
         default_factory=list, title="Subsets")
 
+
+class ReformatNodesRepositionNodes(BaseSettingsModel):
+    node_class: str = Field(title="Node class")
+    knobs: list[KnobModel] = Field(
+        default_factory=list,
+        title="Node knobs")
+
+
+class ReformatNodesConfigModel(BaseSettingsModel):
+    enabled: bool = Field(False)
+    reposition_nodes: list[ReformatNodesRepositionNodes] = Field(
+        default_factory=list,
+        title="Reposition knobs supported only.<br/>You can add multiple reformat nodes <br/>and set their knobs. Order of reformat <br/>nodes is important. First reformat node <br/>will be applied first and last reformat <br/>node will be applied last."
+    )
+
+
 class BakingStreamModel(BaseSettingsModel):
     name: str = Field(title="Output name")
-    filter: BakeingStreamFilterModel = Field(
-        title="Filter", default_factory=BakeingStreamFilterModel)
-    extension: str = Field(title="File extension")
+    filter: BakingStreamFilterModel = Field(
+        title="Filter", default_factory=BakingStreamFilterModel)
     read_raw: bool = Field(title="Read raw switch")
     viewer_process_override: str = Field(title="Viewer process override")
     bake_viewer_process: bool = Field(title="Bake view process")
     bake_viewer_input_process: bool = Field(title="Bake viewer input process")
     reformat_node_add: bool = Field(title="Add reformat node")
     reformat_node_config: list[KnobModel] = Field(
+        default_factory=list,
         title="Reformat node properties")
+    reformat_nodes_config: ReformatNodesConfigModel = Field(
+        default_factory=ReformatNodesConfigModel,
+        title="Reformat Nodes")
+    extension: str = Field(title="File extension")
     add_custom_tags: list[str] = Field(
         title="Custom tags", default_factory=list)
+
 
 class ExtractReviewDataMovModel(BaseSettingsModel):
     enabled: bool = Field(title="Enabled")
     viewer_lut_raw: bool = Field(title="Viewer lut raw")
-    """# TODO: v3 api dict now list"""
     outputs: list[BakingStreamModel] = Field(
         title="Baking streams"
     )
@@ -224,30 +220,34 @@ class PublishPuginsModel(BaseSettingsModel):
         default_factory=CollectInstanceDataModel,
         section="Collectors"
     )
-    ValidateCorrectAssetName: ValidateCorrectAssetNameModel = Field(
+    ValidateCorrectAssetName: OptionalPluginModel = Field(
         title="Validate Correct Asset Name",
-        default_factory=ValidateCorrectAssetNameModel,
+        default_factory=OptionalPluginModel,
         section="Validators"
     )
-    ValidateContainers: ValidateContainersModel = Field(
+    ValidateContainers: OptionalPluginModel = Field(
         title="Validate Containers",
-        default_factory=ValidateContainersModel
+        default_factory=OptionalPluginModel
     )
     ValidateKnobs: ValidateKnobsModel = Field(
         title="Validate Knobs",
         default_factory=ValidateKnobsModel
     )
-    ValidateOutputResolution: ValidateOutputResolutionModel = Field(
+    ValidateOutputResolution: OptionalPluginModel = Field(
         title="Validate Output Resolution",
-        default_factory=ValidateOutputResolutionModel
+        default_factory=OptionalPluginModel
     )
-    ValidateGizmo: ValidateGizmoModel = Field(
+    ValidateGizmo: OptionalPluginModel = Field(
         title="Validate Gizmo",
-        default_factory=ValidateGizmoModel
+        default_factory=OptionalPluginModel
     )
-    ValidateScript: ValidateScriptModel = Field(
+    ValidateBackdrop: OptionalPluginModel = Field(
+        title="Validate Backdrop",
+        default_factory=OptionalPluginModel
+    )
+    ValidateScript: OptionalPluginModel = Field(
         title="Validate Script",
-        default_factory=ValidateScriptModel
+        default_factory=OptionalPluginModel
     )
     ExtractThumbnail: ExtractThumbnailModel = Field(
         title="Extract Thumbnail",
@@ -315,6 +315,11 @@ DEFAULT_PUBLISH_PLUGIN_SETTINGS = {
         "active": True
     },
     "ValidateGizmo": {
+        "enabled": True,
+        "optional": True,
+        "active": True
+    },
+    "ValidateBackdrop": {
         "enabled": True,
         "optional": True,
         "active": True
@@ -414,6 +419,41 @@ DEFAULT_PUBLISH_PLUGIN_SETTINGS = {
                         "boolean": False
                     }
                 ],
+                "reformat_nodes_config": {
+                    "enabled": False,
+                    "reposition_nodes": [
+                        {
+                            "node_class": "Reformat",
+                            "knobs": [
+                                {
+                                    "type": "text",
+                                    "name": "type",
+                                    "text": "to format"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "format",
+                                    "text": "HD_1080"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "filter",
+                                    "text": "Lanczos6"
+                                },
+                                {
+                                    "type": "bool",
+                                    "name": "black_outside",
+                                    "boolean": True
+                                },
+                                {
+                                    "type": "bool",
+                                    "name": "pbb",
+                                    "boolean": False
+                                }
+                            ]
+                        }
+                    ]
+                },
                 "extension": "mov",
                 "add_custom_tags": []
             }

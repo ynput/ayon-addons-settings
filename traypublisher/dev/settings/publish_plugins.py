@@ -3,7 +3,7 @@ from pydantic import Field
 from ayon_server.settings import BaseSettingsModel
 
 
-class ValidateFrameRange(BaseSettingsModel):
+class ValidateFrameRangeModel(BaseSettingsModel):
     """Allows to publish multiple video files in one go. <br />Name of matching
      asset is parsed from file names ('asset.mov', 'asset_v001.mov',
      'my_asset_to_publish.mov')"""
@@ -14,8 +14,7 @@ class ValidateFrameRange(BaseSettingsModel):
 
 
 class TrayPublisherPublishPlugins(BaseSettingsModel):
-
-    ValidateSceneSettings: ValidateFrameRange = Field(
+    ValidateFrameRange: ValidateFrameRangeModel = Field(
         title="Validate Frame Range",
-        default_factory=ValidateFrameRange,
+        default_factory=ValidateFrameRangeModel,
     )

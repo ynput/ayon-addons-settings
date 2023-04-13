@@ -37,6 +37,8 @@ class PublishGUIFiltersModel(BaseSettingsModel):
 class MayaSettings(BaseSettingsModel):
     """Maya Project Settings."""
 
+    open_workfile_post_initialization: bool = Field(
+        True, title="Open Workfile Post Initialization")
     imageio: ImageIOSettings = Field(
         default_factory=ImageIOSettings, title="Color Management (imageio)")
     mel_workspace: str = Field(title="Maya MEL Workspace", widget="textarea")
@@ -80,9 +82,11 @@ DEFAULT_MEL_WORKSPACE_SETTINGS = "\n".join((
     'workspace -fr "renderData" "renderData";',
     'workspace -fr "sourceImages" "sourceimages";',
     'workspace -fr "fileCache" "cache/nCache";',
+    '',
 ))
 
 DEFAULT_MAYA_SETTING = {
+    "open_workfile_post_initialization": False,
     "imageio": DEFAULT_IMAGEIO_SETTINGS,
     "mel_workspace": DEFAULT_MEL_WORKSPACE_SETTINGS,
     "ext_mapping": [

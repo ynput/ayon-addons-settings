@@ -2,10 +2,13 @@ from pydantic import Field
 
 from ayon_server.settings import BaseSettingsModel
 
+
 class CreateLookModel(BaseSettingsModel):
     enabled: bool = Field(title="Enabled")
     make_tx: bool = Field(title="Make tx files")
+    rs_tex: bool = Field(title="Make Redshift texture files")
     defaults: list[str] = Field(default_factory=["Main"], title="Default Subsets")
+
 
 
 class BasicCreatorModel(BaseSettingsModel):
@@ -50,7 +53,34 @@ class BasicExportMeshModel(BaseSettingsModel):
     )
 
 
+class CreateAnimationModel(BaseSettingsModel):
+    enabled: bool = Field(title="Enabled")
+    write_color_sets: bool = Field(title="Write Color Sets")
+    write_face_sets: bool = Field(title="Write Face Sets")
+    include_parent_hierarchy: bool = Field(
+        title="Include Parent Hierarchy")
+    include_user_defined_attributes: bool = Field(
+        title="Include User Defined Attributes")
+    defaults: list[str] = Field(
+        default_factory=list,
+        title="Default Subsets"
+    )
+
+
 class CreatePointCacheModel(BaseSettingsModel):
+    enabled: bool = Field(title="Enabled")
+    write_color_sets: bool = Field(title="Write Color Sets")
+    write_face_sets: bool = Field(title="Write Face Sets")
+    include_user_defined_attributes: bool = Field(
+        title="Include User Defined Attributes"
+    )
+    defaults: list[str] = Field(
+        default_factory=["Main"],
+        title="Default Subsets"
+    )
+
+
+class CreateProxyAlembicModel(BaseSettingsModel):
     enabled: bool = Field(title="Enabled")
     write_color_sets: bool = Field(title="Write Color Sets")
     write_face_sets: bool = Field(title="Write Face Sets")
@@ -64,7 +94,7 @@ class CreateAssModel(BasicCreatorModel):
     expandProcedurals: bool = Field(title="Expand Procedurals")
     motionBlur: bool = Field(title="Motion Blur")
     motionBlurKeys: int = Field(2, title="Motion Blur Keys")
-    motionBlurLength: int = Field(0, title="Motion Blur Length")
+    motionBlurLength: float = Field(0.5, title="Motion Blur Length")
     maskOptions: bool = Field(title="Mask Options")
     maskCamera: bool = Field(title="Mask Camera")
     maskLight: bool = Field(title="Mask Light")
@@ -75,6 +105,17 @@ class CreateAssModel(BasicCreatorModel):
     maskFilter: bool = Field(title="Mask Filter")
     maskColor_manager: bool = Field(title="Mask Color Manager")
     maskOperator: bool = Field(title="Mask Operator")
+
+
+class CreateReviewModel(BasicCreatorModel):
+    useMayaTimeline: bool = Field(title="Use Maya Timeline for Frame Range.")
+
+
+class CreateVrayProxyModel(BaseSettingsModel):
+    enabled: bool = Field(True)
+    vrmesh: bool = Field(title="VrMesh")
+    alembic: bool = Field(title="Alembic")
+    defaults: list[str] = Field(default_factory=list, title="Default Subsets")
 
 
 class CreatorsModel(BaseSettingsModel):
@@ -100,8 +141,8 @@ class CreatorsModel(BaseSettingsModel):
         default_factory=CreateMultiverseLookModel,
         title="Create Multiverse Look"
     )
-    CreateAnimation: BasicExportMeshModel = Field(
-        default_factory=BasicExportMeshModel,
+    CreateAnimation: CreateAnimationModel = Field(
+        default_factory=CreateAnimationModel,
         title="Create Animation"
     )
     CreateModel: BasicExportMeshModel = Field(
@@ -112,8 +153,8 @@ class CreatorsModel(BaseSettingsModel):
         default_factory=CreatePointCacheModel,
         title="Create Point Cache"
     )
-    CreateProxyAlembic: CreatePointCacheModel = Field(
-        default_factory=CreatePointCacheModel,
+    CreateProxyAlembic: CreateProxyAlembicModel = Field(
+        default_factory=CreateProxyAlembicModel,
         title="Create Proxy Alembic"
     )
     CreateMultiverseUsd : BasicCreatorModel = Field(
@@ -152,8 +193,8 @@ class CreatorsModel(BaseSettingsModel):
         default_factory=BasicCreatorModel,
         title="Create Render Setup"
     )
-    CreateReview: BasicCreatorModel = Field(
-        default_factory=BasicCreatorModel,
+    CreateReview: CreateReviewModel = Field(
+        default_factory=CreateReviewModel,
         title="Create Review"
     )
     CreateRig: BasicCreatorModel = Field(
@@ -164,8 +205,8 @@ class CreatorsModel(BaseSettingsModel):
         default_factory=BasicCreatorModel,
         title="Create Set Dress"
     )
-    CreateVrayProxy: BasicCreatorModel = Field(
-        default_factory=BasicCreatorModel,
+    CreateVrayProxy: CreateVrayProxyModel = Field(
+        default_factory=CreateVrayProxyModel,
         title="Create VRay Proxy"
     )
     CreateVRayScene: BasicCreatorModel = Field(
@@ -182,6 +223,7 @@ DEFAULT_CREATORS_SETTINGS = {
         "CreateLook": {
             "enabled": True,
             "make_tx": True,
+            "rs_tex": False,
             "defaults": [
                 "Main"
             ]
@@ -219,6 +261,8 @@ DEFAULT_CREATORS_SETTINGS = {
             "enabled": True,
             "write_color_sets": False,
             "write_face_sets": False,
+            "include_parent_hierarchy": False,
+            "include_user_defined_attributes": False,
             "defaults": [
                 "Main"
             ]
@@ -237,6 +281,7 @@ DEFAULT_CREATORS_SETTINGS = {
             "enabled": True,
             "write_color_sets": False,
             "write_face_sets": False,
+            "include_user_defined_attributes": False,
             "defaults": [
                 "Main"
             ]
@@ -275,7 +320,7 @@ DEFAULT_CREATORS_SETTINGS = {
             "expandProcedurals": False,
             "motionBlur": True,
             "motionBlurKeys": 2,
-            "motionBlurLength": 0,
+            "motionBlurLength": 0.5,
             "maskOptions": False,
             "maskCamera": False,
             "maskLight": False,
@@ -321,7 +366,8 @@ DEFAULT_CREATORS_SETTINGS = {
             "enabled": True,
             "defaults": [
                 "Main"
-            ]
+            ],
+            "useMayaTimeline": True
         },
         "CreateRig": {
             "enabled": True,
@@ -340,6 +386,8 @@ DEFAULT_CREATORS_SETTINGS = {
         },
         "CreateVrayProxy": {
             "enabled": True,
+            "vrmesh": True,
+            "alembic": True,
             "defaults": [
                 "Main"
             ]
