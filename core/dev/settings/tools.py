@@ -116,7 +116,7 @@ class WorkfilesToolModel(BaseSettingsModel):
     )
     last_workfile_on_startup: list[LastWorkfileOnStartupProfile] = Field(
         default_factory=list,
-        title="Open last workfiles on launch"
+        title="Open last workfile on launch"
     )
     open_workfile_tool_on_startup: list[WorkfilesToolOnStartupProfile] = Field(
         default_factory=list,
