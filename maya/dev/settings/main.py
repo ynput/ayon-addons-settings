@@ -2,13 +2,18 @@ from pydantic import Field, validator
 from ayon_server.settings import BaseSettingsModel, ensure_unique_names
 from .imageio import ImageIOSettings, DEFAULT_IMAGEIO_SETTINGS
 from .maya_dirmap import MayaDirmapModel, DEFAULT_MAYA_DIRMAP_SETTINGS
+from .explicit_plugins_loading import (
+    ExplicitPluginsLoadingModel, DEFAULT_EXPLITCIT_PLUGINS_LOADING_SETTINGS
+)
 from .scriptsmenu import ScriptsmenuModel, DEFAULT_SCRIPTSMENU_SETTINGS
 from .render_settings import RenderSettingsModel, DEFAULT_RENDER_SETTINGS
 from .creators import CreatorsModel, DEFAULT_CREATORS_SETTINGS
 from .publishers import PublishersModel, DEFAULT_PUBLISH_SETTINGS
 from .loaders import LoadersModel, DEFAULT_LOADERS_SETTING
 from .workfile_build_settings import ProfilesModel, DEFAULT_WORKFILE_SETTING
-from .templated_workfile_settings import TemplatedProfilesModel, DEFAULT_TEMPLATED_WORKFILE_SETTINGS
+from .templated_workfile_settings import (
+    TemplatedProfilesModel, DEFAULT_TEMPLATED_WORKFILE_SETTINGS
+)
 
 
 class ExtMappingItemModel(BaseSettingsModel):
@@ -39,6 +44,9 @@ class MayaSettings(BaseSettingsModel):
 
     open_workfile_post_initialization: bool = Field(
         True, title="Open Workfile Post Initialization")
+    explicit_plugins_loading: ExplicitPluginsLoadingModel = Field(
+        default_factory=ExplicitPluginsLoadingModel,
+        title="Explicit Plugins Loading")
     imageio: ImageIOSettings = Field(
         default_factory=ImageIOSettings, title="Color Management (imageio)")
     mel_workspace: str = Field(title="Maya MEL Workspace", widget="textarea")
@@ -52,7 +60,7 @@ class MayaSettings(BaseSettingsModel):
         default_factory=RenderSettingsModel, title="Render Settings")
     create: CreatorsModel = Field(
         default_factory=CreatorsModel, title="Creators")
-    publish: PublishersModel= Field(
+    publish: PublishersModel = Field(
         default_factory=PublishersModel, title="Publishers")
     load: LoadersModel = Field(
         default_factory=LoadersModel, title="Loaders")
@@ -87,6 +95,7 @@ DEFAULT_MEL_WORKSPACE_SETTINGS = "\n".join((
 
 DEFAULT_MAYA_SETTING = {
     "open_workfile_post_initialization": False,
+    "explicit_plugins_loading": DEFAULT_EXPLITCIT_PLUGINS_LOADING_SETTINGS,
     "imageio": DEFAULT_IMAGEIO_SETTINGS,
     "mel_workspace": DEFAULT_MEL_WORKSPACE_SETTINGS,
     "ext_mapping": [
