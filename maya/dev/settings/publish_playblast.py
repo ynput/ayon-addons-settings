@@ -262,19 +262,19 @@ DEFAULT_PLAYBLAST_SETTING = {
                 125,
                 125,
                 125,
-                255
+                1.0
             ],
             "backgroundBottom": [
                 125,
                 125,
                 125,
-                255
+                1.0
             ],
             "backgroundTop": [
                 125,
                 125,
                 125,
-                255
+                1.0
             ],
             "displayGradient": True
         },
