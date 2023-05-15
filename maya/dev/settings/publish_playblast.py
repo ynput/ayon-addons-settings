@@ -79,8 +79,8 @@ class RendererSetting(BaseSettingsModel):
 
 class ResolutionSetting(BaseSettingsModel):
     _layout = "expanded"
-    width: int = Field(0, title="Width")
-    height: int = Field(0, title="Height")
+    width: int = Field(1920, title="Width")
+    height: int = Field(1080, title="Height")
 
 
 class PluginObjectsModel(BaseSettingsModel):
