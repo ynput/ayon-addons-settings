@@ -224,6 +224,7 @@ class CapturePresetSetting(BaseSettingsModel):
 
 
 class ProfilesModel(BaseSettingsModel):
+    _layout = "expanded"
     task_types: list[str] = Field(
         default_factory=list,
         title="Task types",
