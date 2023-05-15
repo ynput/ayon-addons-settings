@@ -256,7 +256,7 @@ DEFAULT_PLAYBLAST_SETTING = {
             "format": "image",
             "quality": 95
         },
-        "Display Options": {
+        "DisplayOptions": {
             "override_display": True,
             "background": [
                 125,
@@ -290,7 +290,7 @@ DEFAULT_PLAYBLAST_SETTING = {
             "width": 1920,
             "height": 1080
         },
-        "Viewport Options": {
+        "ViewportOptions": {
             "override_viewport_options": True,
             "displayLights": "default",
             "displayTextures": True,
@@ -357,11 +357,14 @@ DEFAULT_PLAYBLAST_SETTING = {
             "strokes": False,
             "subdivSurfaces": False,
             "textures": False,
-            "pluginObjects": {
-                "gpuCacheDisplayFilter": False
-            }
+            "pluginObjects": [
+                {
+                    "name": "gpuCacheDisplayFilter",
+                    "value": False
+                }
+            ]
         },
-        "Camera Options": {
+        "CameraOptions": {
             "displayGateMask": False,
             "displayResolution": False,
             "displayFilmGate": False,
