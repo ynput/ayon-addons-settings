@@ -684,8 +684,8 @@ class PublishersModel(BaseSettingsModel):
         default_factory=ValidateCameraContentsModel,
         title="Validate Camera Content"
     )
-    ExtractPlayblast : ExtractPlayblastSetting = Field(
-        default_factory = ExtractPlayblastSetting,
+    ExtractPlayblast: ExtractPlayblastSetting = Field(
+        default_factory=ExtractPlayblastSetting,
         title="Extract Playblast Settings",
         section="Extractors"
     )
