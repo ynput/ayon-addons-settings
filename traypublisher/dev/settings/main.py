@@ -9,7 +9,10 @@ from .editorial_creators import (
     TraypublisherEditorialCreatorPlugins,
     DEFAULT_EDITORIAL_CREATORS,
 )
-from .creator_plugins import BatchMovieCreatorPlugin
+from .creator_plugins import (
+    TrayPublisherCreatePluginsModel,
+    DEFAULT_CREATORS
+)
 from .publish_plugins import TrayPublisherPublishPlugins
 
 
@@ -20,20 +23,17 @@ class TraypublisherSettings(BaseSettingsModel):
         title="Color Management (ImageIO)"
     )
     simple_creators: list[SimpleCreatorPlugin] = Field(
-        title="Creator plugins",
+        title="Simple Create Plugins",
         default_factory=SimpleCreatorPlugin,
     )
-    #
     editorial_creators: TraypublisherEditorialCreatorPlugins = Field(
         title="Editorial Creators",
         default_factory=TraypublisherEditorialCreatorPlugins,
     )
-
-    BatchMovieCreator: BatchMovieCreatorPlugin = Field(
-        title="Batch Movie Creator",
-        default_factory=BatchMovieCreatorPlugin
+    create: TrayPublisherCreatePluginsModel = Field(
+        title="Create",
+        default_factory=TrayPublisherCreatePluginsModel
     )
-
     publish: TrayPublisherPublishPlugins = Field(
         title="Publish Plugins",
         default_factory=TrayPublisherPublishPlugins
@@ -43,17 +43,7 @@ class TraypublisherSettings(BaseSettingsModel):
 DEFAULT_TRAYPUBLISHER_SETTING = {
     "simple_creators": DEFAULT_SIMPLE_CREATORS,
     "editorial_creators": DEFAULT_EDITORIAL_CREATORS,
-    "BatchMovieCreator": {
-        "default_variants": [
-            "Main"
-        ],
-        "default_tasks": [
-            "Compositing"
-        ],
-        "extensions": [
-            ".mov"
-        ]
-    },
+    "create": DEFAULT_CREATORS,
     "publish": {
         "ValidateFrameRange": {
             "enabled": True,

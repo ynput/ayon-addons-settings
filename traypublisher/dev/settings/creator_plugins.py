@@ -22,3 +22,25 @@ class BatchMovieCreatorPlugin(BaseSettingsModel):
         title="Extensions",
         default_factory=list
     )
+
+
+class TrayPublisherCreatePluginsModel(BaseSettingsModel):
+    BatchMovieCreator: BatchMovieCreatorPlugin = Field(
+        title="Batch Movie Creator",
+        default_factory=BatchMovieCreatorPlugin
+    )
+
+
+DEFAULT_CREATORS = {
+    "BatchMovieCreator": {
+        "default_variants": [
+            "Main"
+        ],
+        "default_tasks": [
+            "Compositing"
+        ],
+        "extensions": [
+            ".mov"
+        ]
+    },
+}
