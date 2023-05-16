@@ -68,30 +68,5 @@ DEFAULT_WORKFILE_BUILDER_SETTINGS = {
     "create_first_version": False,
     "custom_templates": [],
     "builder_on_start": False,
-    "profiles": [
-        {
-            "task_types": [],
-            "tasks": [],
-            "current_context": [
-                {
-                    "subset_name_filters": [],
-                    "families": [
-                        "render",
-                        "plate"
-                    ],
-                    "repre_names": [
-                        "exr",
-                        "dpx",
-                        "mov",
-                        "mp4",
-                        "h264"
-                    ],
-                    "loaders": [
-                        "LoadClip"
-                    ]
-                }
-            ],
-            "linked_assets": []
-        }
-    ]
+    "profiles": []
 }
