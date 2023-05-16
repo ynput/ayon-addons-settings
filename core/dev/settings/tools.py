@@ -441,7 +441,7 @@ DEFAULT_TOOLS_VALUES = {
                 "hosts": [],
                 "task_types": [],
                 "task_names": [],
-                "template_name": "render"
+                "template_name": "publish_render"
             },
             {
                 "families": [
@@ -452,7 +452,7 @@ DEFAULT_TOOLS_VALUES = {
                 ],
                 "task_types": [],
                 "task_names": [],
-                "template_name": "simpleUnrealTexture"
+                "template_name": "publish_simpleUnrealTexture"
             },
             {
                 "families": [
@@ -464,7 +464,7 @@ DEFAULT_TOOLS_VALUES = {
                 ],
                 "task_types": [],
                 "task_names": [],
-                "template_name": "maya2unreal"
+                "template_name": "publish_maya2unreal"
             },
             {
                 "families": [
@@ -475,7 +475,7 @@ DEFAULT_TOOLS_VALUES = {
                 ],
                 "task_types": [],
                 "task_names": [],
-                "template_name": "online"
+                "template_name": "publish_online"
             }
         ],
         "hero_template_name_profiles": [
@@ -488,7 +488,7 @@ DEFAULT_TOOLS_VALUES = {
                 ],
                 "task_types": [],
                 "task_names": [],
-                "template_name": "simpleUnrealTextureHero"
+                "template_name": "publish_simpleUnrealTextureHero"
             }
         ]
     }
