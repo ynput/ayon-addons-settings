@@ -138,6 +138,7 @@ class ValidateShaderNameModel(BaseSettingsModel):
     """
     enabled: bool = Field(title="ValidateShaderName")
     optional: bool = Field(title="Optional")
+    active: bool = Field(title="Active")
     regex: str = Field("(?P<asset>.*)_(.*)_SHD", title="Validation regex")
 
 
@@ -745,6 +746,7 @@ DEFAULT_PUBLISH_SETTINGS = {
     "ValidateShaderName": {
         "enabled": False,
         "optional": True,
+        "active": True,
         "regex": "(?P<asset>.*)_(.*)_SHD"
     },
     "ValidateShadingEngine": {
