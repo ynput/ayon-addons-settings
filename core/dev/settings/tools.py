@@ -488,7 +488,7 @@ DEFAULT_TOOLS_VALUES = {
                 ],
                 "task_types": [],
                 "task_names": [],
-                "template_name": "publish_simpleUnrealTextureHero"
+                "template_name": "hero_simpleUnrealTextureHero"
             }
         ]
     }
