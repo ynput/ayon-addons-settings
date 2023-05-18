@@ -180,9 +180,13 @@ class ApplicationsSettings(BaseSettingsModel):
 class ApplicationsAddonSettings(BaseSettingsModel):
     applications: ApplicationsSettings = Field(
         default_factory=ApplicationsSettings,
-        title="Applications"
+        title="Applications",
+        scope=["studio"]
     )
-    tool_groups: list[ToolGroupModel] = Field(default_factory=list)
+    tool_groups: list[ToolGroupModel] = Field(
+        default_factory=list,
+        scope=["studio"]
+    )
     only_available: bool = Field(
         True, title="Show only available applications")
 
