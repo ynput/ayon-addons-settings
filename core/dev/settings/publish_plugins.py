@@ -752,7 +752,8 @@ DEFAULT_PUBLISH_VALUES = {
                         "name": "png",
                         "ext": "png",
                         "tags": [
-                            "ftrackreview"
+                            "ftrackreview",
+                            "kitsureview"
                         ],
                         "burnins": [],
                         "ffmpeg_args": {
@@ -873,16 +874,17 @@ DEFAULT_PUBLISH_VALUES = {
                 ]
             },
             {
-                "families": [],
+                "families": ["review"],
                 "hosts": [
-                    "maya"
+                    "maya",
+                    "houdini"
                 ],
                 "task_types": [],
                 "task_names": [],
                 "subsets": [],
                 "burnins": [
                     {
-                        "name": "maya_burnin",
+                        "name": "focal_length_burnin",
                         "TOP_LEFT": "{yy}-{mm}-{dd}",
                         "TOP_CENTERED": "{focalLength:.2f} mm",
                         "TOP_RIGHT": "{anatomy[version]}",

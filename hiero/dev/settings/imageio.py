@@ -73,6 +73,9 @@ class WorkfileColorspaceSettings(BaseSettingsModel):
     thumbnailLut: str = Field(
         title="Thumnails"
     )
+    monitorOutLut: str = Field(
+        title="Monitor"
+    )
 
 
 class ClipColorspaceRulesItems(BaseSettingsModel):
@@ -131,7 +134,8 @@ DEFAULT_IMAGEIO_SETTINGS = {
         "sixteenBitLut": "sRGB",
         "logLut": "Cineon",
         "floatLut": "linear",
-        "thumbnailLut": "sRGB"
+        "thumbnailLut": "sRGB",
+        "monitorOutLut": "sRGB"
     },
     "regexInputs": {
         "inputs": [

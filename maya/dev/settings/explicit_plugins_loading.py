@@ -13,14 +13,14 @@ class ExplicitPluginsLoadingModel(BaseSettingsModel):
     """Maya Explicit Plugins Loading."""
     _isGroup: bool = True
     enabled: bool = Field(title="enabled")
-    plugins: list[PluginsModel] = Field(
+    plugins_to_load: list[PluginsModel] = Field(
         default_factory=list, title="Plugins To Load"
     )
 
 
 DEFAULT_EXPLITCIT_PLUGINS_LOADING_SETTINGS = {
     "enabled": False,
-    "plugins": [
+    "plugins_to_load": [
         {
             "enabled": False,
             "name": "AbcBullet"

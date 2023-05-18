@@ -258,7 +258,7 @@ DEFAULT_CREATORS_SETTINGS = {
             "publish_mip_map": True
         },
         "CreateAnimation": {
-            "enabled": True,
+            "enabled": False,
             "write_color_sets": False,
             "write_face_sets": False,
             "include_parent_hierarchy": False,
