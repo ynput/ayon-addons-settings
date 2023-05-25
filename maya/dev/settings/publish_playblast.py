@@ -231,7 +231,7 @@ class ProfilesModel(BaseSettingsModel):
         enum_resolver=task_types_enum
     )
     task_names: list[str] = Field(default_factory=list, title="Task names")
-    subset_names: list[str] = Field(default_factory=list, title="Subset names")
+    product_names: list[str] = Field(default_factory=list, title="Products names")
     capture_preset: CapturePresetSetting = Field(
         default_factory=CapturePresetSetting,
         title="Capture Preset"

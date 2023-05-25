@@ -7,7 +7,7 @@ from ayon_server.settings import (
 from .common import KnobModel, validate_json_dict
 
 
-def nuke_render_families_enum():
+def nuke_render_publish_types_enum():
     """Return all nuke render families available in creators."""
     return [
         {"value": "render", "label": "Render"},
@@ -16,7 +16,7 @@ def nuke_render_families_enum():
     ]
 
 
-def nuke_families_enum():
+def nuke_product_types_enum():
     """Return all nuke families available in creators."""
     return [
         {"value": "nukenodes", "label": "Nukenodes"},
@@ -24,7 +24,7 @@ def nuke_families_enum():
         {"value": "camera", "label": "Camera"},
         {"value": "gizmo", "label": "Gizmo"},
         {"value": "source", "label": "Source"}
-    ] + nuke_render_families_enum()
+    ] + nuke_render_publish_types_enum()
 
 
 class NodeModel(BaseSettingsModel):
@@ -57,9 +57,9 @@ class NodeModel(BaseSettingsModel):
 
 
 class CollectInstanceDataModel(BaseSettingsModel):
-    sync_workfile_version_on_families: list[str] = Field(
+    sync_workfile_version_on_product_types: list[str] = Field(
         default_factory=list,
-        enum_resolver=nuke_families_enum,
+        enum_resolver=nuke_product_types_enum,
         title="Sync workfile versions for familes"
     )
 
@@ -112,13 +112,13 @@ class BakingStreamFilterModel(BaseSettingsModel):
         title="Task types",
         enum_resolver=task_types_enum
     )
-    families: list[str] = Field(
+    product_types: list[str] = Field(
         default_factory=list,
-        enum_resolver=nuke_render_families_enum,
+        enum_resolver=nuke_render_publish_types_enum,
         title="Sync workfile versions for familes"
     )
-    subsets: list[str] = Field(
-        default_factory=list, title="Subsets")
+    product_names: list[str] = Field(
+        default_factory=list, title="Product names")
 
 
 class ReformatNodesRepositionNodes(BaseSettingsModel):
@@ -280,7 +280,7 @@ class PublishPuginsModel(BaseSettingsModel):
 
 DEFAULT_PUBLISH_PLUGIN_SETTINGS = {
     "CollectInstanceData": {
-        "sync_workfile_version_on_families": [
+        "sync_workfile_version_on_product_types": [
             "nukenodes",
             "camera",
             "gizmo",
@@ -384,8 +384,8 @@ DEFAULT_PUBLISH_PLUGIN_SETTINGS = {
                 "name": "baking",
                 "filter": {
                     "task_types": [],
-                    "families": [],
-                    "subsets": []
+                    "product_types": [],
+                    "product_names": []
                 },
                 "read_raw": False,
                 "viewer_process_override": "",

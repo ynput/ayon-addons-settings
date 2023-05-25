@@ -14,9 +14,6 @@ class ExtractSequenceModel(BaseSettingsModel):
     review_bg: ColorRGBA_uint8 = Field(
         (255, 255, 255, 1.0),
         title="Review BG color")
-    families_to_review: list[str] = Field(
-        default_factory=list,
-        title="Families to review")
 
 
 class ValidatePluginModel(BaseSettingsModel):
@@ -103,12 +100,7 @@ DEFAULT_PUBLISH_SETTINGS = {
         "ignore_render_pass_transparency": False
     },
     "ExtractSequence": {
-        "review_bg": [255, 255, 255, 1.0],
-        "families_to_review": [
-            "review",
-            "renderlayer",
-            "renderscene"
-        ]
+        "review_bg": [255, 255, 255, 1.0]
     },
     "ValidateProjectSettings": {
         "enabled": True,

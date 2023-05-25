@@ -5,7 +5,7 @@ from ayon_server.settings import BaseSettingsModel
 
 class SimpleCreatorPlugin(BaseSettingsModel):
     _layout = "expanded"
-    family: str = Field("", title="Family")
+    product_type: str = Field("", title="Product type")
     # TODO add placeholder
     identifier: str = Field("", title="Identifier")
     label: str = Field("", title="Label")
@@ -40,7 +40,7 @@ class SimpleCreatorPlugin(BaseSettingsModel):
 
 DEFAULT_SIMPLE_CREATORS = [
     {
-        "family": "workfile",
+        "product_type": "workfile",
         "identifier": "",
         "label": "Workfile",
         "icon": "fa.file",
@@ -72,7 +72,7 @@ DEFAULT_SIMPLE_CREATORS = [
         ]
     },
     {
-        "family": "model",
+        "product_type": "model",
         "identifier": "",
         "label": "Model",
         "icon": "fa.cubes",
@@ -99,7 +99,7 @@ DEFAULT_SIMPLE_CREATORS = [
         ]
     },
     {
-        "family": "pointcache",
+        "product_type": "pointcache",
         "identifier": "",
         "label": "Pointcache",
         "icon": "fa.gears",
@@ -118,7 +118,7 @@ DEFAULT_SIMPLE_CREATORS = [
         ]
     },
     {
-        "family": "plate",
+        "product_type": "plate",
         "identifier": "",
         "label": "Plate",
         "icon": "mdi.camera-image",
@@ -146,7 +146,7 @@ DEFAULT_SIMPLE_CREATORS = [
         ]
     },
     {
-        "family": "render",
+        "product_type": "render",
         "identifier": "",
         "label": "Render",
         "icon": "mdi.folder-multiple-image",
@@ -169,7 +169,7 @@ DEFAULT_SIMPLE_CREATORS = [
         ]
     },
     {
-        "family": "camera",
+        "product_type": "camera",
         "identifier": "",
         "label": "Camera",
         "icon": "fa.video-camera",
@@ -188,7 +188,7 @@ DEFAULT_SIMPLE_CREATORS = [
         ]
     },
     {
-        "family": "image",
+        "product_type": "image",
         "identifier": "",
         "label": "Image",
         "icon": "fa.image",
@@ -216,7 +216,7 @@ DEFAULT_SIMPLE_CREATORS = [
         ]
     },
     {
-        "family": "vdb",
+        "product_type": "vdb",
         "identifier": "",
         "label": "VDB Volumes",
         "icon": "fa.cloud",
@@ -230,7 +230,7 @@ DEFAULT_SIMPLE_CREATORS = [
         ]
     },
     {
-        "family": "matchmove",
+        "product_type": "matchmove",
         "identifier": "",
         "label": "Matchmove",
         "icon": "fa.empire",
@@ -246,7 +246,7 @@ DEFAULT_SIMPLE_CREATORS = [
         "extensions": []
     },
     {
-        "family": "rig",
+        "product_type": "rig",
         "identifier": "",
         "label": "Rig",
         "icon": "fa.wheelchair",
@@ -263,7 +263,7 @@ DEFAULT_SIMPLE_CREATORS = [
         ]
     },
     {
-        "family": "simpleUnrealTexture",
+        "product_type": "simpleUnrealTexture",
         "identifier": "",
         "label": "Simple UE texture",
         "icon": "fa.image",

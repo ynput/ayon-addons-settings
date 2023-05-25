@@ -7,9 +7,9 @@ from ayon_server.settings import (
 )
 
 
-class FamiliesSmartSelectModel(BaseSettingsModel):
+class ProductTypeSmartSelectModel(BaseSettingsModel):
     _layout = "expanded"
-    name: str = Field("", title="Family")
+    name: str = Field("", title="Product type")
     task_names: list[str] = Field(default_factory=list, title="Task names")
 
     @validator("name")
@@ -17,9 +17,9 @@ class FamiliesSmartSelectModel(BaseSettingsModel):
         return normalize_name(value)
 
 
-class SubsetNameProfile(BaseSettingsModel):
+class ProductNameProfile(BaseSettingsModel):
     _layout = "expanded"
-    families: list[str] = Field(default_factory=list, title="Families")
+    product_types: list[str] = Field(default_factory=list, title="Product types")
     hosts: list[str] = Field(default_factory=list, title="Hosts")
     task_types: list[str] = Field(
         default_factory=list,
@@ -32,16 +32,16 @@ class SubsetNameProfile(BaseSettingsModel):
 
 class CreatorToolModel(BaseSettingsModel):
     # TODO this was dynamic dictionary '{name: task_names}'
-    families_smart_select: list[FamiliesSmartSelectModel] = Field(
+    product_types_smart_select: list[ProductTypeSmartSelectModel] = Field(
         default_factory=list,
-        title="Families Smart Select"
+        title="Create Smart Select"
     )
-    subset_name_profiles: list[SubsetNameProfile] = Field(
+    product_name_profiles: list[ProductNameProfile] = Field(
         default_factory=list,
-        title="Subset name profiles"
+        title="Product name profiles"
     )
 
-    @validator("families_smart_select")
+    @validator("product_types_smart_select")
     def validate_unique_name(cls, value):
         ensure_unique_names(value)
         return value
@@ -132,7 +132,7 @@ class WorkfilesToolModel(BaseSettingsModel):
     )
 
 
-def published_families():
+def _product_types_enum():
     return [
         "action",
         "animation",
@@ -170,7 +170,7 @@ def published_families():
     ]
 
 
-class LoaderFamilyFilterProfile(BaseSettingsModel):
+class LoaderProductTypeFilterProfile(BaseSettingsModel):
     _layout = "expanded"
     # TODO this should use hosts enum
     hosts: list[str] = Field(default_factory=list, title="Hosts")
@@ -180,22 +180,22 @@ class LoaderFamilyFilterProfile(BaseSettingsModel):
         enum_resolver=task_types_enum
     )
     is_include: bool = Field(True, title="Exclude / Include")
-    filter_families: list[str] = Field(
+    filter_product_types: list[str] = Field(
         default_factory=list,
-        enum_resolver=published_families
+        enum_resolver=_product_types_enum
     )
 
 
 class LoaderToolModel(BaseSettingsModel):
-    family_filter_profiles: list[LoaderFamilyFilterProfile] = Field(
+    product_type_filter_profiles: list[LoaderProductTypeFilterProfile] = Field(
         default_factory=list,
-        title="Family filtering"
+        title="Product type filtering"
     )
 
 
 class PublishTemplateNameProfile(BaseSettingsModel):
     _layout = "expanded"
-    families: list[str] = Field(default_factory=list, title="Families")
+    product_types: list[str] = Field(default_factory=list, title="Product types")
     # TODO this should use hosts enum
     hosts: list[str] = Field(default_factory=list, title="Hosts")
     task_types: list[str] = Field(
@@ -216,8 +216,8 @@ class CustomStagingDirProfileModel(BaseSettingsModel):
         enum_resolver=task_types_enum
     )
     task_names: list[str] = Field(default_factory=list, title="Task names")
-    families: list[str] = Field(default_factory=list, title="Families")
-    subsets: list[str] = Field(default_factory=list, title="Subset names")
+    product_types: list[str] = Field(default_factory=list, title="Product types")
+    product_names: list[str] = Field(default_factory=list, title="Product names")
     custom_staging_dir_persistent: bool = Field(
         False, title="Custom Staging Folder Persistent"
     )
@@ -260,7 +260,7 @@ class GlobalToolsModel(BaseSettingsModel):
 
 DEFAULT_TOOLS_VALUES = {
     "creator": {
-        "families_smart_select": [
+        "product_types_smart_select": [
             {
                 "name": "Render",
                 "task_names": [
@@ -294,16 +294,16 @@ DEFAULT_TOOLS_VALUES = {
                 ]
             }
         ],
-        "subset_name_profiles": [
+        "product_name_profiles": [
             {
-                "families": [],
+                "product_types": [],
                 "hosts": [],
                 "task_types": [],
                 "tasks": [],
                 "template": "{family}{variant}"
             },
             {
-                "families": [
+                "product_types": [
                     "workfile"
                 ],
                 "hosts": [],
@@ -312,7 +312,7 @@ DEFAULT_TOOLS_VALUES = {
                 "template": "{family}{Task}"
             },
             {
-                "families": [
+                "product_types": [
                     "render"
                 ],
                 "hosts": [],
@@ -321,7 +321,7 @@ DEFAULT_TOOLS_VALUES = {
                 "template": "{family}{Task}{Variant}"
             },
             {
-                "families": [
+                "product_types": [
                     "renderLayer",
                     "renderPass"
                 ],
@@ -333,7 +333,7 @@ DEFAULT_TOOLS_VALUES = {
                 "template": "{family}{Task}_{Renderlayer}_{Renderpass}"
             },
             {
-                "families": [
+                "product_types": [
                     "review",
                     "workfile"
                 ],
@@ -346,7 +346,7 @@ DEFAULT_TOOLS_VALUES = {
                 "template": "{family}{Task}"
             },
             {
-                "families": ["render"],
+                "product_types": ["render"],
                 "hosts": [
                     "aftereffects"
                 ],
@@ -355,7 +355,7 @@ DEFAULT_TOOLS_VALUES = {
                 "template": "{family}{Task}{Composition}{Variant}"
             },
             {
-                "families": [
+                "product_types": [
                     "staticMesh"
                 ],
                 "hosts": [
@@ -366,7 +366,7 @@ DEFAULT_TOOLS_VALUES = {
                 "template": "S_{asset}{variant}"
             },
             {
-                "families": [
+                "product_types": [
                     "skeletalMesh"
                 ],
                 "hosts": [
@@ -414,26 +414,26 @@ DEFAULT_TOOLS_VALUES = {
         "workfile_lock_profiles": []
     },
     "loader": {
-        "family_filter_profiles": [
+        "product_type_filter_profiles": [
             {
                 "hosts": [],
                 "task_types": [],
                 "is_include": True,
-                "filter_families": []
+                "filter_product_types": []
             }
         ]
     },
     "publish": {
         "template_name_profiles": [
             {
-                "families": [],
+                "product_types": [],
                 "hosts": [],
                 "task_types": [],
                 "task_names": [],
                 "template_name": "publish"
             },
             {
-                "families": [
+                "product_types": [
                     "review",
                     "render",
                     "prerender"
@@ -444,7 +444,7 @@ DEFAULT_TOOLS_VALUES = {
                 "template_name": "publish_render"
             },
             {
-                "families": [
+                "product_types": [
                     "simpleUnrealTexture"
                 ],
                 "hosts": [
@@ -455,7 +455,7 @@ DEFAULT_TOOLS_VALUES = {
                 "template_name": "publish_simpleUnrealTexture"
             },
             {
-                "families": [
+                "product_types": [
                     "staticMesh",
                     "skeletalMesh"
                 ],
@@ -467,7 +467,7 @@ DEFAULT_TOOLS_VALUES = {
                 "template_name": "publish_maya2unreal"
             },
             {
-                "families": [
+                "product_types": [
                     "online"
                 ],
                 "hosts": [
@@ -480,7 +480,7 @@ DEFAULT_TOOLS_VALUES = {
         ],
         "hero_template_name_profiles": [
             {
-                "families": [
+                "product_types": [
                     "simpleUnrealTexture"
                 ],
                 "hosts": [

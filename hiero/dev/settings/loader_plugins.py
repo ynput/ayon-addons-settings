@@ -7,9 +7,9 @@ class LoadClipModel(BaseSettingsModel):
         True,
         title="Enabled"
     )
-    families: list[str] = Field(
+    product_types: list[str] = Field(
         default_factory=list,
-        title="Families"
+        title="Product types"
     )
     clip_name_template: str = Field(
         title="Clip name template"
@@ -26,7 +26,7 @@ class LoaderPuginsModel(BaseSettingsModel):
 DEFAULT_LOADER_PLUGINS_SETTINGS = {
     "LoadClip": {
         "enabled": True,
-        "families": [
+        "product_types": [
             "render2d",
             "source",
             "plate",

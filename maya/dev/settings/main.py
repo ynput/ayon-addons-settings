@@ -19,7 +19,7 @@ from .templated_workfile_settings import (
 
 class ExtMappingItemModel(BaseSettingsModel):
     _layout = "compact"
-    name: str = Field(title="Family")
+    name: str = Field(title="Product type")
     value: str = Field(title="Extension")
 
 

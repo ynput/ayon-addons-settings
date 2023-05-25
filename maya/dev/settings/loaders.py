@@ -36,7 +36,7 @@ class ReferenceLoaderModel(BaseSettingsModel):
 class LoadersModel(BaseSettingsModel):
     colors: ColorsSetting = Field(
         default_factory=ColorsSetting,
-        title="Loaded Subsets Outliner Colors")
+        title="Loaded Products Outliner Colors")
 
     reference_loader: ReferenceLoaderModel = Field(
         default_factory=ReferenceLoaderModel,

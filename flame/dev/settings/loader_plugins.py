@@ -4,9 +4,9 @@ from ayon_server.settings import Field, BaseSettingsModel
 class LoadClipModel(BaseSettingsModel):
     enabled: bool = Field(True)
 
-    families: list[str] = Field(
+    product_types: list[str] = Field(
         default_factory=list,
-        title="Families"
+        title="Product types"
     )
     reel_group_name: str = Field(
         "OpenPype_Reels",
@@ -30,9 +30,9 @@ class LoadClipModel(BaseSettingsModel):
 
 class LoadClipBatchModel(BaseSettingsModel):
     enabled: bool = Field(True)
-    families: list[str] = Field(
+    product_types: list[str] = Field(
         default_factory=list,
-        title="Families"
+        title="Product types"
     )
     reel_name: str = Field(
         "OP_LoadedReel",
@@ -63,7 +63,7 @@ class LoaderPluginsModel(BaseSettingsModel):
 DEFAULT_LOADER_SETTINGS = {
     "LoadClip": {
         "enabled": True,
-        "families": [
+        "product_types": [
             "render2d",
             "source",
             "plate",
@@ -81,7 +81,7 @@ DEFAULT_LOADER_SETTINGS = {
     },
     "LoadClipBatch": {
         "enabled": True,
-        "families": [
+        "product_types": [
             "render2d",
             "source",
             "plate",
