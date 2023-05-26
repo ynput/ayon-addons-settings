@@ -96,7 +96,7 @@ DEFAULT_LOADERS_SETTING = {
         ]
     },
     "reference_loader": {
-        "namespace": "{asset_name}_{subset}_##_",
+        "namespace": "{folder[name]}_{product[name]}_##_",
         "group_name": "_GRP",
         "display_handle": True
     }

@@ -221,7 +221,7 @@ class PublishPuginsModel(BaseSettingsModel):
         section="Collectors"
     )
     ValidateCorrectAssetName: OptionalPluginModel = Field(
-        title="Validate Correct Asset Name",
+        title="Validate Correct Folder Name",
         default_factory=OptionalPluginModel,
         section="Validators"
     )

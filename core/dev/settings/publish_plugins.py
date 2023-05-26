@@ -495,8 +495,8 @@ class IntegrateProductGroupModel(BaseSettingsModel):
     Set all published instances as a part of specific group named according
      to 'Template'.
 
-    Implemented all variants of placeholders '{task}', '{family}', '{host}',
-    '{subset}', '{renderlayer}'.
+    Implemented all variants of placeholders '{task}', '{product[type]}',
+    '{host}', '{product[name]}', '{renderlayer}'.
     """
 
     _isGroup = True
@@ -844,7 +844,7 @@ DEFAULT_PUBLISH_VALUES = {
                         "TOP_CENTERED": "",
                         "TOP_RIGHT": "{anatomy[version]}",
                         "BOTTOM_LEFT": "{username}",
-                        "BOTTOM_CENTERED": "{asset}",
+                        "BOTTOM_CENTERED": "{folder[name]}",
                         "BOTTOM_RIGHT": "{frame_start}-{current_frame}-{frame_end}",
                         "filter": {
                             "families": [],
@@ -869,7 +869,7 @@ DEFAULT_PUBLISH_VALUES = {
                         "TOP_CENTERED": "{focalLength:.2f} mm",
                         "TOP_RIGHT": "{anatomy[version]}",
                         "BOTTOM_LEFT": "{username}",
-                        "BOTTOM_CENTERED": "{asset}",
+                        "BOTTOM_CENTERED": "{folder[name]}",
                         "BOTTOM_RIGHT": "{frame_start}-{current_frame}-{frame_end}",
                         "filter": {
                             "families": [],

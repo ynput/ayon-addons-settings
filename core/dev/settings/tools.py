@@ -300,7 +300,7 @@ DEFAULT_TOOLS_VALUES = {
                 "hosts": [],
                 "task_types": [],
                 "tasks": [],
-                "template": "{family}{variant}"
+                "template": "{product[type]}{variant}"
             },
             {
                 "product_types": [
@@ -309,7 +309,7 @@ DEFAULT_TOOLS_VALUES = {
                 "hosts": [],
                 "task_types": [],
                 "tasks": [],
-                "template": "{family}{Task}"
+                "template": "{product[type]}{Task[name]}"
             },
             {
                 "product_types": [
@@ -318,7 +318,7 @@ DEFAULT_TOOLS_VALUES = {
                 "hosts": [],
                 "task_types": [],
                 "tasks": [],
-                "template": "{family}{Task}{Variant}"
+                "template": "{product[type]}{Task[name]}{Variant}"
             },
             {
                 "product_types": [
@@ -330,7 +330,7 @@ DEFAULT_TOOLS_VALUES = {
                 ],
                 "task_types": [],
                 "tasks": [],
-                "template": "{family}{Task}_{Renderlayer}_{Renderpass}"
+                "template": "{product[type]}{Task[name]}_{Renderlayer}_{Renderpass}"
             },
             {
                 "product_types": [
@@ -343,7 +343,7 @@ DEFAULT_TOOLS_VALUES = {
                 ],
                 "task_types": [],
                 "tasks": [],
-                "template": "{family}{Task}"
+                "template": "{product[type]}{Task[name]}"
             },
             {
                 "product_types": ["render"],
@@ -352,7 +352,7 @@ DEFAULT_TOOLS_VALUES = {
                 ],
                 "task_types": [],
                 "tasks": [],
-                "template": "{family}{Task}{Composition}{Variant}"
+                "template": "{product[type]}{Task[name]}{Composition}{Variant}"
             },
             {
                 "product_types": [
@@ -363,7 +363,7 @@ DEFAULT_TOOLS_VALUES = {
                 ],
                 "task_types": [],
                 "tasks": [],
-                "template": "S_{asset}{variant}"
+                "template": "S_{folder[name]}{variant}"
             },
             {
                 "product_types": [
@@ -374,7 +374,7 @@ DEFAULT_TOOLS_VALUES = {
                 ],
                 "task_types": [],
                 "tasks": [],
-                "template": "SK_{asset}{variant}"
+                "template": "SK_{folder[name]}{variant}"
             }
         ]
     },

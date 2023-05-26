@@ -80,7 +80,7 @@ class PublishPluginsModel(BaseSettingsModel):
         title="Validate Scene Start Frame")
     ValidateAssetName: ValidatePluginModel = Field(
         default_factory=ValidatePluginModel,
-        title="Validate Asset Name")
+        title="Validate Folder Name")
     ExtractConvertToEXR: ExtractConvertToEXRModel = Field(
         default_factory=ExtractConvertToEXRModel,
         title="Extract Convert To EXR")

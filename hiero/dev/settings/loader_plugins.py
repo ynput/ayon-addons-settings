@@ -33,6 +33,6 @@ DEFAULT_LOADER_PLUGINS_SETTINGS = {
             "render",
             "review"
         ],
-        "clip_name_template": "{asset}_{subset}_{representation}"
+        "clip_name_template": "{folder[name]}_{product[name]}_{representation}"
     }
 }

@@ -103,7 +103,7 @@ DEFAULT_VALUES = {
             },
             "custom_comment_template": {
                 "enabled": False,
-                "comment_template": "{comment}\n\n|  |  |\n|--|--|\n| version| `{version}` |\n| family | `{family}` |\n| name | `{name}` |"
+                "comment_template": "{comment}\n\n|  |  |\n|--|--|\n| version| `{version}` |\n| product type | `{product[type]}` |\n| name | `{name}` |"
             }
         }
     }

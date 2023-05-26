@@ -18,7 +18,7 @@ class LoadClipModel(BaseSettingsModel):
     )
 
     clip_name_template: str = Field(
-        "{asset}_{subset}<_{output}>",
+        "{folder[name]}_{product[name]}<_{output}>",
         title="Clip name template"
     )
     layer_rename_template: str = Field("", title="Layer name template")
@@ -39,7 +39,7 @@ class LoadClipBatchModel(BaseSettingsModel):
         title="Reel name"
     )
     clip_name_template: str = Field(
-        "{batch}_{asset}_{subset}<_{output}>",
+        "{batch}_{folder[name]}_{product[name]}<_{output}>",
         title="Clip name template"
     )
     layer_rename_template: str = Field("", title="Layer name template")
@@ -72,8 +72,8 @@ DEFAULT_LOADER_SETTINGS = {
         ],
         "reel_group_name": "OpenPype_Reels",
         "reel_name": "Loaded",
-        "clip_name_template": "{asset}_{subset}<_{output}>",
-        "layer_rename_template": "{asset}_{subset}<_{output}>",
+        "clip_name_template": "{folder[name]}_{product[name]}<_{output}>",
+        "layer_rename_template": "{folder[name]}_{product[name]}<_{output}>",
         "layer_rename_patterns": [
             "rgb",
             "rgba"
@@ -89,8 +89,8 @@ DEFAULT_LOADER_SETTINGS = {
             "review"
         ],
         "reel_name": "OP_LoadedReel",
-        "clip_name_template": "{batch}_{asset}_{subset}<_{output}>",
-        "layer_rename_template": "{asset}_{subset}<_{output}>",
+        "clip_name_template": "{batch}_{folder[name]}_{product[name]}<_{output}>",
+        "layer_rename_template": "{folder[name]}_{product[name]}<_{output}>",
         "layer_rename_patterns": [
             "rgb",
             "rgba"

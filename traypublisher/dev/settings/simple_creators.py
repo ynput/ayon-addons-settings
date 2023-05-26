@@ -199,7 +199,7 @@ DEFAULT_SIMPLE_CREATORS = [
             "Background"
         ],
         "description": "Single image",
-        "detailed_description": "Any image data can be published as image family. References, textures, concept art, matte paints. This is a fallback 2d family for everything that doesn't fit more specific family.",
+        "detailed_description": "Any image data can be published as image product type. References, textures, concept art, matte paints. This is a fallback 2d product type for everything that doesn't fit more specific product type.",
         "allow_sequences": False,
         "allow_multiple_items": True,
         "extensions": [
