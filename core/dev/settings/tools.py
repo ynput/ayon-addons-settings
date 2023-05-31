@@ -390,7 +390,7 @@ DEFAULT_TOOLS_VALUES = {
                 "hosts": [
                     "unreal"
                 ],
-                "workfile_template": "unreal"
+                "workfile_template": "work_unreal"
             }
         ],
         "last_workfile_on_startup": [
