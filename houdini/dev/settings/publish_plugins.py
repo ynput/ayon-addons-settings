@@ -7,11 +7,11 @@ from ayon_server.settings import BaseSettingsModel, ensure_unique_names
 
 class CreatorModel(BaseSettingsModel):
     enabled: bool = Field(title="Enabled")
-    defaults: list[str] = Field(title="Default Subsets")
+    defaults: list[str] = Field(title="Default Products")
 
 class CreateArnoldAssModel(BaseSettingsModel):
     enabled: bool = Field(title="Enabled")
-    defaults: list[str] = Field(title="Default Subsets")
+    defaults: list[str] = Field(title="Default Products")
     ext: str = Field(Title="Extension")
 
 

@@ -4,9 +4,9 @@ from ayon_server.settings import BaseSettingsModel, task_types_enum
 
 class ContextItemModel(BaseSettingsModel):
     _layout = "expanded"
-    subset_name_filters: list[str] = Field(
-        default_factory=list, title="Subset name Filters")
-    families: list[str] = Field(default_factory=list, title="Families")
+    product_name_filters: list[str] = Field(
+        default_factory=list, title="Product name Filters")
+    product_types: list[str] = Field(default_factory=list, title="Product types")
     repre_names: list[str] = Field(default_factory=list, title="Repre Names")
     loaders: list[str] = Field(default_factory=list, title="Loaders")
 
@@ -40,10 +40,10 @@ DEFAULT_WORKFILE_SETTING = {
             ],
             "current_context": [
                 {
-                    "subset_name_filters": [
+                    "product_name_filters": [
                         ".+[Mm]ain"
                     ],
-                    "families": [
+                    "product_types": [
                         "model"
                     ],
                     "repre_names": [
@@ -55,8 +55,8 @@ DEFAULT_WORKFILE_SETTING = {
                     ]
                 },
                 {
-                    "subset_name_filters": [],
-                    "families": [
+                    "product_name_filters": [],
+                    "product_types": [
                         "animation",
                         "pointcache",
                         "proxyAbc"
@@ -69,8 +69,8 @@ DEFAULT_WORKFILE_SETTING = {
                     ]
                 },
                 {
-                    "subset_name_filters": [],
-                    "families": [
+                    "product_name_filters": [],
+                    "product_types": [
                         "rendersetup"
                     ],
                     "repre_names": [
@@ -81,8 +81,8 @@ DEFAULT_WORKFILE_SETTING = {
                     ]
                 },
                 {
-                    "subset_name_filters": [],
-                    "families": [
+                    "product_name_filters": [],
+                    "product_types": [
                         "camera"
                     ],
                     "repre_names": [
@@ -95,8 +95,8 @@ DEFAULT_WORKFILE_SETTING = {
             ],
             "linked_assets": [
                 {
-                    "subset_name_filters": [],
-                    "families": [
+                    "product_name_filters": [],
+                    "product_types": [
                         "sedress"
                     ],
                     "repre_names": [
@@ -107,8 +107,8 @@ DEFAULT_WORKFILE_SETTING = {
                     ]
                 },
                 {
-                    "subset_name_filters": [],
-                    "families": [
+                    "product_name_filters": [],
+                    "product_types": [
                         "ArnoldStandin"
                     ],
                     "repre_names": [

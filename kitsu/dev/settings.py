@@ -23,13 +23,13 @@ class StatusChangeCondition(BaseSettingsModel):
     short_name: str = Field("", title="Short name")
 
 
-class StatusChangeFamilyRequirementModel(BaseSettingsModel):
+class StatusChangeProductTypeRequirementModel(BaseSettingsModel):
     condition: str = Field(
         "equal",
         enum_resolver=_status_change_cond_enum,
         title="Condition"
     )
-    family: str = Field("", title="Family")
+    product_type: str = Field("", title="Product type")
 
 
 class StatusChangeConditionsModel(BaseSettingsModel):
@@ -37,9 +37,9 @@ class StatusChangeConditionsModel(BaseSettingsModel):
         default_factory=list,
         title="Status conditions"
     )
-    family_requirements: list[StatusChangeFamilyRequirementModel] = Field(
+    product_type_requirements: list[StatusChangeProductTypeRequirementModel] = Field(
         default_factory=list,
-        title="Family requirements")
+        title="Product type requirements")
 
 
 class CustomCommentTemplateModel(BaseSettingsModel):
@@ -99,11 +99,11 @@ DEFAULT_VALUES = {
             "note_status_shortname": "wfa",
             "status_change_conditions": {
                 "status_conditions": [],
-                "family_requirements": []
+                "product_type_requirements": []
             },
             "custom_comment_template": {
                 "enabled": False,
-                "comment_template": "{comment}\n\n|  |  |\n|--|--|\n| version| `{version}` |\n| family | `{family}` |\n| name | `{name}` |"
+                "comment_template": "{comment}\n\n|  |  |\n|--|--|\n| version| `{version}` |\n| product type | `{product[type]}` |\n| name | `{name}` |"
             }
         }
     }

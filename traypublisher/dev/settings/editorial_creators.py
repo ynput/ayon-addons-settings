@@ -74,8 +74,8 @@ output_file_type = [
 ]
 
 
-class FamilyPresetItem(BaseSettingsModel):
-    family: str = Field("", title="Family")
+class ProductTypePresetItem(BaseSettingsModel):
+    product_type: str = Field("", title="Product type")
     # TODO add placeholder '< Inherited >'
     variant: str = Field("", title="Variant")
     review: bool = Field(True, title="Review")
@@ -110,8 +110,8 @@ class EditorialSimpleCreatorPlugin(BaseSettingsModel):
         title="Add tasks to shot",
         default_factory=ShotAddTasksItem
     )
-    family_presets: list[FamilyPresetItem] = Field(
-        default_factory=FamilyPresetItem
+    product_type_presets: list[ProductTypePresetItem] = Field(
+        default_factory=list
     )
 
 
@@ -157,21 +157,21 @@ DEFAULT_EDITORIAL_CREATORS= {
             ]
         },
         "shot_add_tasks": [],
-        "family_presets": [
+        "product_type_presets": [
             {
-                "family": "review",
+                "product_type": "review",
                 "variant": "Reference",
                 "review": True,
                 "output_file_type": ".mp4"
             },
             {
-                "family": "plate",
+                "product_type": "plate",
                 "variant": "",
                 "review": False,
                 "output_file_type": ".mov"
             },
             {
-                "family": "audio",
+                "product_type": "audio",
                 "variant": "",
                 "review": False,
                 "output_file_type": ".wav"

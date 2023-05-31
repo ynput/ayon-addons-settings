@@ -127,9 +127,9 @@ class ValidateFrameRangeModel(BaseSettingsModel):
     enabled: bool = Field(title="ValidateFrameRange")
     optional: bool = Field(title="Optional")
     active: bool = Field(title="Active")
-    exclude_families: list[str] = Field(
+    exclude_product_types: list[str] = Field(
         default_factory=list,
-        title="Families"
+        title="Exclude product types"
     )
 
 class ValidateShaderNameModel(BaseSettingsModel):
@@ -737,7 +737,7 @@ DEFAULT_PUBLISH_SETTINGS = {
         "enabled": True,
         "optional": True,
         "active": True,
-        "exclude_families": [
+        "exclude_product_types": [
             "model",
             "rig",
             "staticMesh"
@@ -1206,26 +1206,26 @@ DEFAULT_PUBLISH_SETTINGS = {
         "bake_attributes": "[]"
     },
     "ExtractGLB": {
-            "enabled": True,
-            "active": True,
-            "ogsfx_path": "/maya2glTF/PBR/shaders/glTF_PBR.ogsfx"
-        },
-        "ExtractLook": {
-            "maketx_arguments": []
-        },
-        "ExtractGPUCache": {
-            "enabled": False,
-            "families": [
-                "model",
-                "animation",
-                "pointcache"
-            ],
-            "step": 1.0,
-            "stepSave": 1,
-            "optimize": True,
-            "optimizationThreshold": 40000,
-            "optimizeAnimationsForMotionBlur": True,
-            "writeMaterials": True,
-            "useBaseTessellation": True
-        }
+        "enabled": True,
+        "active": True,
+        "ogsfx_path": "/maya2glTF/PBR/shaders/glTF_PBR.ogsfx"
+    },
+    "ExtractLook": {
+        "maketx_arguments": []
+    },
+    "ExtractGPUCache": {
+        "enabled": False,
+        "families": [
+            "model",
+            "animation",
+            "pointcache"
+        ],
+        "step": 1.0,
+        "stepSave": 1,
+        "optimize": True,
+        "optimizationThreshold": 40000,
+        "optimizeAnimationsForMotionBlur": True,
+        "writeMaterials": True,
+        "useBaseTessellation": True
+    }
 }

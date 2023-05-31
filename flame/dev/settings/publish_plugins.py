@@ -95,7 +95,7 @@ class ExportPresetsMappingModel(BaseSettingsModel):
     )
 
 
-class ExtractSubsetResourcesModel(BaseSettingsModel):
+class ExtractProductResourcesModel(BaseSettingsModel):
     _isGroup = True
 
     keep_original_representation: bool = Field(
@@ -121,9 +121,9 @@ class PublishPuginsModel(BaseSettingsModel):
         title="Collect Timeline Instances"
     )
 
-    ExtractSubsetResources: ExtractSubsetResourcesModel = Field(
-        default_factory=ExtractSubsetResourcesModel,
-        title="Extract Subset Resources"
+    ExtractProductResources: ExtractProductResourcesModel = Field(
+        default_factory=ExtractProductResourcesModel,
+        title="Extract Product Resources"
     )
 
     IntegrateBatchGroup: IntegrateBatchGroupModel = Field(
@@ -164,7 +164,7 @@ DEFAULT_PUBLISH_SETTINGS = {
             }
         ]
     },
-    "ExtractSubsetResources": {
+    "ExtractProductResources": {
         "keep_original_representation": False,
         "export_presets_mapping": [
             {
