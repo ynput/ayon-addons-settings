@@ -28,7 +28,7 @@ class CollectAnatomyInstanceDataModel(BaseSettingsModel):
 class CollectAudioModel(BaseSettingsModel):
     _isGroup = True
     enabled: bool = Field(True)
-    audio_subset_name: str = Field(
+    audio_product_name: str = Field(
         "", title="Name of audio variant"
     )
 
@@ -126,9 +126,9 @@ class ExtractOIIOTranscodeOutputModel(BaseSettingsModel):
 
 
 class ExtractOIIOTranscodeProfileModel(BaseSettingsModel):
-    families: list[str] = Field(
+    product_types: list[str] = Field(
         default_factory=list,
-        title="Families"
+        title="Product types"
     )
     hosts: list[str] = Field(
         default_factory=list,
@@ -143,9 +143,9 @@ class ExtractOIIOTranscodeProfileModel(BaseSettingsModel):
         default_factory=list,
         title="Task names"
     )
-    subsets: list[str] = Field(
+    product_names: list[str] = Field(
         default_factory=list,
-        title="Subset names"
+        title="Product names"
     )
     delete_original: bool = Field(True, title="Delete Original Representation")
     outputs: list[ExtractOIIOTranscodeOutputModel] = Field(
@@ -200,7 +200,7 @@ def extract_review_filter_enum():
 
 class ExtractReviewFilterModel(BaseSettingsModel):
     families: list[str] = Field(default_factory=list, title="Families")
-    subsets: list[str] = Field(default_factory=list, title="Subsets")
+    product_names: list[str] = Field(default_factory=list, title="Product names")
     custom_tags: list[str] = Field(default_factory=list, title="Custom Tags")
     single_frame_filter: str = Field(
         "everytime",
@@ -313,8 +313,8 @@ class ExtractReviewOutputDefModel(BaseSettingsModel):
 
 class ExtractReviewProfileModel(BaseSettingsModel):
     _layout = "expanded"
-    families: list[str] = Field(
-        default_factory=list, title="Families"
+    product_types: list[str] = Field(
+        default_factory=list, title="Product types"
     )
     # TODO use hosts enum
     hosts: list[str] = Field(
@@ -394,9 +394,9 @@ class ExtractBurninDef(BaseSettingsModel):
 
 class ExtractBurninProfile(BaseSettingsModel):
     _layout = "expanded"
-    families: list[str] = Field(
+    product_types: list[str] = Field(
         default_factory=list,
-        title="Families"
+        title="Produt types"
     )
     hosts: list[str] = Field(
         default_factory=list,
@@ -411,9 +411,9 @@ class ExtractBurninProfile(BaseSettingsModel):
         default_factory=list,
         title="Task names"
     )
-    subsets: list[str] = Field(
+    product_names: list[str] = Field(
         default_factory=list,
-        title="Subset names"
+        title="Product names"
     )
     burnins: list[ExtractBurninDef] = Field(
         default_factory=list,
@@ -443,9 +443,9 @@ class ExtractBurninModel(BaseSettingsModel):
 
 class PreIntegrateThumbnailsProfile(BaseSettingsModel):
     _isGroup = True
-    families: list[str] = Field(
+    product_types: list[str] = Field(
         default_factory=list,
-        title="Families",
+        title="Product types",
     )
     hosts: list[str] = Field(
         default_factory=list,
@@ -456,9 +456,9 @@ class PreIntegrateThumbnailsProfile(BaseSettingsModel):
         title="Task types",
         enum_resolver=task_types_enum
     )
-    subsets: list[str] = Field(
+    product_names: list[str] = Field(
         default_factory=list,
-        title="Subsets",
+        title="Product names",
     )
     integrate_thumbnail: bool = Field(True)
 
@@ -477,8 +477,8 @@ class PreIntegrateThumbnailsModel(BaseSettingsModel):
     )
 
 
-class IntegrateSubsetGroupProfile(BaseSettingsModel):
-    families: list[str] = Field(default_factory=list, title="Families")
+class IntegrateProductGroupProfile(BaseSettingsModel):
+    product_types: list[str] = Field(default_factory=list, title="Product types")
     hosts: list[str] = Field(default_factory=list, title="Hosts")
     task_types: list[str] = Field(
         default_factory=list,
@@ -489,27 +489,27 @@ class IntegrateSubsetGroupProfile(BaseSettingsModel):
     template: str = Field("", title="Template")
 
 
-class IntegrateSubsetGroupModel(BaseSettingsModel):
-    """Group published subsets by filtering logic.
+class IntegrateProductGroupModel(BaseSettingsModel):
+    """Group published products by filtering logic.
 
     Set all published instances as a part of specific group named according
      to 'Template'.
 
-    Implemented all variants of placeholders '{task}', '{family}', '{host}',
-    '{subset}', '{renderlayer}'.
+    Implemented all variants of placeholders '{task}', '{product[type]}',
+    '{host}', '{product[name]}', '{renderlayer}'.
     """
 
     _isGroup = True
-    subset_grouping_profiles: list[IntegrateSubsetGroupProfile] = Field(
+    product_grouping_profiles: list[IntegrateProductGroupProfile] = Field(
         default_factory=list,
-        title="Subset group profiles"
+        title="Product group profiles"
     )
 
 
-class IntegrateANSubsetGroupProfileModel(BaseSettingsModel):
-    families: list[str] = Field(
+class IntegrateANProductGroupProfileModel(BaseSettingsModel):
+    product_types: list[str] = Field(
         default_factory=list,
-        title="Families"
+        title="Product types"
     )
     hosts: list[str] = Field(
         default_factory=list,
@@ -528,9 +528,9 @@ class IntegrateANSubsetGroupProfileModel(BaseSettingsModel):
 
 
 class IntegrateANTemplateNameProfileModel(BaseSettingsModel):
-    families: list[str] = Field(
+    product_types: list[str] = Field(
         default_factory=list,
-        title="Families"
+        title="Product types"
     )
     hosts: list[str] = Field(
         default_factory=list,
@@ -548,25 +548,10 @@ class IntegrateANTemplateNameProfileModel(BaseSettingsModel):
     template_name: str = Field("", title="Template name")
 
 
-class IntegrateAssetNewModel(BaseSettingsModel):
-    subset_grouping_profiles: list[IntegrateANSubsetGroupProfileModel] = (
-        Field(
-            default_factory=list,
-            title="Subset grouping profiles (DEPRECATED)"
-        )
-    )
-    template_name_profiles: list[IntegrateANTemplateNameProfileModel] = (
-        Field(
-            default_factory=list,
-            title="Template name profiles (DEPRECATED)"
-        )
-    )
-
-
 class IntegrateHeroTemplateNameProfileModel(BaseSettingsModel):
-    families: list[str] = Field(
+    product_types: list[str] = Field(
         default_factory=list,
-        title="Families"
+        title="Product types"
     )
     hosts: list[str] = Field(
         default_factory=list,
@@ -662,14 +647,9 @@ class PublishPuginsModel(BaseSettingsModel):
         default_factory=PreIntegrateThumbnailsModel,
         title="Override Integrate Thumbnail Representations"
     )
-    IntegrateSubsetGroup: IntegrateSubsetGroupModel = Field(
-        default_factory=IntegrateSubsetGroupModel,
-        title="Integrate Subset Group"
-    )
-    # TODO remove when removed from client
-    IntegrateAssetNew: IntegrateAssetNewModel = Field(
-        default_factory=IntegrateAssetNewModel,
-        title="IntegrateAsset (Legacy)"
+    IntegrateProductGroup: IntegrateProductGroupModel = Field(
+        default_factory=IntegrateProductGroupModel,
+        title="Integrate Product Group"
     )
     IntegrateHeroVersion: IntegrateHeroVersionModel = Field(
         default_factory=IntegrateHeroVersionModel,
@@ -691,7 +671,7 @@ DEFAULT_PUBLISH_VALUES = {
     },
     "CollectAudio": {
         "enabled": False,
-        "audio_subset_name": "audioMain"
+        "audio_product_name": "audioMain"
     },
     "CollectSceneVersion": {
         "hosts": [
@@ -745,7 +725,7 @@ DEFAULT_PUBLISH_VALUES = {
         "enabled": True,
         "profiles": [
             {
-                "families": [],
+                "product_types": [],
                 "hosts": [],
                 "outputs": [
                     {
@@ -768,7 +748,7 @@ DEFAULT_PUBLISH_VALUES = {
                                 "review",
                                 "ftrack"
                             ],
-                            "subsets": [],
+                            "product_names": [],
                             "custom_tags": [],
                             "single_frame_filter": "single_frame"
                         },
@@ -813,7 +793,7 @@ DEFAULT_PUBLISH_VALUES = {
                                 "review",
                                 "ftrack"
                             ],
-                            "subsets": [],
+                            "product_names": [],
                             "custom_tags": [],
                             "single_frame_filter": "multi_frame"
                         },
@@ -852,11 +832,11 @@ DEFAULT_PUBLISH_VALUES = {
         },
         "profiles": [
             {
-                "families": [],
+                "product_types": [],
                 "hosts": [],
                 "task_types": [],
                 "task_names": [],
-                "subsets": [],
+                "product_names": [],
                 "burnins": [
                     {
                         "name": "burnin",
@@ -864,7 +844,7 @@ DEFAULT_PUBLISH_VALUES = {
                         "TOP_CENTERED": "",
                         "TOP_RIGHT": "{anatomy[version]}",
                         "BOTTOM_LEFT": "{username}",
-                        "BOTTOM_CENTERED": "{asset}",
+                        "BOTTOM_CENTERED": "{folder[name]}",
                         "BOTTOM_RIGHT": "{frame_start}-{current_frame}-{frame_end}",
                         "filter": {
                             "families": [],
@@ -874,14 +854,14 @@ DEFAULT_PUBLISH_VALUES = {
                 ]
             },
             {
-                "families": ["review"],
+                "product_types": ["review"],
                 "hosts": [
                     "maya",
                     "houdini"
                 ],
                 "task_types": [],
                 "task_names": [],
-                "subsets": [],
+                "product_names": [],
                 "burnins": [
                     {
                         "name": "focal_length_burnin",
@@ -889,7 +869,7 @@ DEFAULT_PUBLISH_VALUES = {
                         "TOP_CENTERED": "{focalLength:.2f} mm",
                         "TOP_RIGHT": "{anatomy[version]}",
                         "BOTTOM_LEFT": "{username}",
-                        "BOTTOM_CENTERED": "{asset}",
+                        "BOTTOM_CENTERED": "{folder[name]}",
                         "BOTTOM_RIGHT": "{frame_start}-{current_frame}-{frame_end}",
                         "filter": {
                             "families": [],
@@ -904,79 +884,14 @@ DEFAULT_PUBLISH_VALUES = {
         "enabled": True,
         "integrate_profiles": []
     },
-    "IntegrateSubsetGroup": {
-        "subset_grouping_profiles": [
+    "IntegrateProductGroup": {
+        "product_grouping_profiles": [
             {
-                "families": [],
+                "product_types": [],
                 "hosts": [],
                 "task_types": [],
                 "tasks": [],
                 "template": ""
-            }
-        ]
-    },
-    "IntegrateAssetNew": {
-        "subset_grouping_profiles": [
-            {
-                "families": [],
-                "hosts": [],
-                "task_types": [],
-                "tasks": [],
-                "template": ""
-            }
-        ],
-        "template_name_profiles": [
-            {
-                "families": [],
-                "hosts": [],
-                "task_types": [],
-                "tasks": [],
-                "template_name": "publish"
-            },
-            {
-                "families": [
-                    "review",
-                    "render",
-                    "prerender"
-                ],
-                "hosts": [],
-                "task_types": [],
-                "tasks": [],
-                "template_name": "render"
-            },
-            {
-                "families": [
-                    "simpleUnrealTexture"
-                ],
-                "hosts": [
-                    "standalonepublisher"
-                ],
-                "task_types": [],
-                "tasks": [],
-                "template_name": "simpleUnrealTexture"
-            },
-            {
-                "families": [
-                    "staticMesh",
-                    "skeletalMesh"
-                ],
-                "hosts": [
-                    "maya"
-                ],
-                "task_types": [],
-                "tasks": [],
-                "template_name": "maya2unreal"
-            },
-            {
-                "families": [
-                    "online"
-                ],
-                "hosts": [
-                    "traypublisher"
-                ],
-                "task_types": [],
-                "tasks": [],
-                "template_name": "online"
             }
         ]
     },
@@ -997,7 +912,7 @@ DEFAULT_PUBLISH_VALUES = {
         ],
         "template_name_profiles": [
             {
-                "families": [
+                "product_types": [
                     "simpleUnrealTexture"
                 ],
                 "hosts": [

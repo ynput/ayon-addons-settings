@@ -222,7 +222,7 @@ class ProcessSubmittedJobOnFarmModel(BaseSettingsModel):
     )
     aov_filter: list[AOVFilterSubmodel] = Field(
         default_factory=list,
-        title="Reviewable subsets filter",
+        title="Reviewable products filter",
     )
 
     @validator("aov_filter", "skip_integration_repre_list")

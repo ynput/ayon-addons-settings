@@ -113,7 +113,7 @@ DEFAULT_VALUES = {
     },
     "create": {
         "CreateSaver": {
-            "temp_rendering_path_template": "{workdir}/renders/fusion/{subset}/{subset}.{frame}.{ext}",
+            "temp_rendering_path_template": "{workdir}/renders/fusion/{product[name]}/{product[name]}.{frame}.{ext}",
             "default_variants": [
                 "Main",
                 "Mask"

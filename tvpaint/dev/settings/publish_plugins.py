@@ -14,9 +14,6 @@ class ExtractSequenceModel(BaseSettingsModel):
     review_bg: ColorRGBA_uint8 = Field(
         (255, 255, 255, 1.0),
         title="Review BG color")
-    families_to_review: list[str] = Field(
-        default_factory=list,
-        title="Families to review")
 
 
 class ValidatePluginModel(BaseSettingsModel):
@@ -83,7 +80,7 @@ class PublishPluginsModel(BaseSettingsModel):
         title="Validate Scene Start Frame")
     ValidateAssetName: ValidatePluginModel = Field(
         default_factory=ValidatePluginModel,
-        title="Validate Asset Name")
+        title="Validate Folder Name")
     ExtractConvertToEXR: ExtractConvertToEXRModel = Field(
         default_factory=ExtractConvertToEXRModel,
         title="Extract Convert To EXR")
@@ -103,12 +100,7 @@ DEFAULT_PUBLISH_SETTINGS = {
         "ignore_render_pass_transparency": False
     },
     "ExtractSequence": {
-        "review_bg": [255, 255, 255, 1.0],
-        "families_to_review": [
-            "review",
-            "renderlayer",
-            "renderscene"
-        ]
+        "review_bg": [255, 255, 255, 1.0]
     },
     "ValidateProjectSettings": {
         "enabled": True,

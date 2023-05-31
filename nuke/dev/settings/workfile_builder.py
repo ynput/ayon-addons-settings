@@ -19,13 +19,13 @@ class CustomTemplateModel(BaseSettingsModel):
 
 
 class BuilderProfileItemModel(BaseSettingsModel):
-    subset_name_filters: list[str] = Field(
+    product_name_filters: list[str] = Field(
         default_factory=list,
-        title="Subset name"
+        title="Product name"
     )
-    families: list[str] = Field(
+    product_types: list[str] = Field(
         default_factory=list,
-        title="Families"
+        title="Product types"
     )
     repre_names: list[str] = Field(
         default_factory=list,

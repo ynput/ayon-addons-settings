@@ -151,7 +151,7 @@ class CreatorPluginsSettings(BaseSettingsModel):
 
 DEFAULT_CREATE_SETTINGS = {
     "CreateWriteRender": {
-        "temp_rendering_path_template": "{work}/renders/nuke/{subset}/{subset}.{frame}.{ext}",
+        "temp_rendering_path_template": "{work}/renders/nuke/{product[name]}/{product[name]}.{frame}.{ext}",
         "default_variants": [
             "Main",
             "Mask"
@@ -181,7 +181,7 @@ DEFAULT_CREATE_SETTINGS = {
         ]
     },
     "CreateWritePrerender": {
-        "temp_rendering_path_template": "{work}/renders/nuke/{subset}/{subset}.{frame}.{ext}",
+        "temp_rendering_path_template": "{work}/renders/nuke/{product[name]}/{product[name]}.{frame}.{ext}",
         "default_variants": [
             "Key01",
             "Bg01",
@@ -196,7 +196,7 @@ DEFAULT_CREATE_SETTINGS = {
         "prenodes": []
     },
     "CreateWriteImage": {
-        "temp_rendering_path_template": "{work}/renders/nuke/{subset}/{subset}.{ext}",
+        "temp_rendering_path_template": "{work}/renders/nuke/{product[name]}/{product[name]}.{ext}",
         "default_variants": [
             "StillFrame",
             "MPFrame",

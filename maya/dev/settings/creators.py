@@ -7,7 +7,7 @@ class CreateLookModel(BaseSettingsModel):
     enabled: bool = Field(title="Enabled")
     make_tx: bool = Field(title="Make tx files")
     rs_tex: bool = Field(title="Make Redshift texture files")
-    defaults: list[str] = Field(default_factory=["Main"], title="Default Subsets")
+    defaults: list[str] = Field(default_factory=["Main"], title="Default Products")
 
 
 
@@ -15,7 +15,7 @@ class BasicCreatorModel(BaseSettingsModel):
     enabled: bool = Field(title="Enabled")
     defaults: list[str] = Field(
         default_factory=list,
-        title="Default Subsets"
+        title="Default Products"
     )
 
 
@@ -23,7 +23,7 @@ class CreateUnrealStaticMeshModel(BaseSettingsModel):
     enabled: bool = Field(title="Enabled")
     defaults: list[str] = Field(
         default_factory=["", "_Main"],
-        title="Default Subsets"
+        title="Default Products"
     )
     static_mesh_prefixes: str = Field("S", title="Static Mesh Prefix")
     collision_prefixes: list[str] = Field(
@@ -34,7 +34,7 @@ class CreateUnrealStaticMeshModel(BaseSettingsModel):
 
 class CreateUnrealSkeletalMeshModel(BaseSettingsModel):
     enabled: bool = Field(title="Enabled")
-    defaults: list[str] = Field(default_factory=[],title="Default Subsets")
+    defaults: list[str] = Field(default_factory=[],title="Default Products")
     joint_hints: str = Field("jnt_org", title="Joint root hint")
 
 
@@ -49,7 +49,7 @@ class BasicExportMeshModel(BaseSettingsModel):
     write_face_sets: bool = Field(title="Write Face Sets")
     defaults: list[str] = Field(
         default_factory=list,
-        title="Default Subsets"
+        title="Default Products"
     )
 
 
@@ -63,7 +63,7 @@ class CreateAnimationModel(BaseSettingsModel):
         title="Include User Defined Attributes")
     defaults: list[str] = Field(
         default_factory=list,
-        title="Default Subsets"
+        title="Default Products"
     )
 
 
@@ -76,7 +76,7 @@ class CreatePointCacheModel(BaseSettingsModel):
     )
     defaults: list[str] = Field(
         default_factory=["Main"],
-        title="Default Subsets"
+        title="Default Products"
     )
 
 
@@ -86,7 +86,7 @@ class CreateProxyAlembicModel(BaseSettingsModel):
     write_face_sets: bool = Field(title="Write Face Sets")
     defaults: list[str] = Field(
         default_factory=["Main"],
-        title="Default Subsets"
+        title="Default Products"
     )
 
 
@@ -115,7 +115,7 @@ class CreateVrayProxyModel(BaseSettingsModel):
     enabled: bool = Field(True)
     vrmesh: bool = Field(title="VrMesh")
     alembic: bool = Field(title="Alembic")
-    defaults: list[str] = Field(default_factory=list, title="Default Subsets")
+    defaults: list[str] = Field(default_factory=list, title="Default Products")
 
 
 class CreatorsModel(BaseSettingsModel):
