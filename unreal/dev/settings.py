@@ -7,7 +7,7 @@ from ayon_server.settings import (
 
 class ProjectSetup(BaseSettingsModel):
     dev_mode: bool = Field(
-        True,
+        False,
         title="Dev mode"
     )
 
@@ -60,6 +60,6 @@ DEFAULT_VALUES = {
     "preroll_frames": 0,
     "render_format": "png",
     "project_setup": {
-        "dev_mode": True
+        "dev_mode": False
     }
 }

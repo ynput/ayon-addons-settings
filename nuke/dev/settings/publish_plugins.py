@@ -56,6 +56,17 @@ class NodeModel(BaseSettingsModel):
         return value
 
 
+class ThumbnailRepositionNodeModel(BaseSettingsModel):
+    node_class: str = Field(title="Node class")
+    knobs: list[KnobModel] = Field(title="Knobs", default_factory=list)
+
+    @validator("knobs")
+    def ensure_unique_names(cls, value):
+        """Ensure name fields within the lists have unique names."""
+        ensure_unique_names(value)
+        return value
+
+
 class CollectInstanceDataModel(BaseSettingsModel):
     sync_workfile_version_on_product_types: list[str] = Field(
         default_factory=list,
@@ -94,7 +105,11 @@ class ExtractThumbnailModel(BaseSettingsModel):
     """
 
     nodes: list[NodeModel] = Field(
-        title="Preceding nodes"
+        title="Nodes (deprecated)"
+    )
+    reposition_nodes: list[ThumbnailRepositionNodeModel] = Field(
+        title="Reposition nodes",
+        default_factory=list
     )
 
 
@@ -367,8 +382,39 @@ DEFAULT_PUBLISH_PLUGIN_SETTINGS = {
                     }
                 ]
             }
+        ],
+        "reposition_nodes": [
+            {
+                "node_class": "Reformat",
+                "knobs": [
+                    {
+                        "type": "text",
+                        "name": "type",
+                        "text": "to format"
+                    },
+                    {
+                        "type": "text",
+                        "name": "format",
+                        "text": "HD_1080"
+                    },
+                    {
+                        "type": "text",
+                        "name": "filter",
+                        "text": "Lanczos6"
+                    },
+                    {
+                        "type": "bool",
+                        "name": "black_outside",
+                        "boolean": True
+                    },
+                    {
+                        "type": "bool",
+                        "name": "pbb",
+                        "boolean": False
+                    }
+                ]
+            }
         ]
-
     },
     "ExtractReviewData": {
         "enabled": False

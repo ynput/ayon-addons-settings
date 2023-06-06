@@ -123,6 +123,16 @@ class LimitGroupsSubmodel(BaseSettingsModel):
     )
 
 
+class FusionSubmitDeadlineModel(BaseSettingsModel):
+    enabled: bool = Field(True, title="Enabled")
+    optional: bool = Field(False, title="Optional")
+    active: bool = Field(True, title="Active")
+    priority: int = Field(50, title="Priority")
+    chunk_size: int = Field(10, title="Frame per Task")
+    concurrent_tasks: int = Field(1, title="Number of concurrent tasks")
+    group: str = Field("", title="Group Name")
+
+
 class NukeSubmitDeadlineModel(BaseSettingsModel):
     """Nuke deadline submitter settings."""
 
@@ -251,6 +261,9 @@ class PublishPluginsModel(BaseSettingsModel):
     MaxSubmitDeadline: MaxSubmitDeadlineModel = Field(
         default_factory=MaxSubmitDeadlineModel,
         title="Max Submit to deadline")
+    FusionSubmitDeadline: FusionSubmitDeadlineModel = Field(
+        default_factory=FusionSubmitDeadlineModel,
+        title="Fusion submit to Deadline")
     NukeSubmitDeadline: NukeSubmitDeadlineModel = Field(
         default_factory=NukeSubmitDeadlineModel,
         title="Nuke Submit to deadline")
@@ -313,6 +326,15 @@ DEFAULT_DEADLINE_PLUGINS_SETTINGS = {
         "priority": 50,
         "chunk_size": 10,
         "group": "none"
+    },
+    "FusionSubmitDeadline": {
+        "enabled": True,
+        "optional": False,
+        "active": True,
+        "priority": 50,
+        "chunk_size": 10,
+        "concurrent_tasks": 1,
+        "group": ""
     },
     "NukeSubmitDeadline": {
         "enabled": True,
@@ -395,6 +417,12 @@ DEFAULT_DEADLINE_PLUGINS_SETTINGS = {
             },
             {
                 "name": "max",
+                "value": [
+                    ".*"
+                ]
+            },
+            {
+                "name": "fusion",
                 "value": [
                     ".*"
                 ]
