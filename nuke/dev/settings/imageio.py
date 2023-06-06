@@ -15,6 +15,7 @@ class NodesModel(BaseSettingsModel):
     """# TODO: This needs to be somehow labeled in settings panel
     or at least it could show gist of configuration
     """
+    _layout = "expanded"
     plugins: list[str] = Field(
         title="Used in plugins"
     )
