@@ -50,6 +50,14 @@ class CollectCommentPIModel(BaseSettingsModel):
     families: list[str] = Field(default_factory=list, title="Families")
 
 
+class CollectFramesFixDefModel(BaseSettingsModel):
+    enabled: bool = Field(True)
+    rewrite_version_enable: bool = Field(
+        True,
+        title="Show 'Rewrite latest version' toggle"
+    )
+
+
 class ValidateIntentProfile(BaseSettingsModel):
     _layout = "expanded"
     hosts: list[str] = Field(default_factory=list, title="Host names")
@@ -615,6 +623,10 @@ class PublishPuginsModel(BaseSettingsModel):
         default_factory=CollectCommentPIModel,
         title="Collect comment per instance",
     )
+    CollectFramesFixDef: CollectFramesFixDefModel = Field(
+        default_factory=CollectFramesFixDefModel,
+        title="Collect Frames to Fix",
+    )
     ValidateEditorialAssetName: ValidateBaseModel = Field(
         default_factory=ValidateBaseModel,
         title="Validate Editorial Asset Name"
@@ -693,6 +705,10 @@ DEFAULT_PUBLISH_VALUES = {
     "collect_comment_per_instance": {
         "enabled": False,
         "families": []
+    },
+    "CollectFramesFixDef": {
+        "enabled": True,
+        "rewrite_version_enable": True
     },
     "ValidateEditorialAssetName": {
         "enabled": True,
