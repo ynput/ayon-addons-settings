@@ -65,15 +65,7 @@ class LoaderPuginsModel(BaseSettingsModel):
 DEFAULT_LOADER_PLUGINS_SETTINGS = {
     "LoadImage": {
         "enabled": True,
-        "representations_include": [
-            "exr",
-            "dpx",
-            "jpg",
-            "jpeg",
-            "png",
-            "psd",
-            "tiff"
-        ],
+        "representations_include": [],
         "node_name_template": "{class_name}_{ext}"
     },
     "LoadClip": {
