@@ -76,6 +76,9 @@ class CreatorPuginsModel(BaseSettingsModel):
 
 
 class ResolveSettings(BaseSettingsModel):
+    launch_openpype_menu_on_start: bool = Field(
+        False, title="Launch OpenPype menu on start of Resolve"
+    )
     imageio: HostImageIORemappedModel = Field(
         default_factory=HostImageIORemappedModel,
         title="Color Management (ImageIO)"
@@ -87,6 +90,7 @@ class ResolveSettings(BaseSettingsModel):
 
 
 DEFAULT_VALUES = {
+    "launch_openpype_menu_on_start": False,
     "create": {
         "CreateShotClip": {
             "hierarchy": "{folder}/{sequence}",
