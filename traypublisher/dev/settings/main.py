@@ -1,5 +1,5 @@
 from pydantic import Field
-from ayon_server.settings import BaseSettingsModel, ImageIOBaseModel
+from ayon_server.settings import BaseSettingsModel, HostImageIOBaseModel
 
 from .simple_creators import (
     SimpleCreatorPlugin,
@@ -18,8 +18,8 @@ from .publish_plugins import TrayPublisherPublishPlugins
 
 class TraypublisherSettings(BaseSettingsModel):
     """Traypublisher Project Settings."""
-    imageio: ImageIOBaseModel = Field(
-        default_factory=ImageIOBaseModel,
+    imageio: HostImageIOBaseModel = Field(
+        default_factory=HostImageIOBaseModel,
         title="Color Management (ImageIO)"
     )
     simple_creators: list[SimpleCreatorPlugin] = Field(

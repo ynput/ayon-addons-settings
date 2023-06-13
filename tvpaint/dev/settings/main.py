@@ -1,7 +1,7 @@
 from pydantic import Field, validator
 from ayon_server.settings import (
     BaseSettingsModel,
-    ImageIOBaseModel,
+    HostImageIOBaseModel,
     ensure_unique_names,
 )
 
@@ -32,8 +32,8 @@ class PublishGUIFiltersModel(BaseSettingsModel):
 
 
 class TvpaintSettings(BaseSettingsModel):
-    imageio: ImageIOBaseModel = Field(
-        default_factory=ImageIOBaseModel,
+    imageio: HostImageIOBaseModel = Field(
+        default_factory=HostImageIOBaseModel,
         title="Color Management (ImageIO)"
     )
     stop_timer_on_application_exit: bool = Field(

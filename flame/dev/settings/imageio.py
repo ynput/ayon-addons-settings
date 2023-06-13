@@ -1,8 +1,7 @@
 from pydantic import Field
 from ayon_server.settings import (
     BaseSettingsModel,
-    ImageIOConfigModel,
-    ImageIOFileRulesModel,
+    HostImageIORemappedModel,
 )
 
 
@@ -38,17 +37,8 @@ class ImageIOProjectModel(BaseSettingsModel):
     )
 
 
-class ImageIOModel(BaseSettingsModel):
+class ImageIOModel(HostImageIORemappedModel):
     _isGroup = True
-
-    ocio_config: ImageIOConfigModel = Field(
-        default_factory=ImageIOConfigModel,
-        title="OCIO config"
-    )
-    file_rules: ImageIOFileRulesModel = Field(
-        default_factory=ImageIOFileRulesModel,
-        title="File Rules"
-    )
     # NOTE 'project' attribute was expanded to this model but that caused
     #   inconsistency with v3 settings and harder conversion handling
     #   - it can be moved back but keep in mind that it must be handled in v3

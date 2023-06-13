@@ -1,4 +1,5 @@
-from ayon_server.settings import BaseSettingsModel, Field, ImageIOBaseModel
+from pydantic import Field
+from ayon_server.settings import BaseSettingsModel, HostImageIORemappedModel
 
 
 class CreateShotClipModels(BaseSettingsModel):
@@ -75,8 +76,8 @@ class CreatorPuginsModel(BaseSettingsModel):
 
 
 class ResolveSettings(BaseSettingsModel):
-    imageio: ImageIOBaseModel = Field(
-        default_factory=ImageIOBaseModel,
+    imageio: HostImageIORemappedModel = Field(
+        default_factory=HostImageIORemappedModel,
         title="Color Management (ImageIO)"
     )
     create: CreatorPuginsModel = Field(

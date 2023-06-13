@@ -2,7 +2,7 @@ from pydantic import Field, validator
 from ayon_server.settings import (
     BaseSettingsModel,
     TemplateWorkfileBaseOptions,
-    ImageIOBaseModel,
+    HostImageIOBaseModel,
 )
 
 from .publish_plugins import (
@@ -25,8 +25,8 @@ class BlenderSettings(BaseSettingsModel):
         default_factory=UnitScaleSettingsModel,
         title="Set Unit Scale"
     )
-    imageio: ImageIOBaseModel = Field(
-        default_factory=ImageIOBaseModel,
+    imageio: HostImageIOBaseModel = Field(
+        default_factory=HostImageIOBaseModel,
         title="Color Management (ImageIO)"
     )
     workfile_builder: TemplateWorkfileBaseOptions = Field(

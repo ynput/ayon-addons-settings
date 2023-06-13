@@ -30,7 +30,6 @@ class WorkfileColorspaceSettings(BaseSettingsModel):
     but for better code consistency we are using snake_case:
 
     ocio_config = ocioConfigName
-    ocio_config_path = ocioconfigpath
     working_space_name = workingSpace
     int_16_name = sixteenBitLut
     int_8_name = eightBitLut
@@ -46,12 +45,6 @@ class WorkfileColorspaceSettings(BaseSettingsModel):
         enum_resolver=lambda: ocio_configs_switcher_enum,
         conditionalEnum=True
     )
-
-    ocioconfigpath: MultiplatformPathListModel = Field(
-        default_factory=MultiplatformPathListModel,
-        title="Custom OCIO config path"
-    )
-
     workingSpace: str = Field(
         title="Working Space"
     )
@@ -95,7 +88,9 @@ class RegexInputsModel(BaseSettingsModel):
 class ImageIOSettings(BaseSettingsModel):
     """Hiero color management project settings. """
     _isGroup: bool = True
-
+    activate_host_color_management: bool = Field(
+        True, title="Enable Color Management"
+    )
     ocio_config: ImageIOConfigModel = Field(
         default_factory=ImageIOConfigModel,
         title="OCIO config"
@@ -123,11 +118,6 @@ class ImageIOSettings(BaseSettingsModel):
 DEFAULT_IMAGEIO_SETTINGS = {
     "workfile": {
         "ocioConfigName": "nuke-default",
-        "ocioconfigpath": {
-            "windows": [],
-            "darwin": [],
-            "linux": []
-        },
         "workingSpace": "linear",
         "viewerLut": "sRGB",
         "eightBitLut": "sRGB",

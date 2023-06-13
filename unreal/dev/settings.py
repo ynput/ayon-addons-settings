@@ -1,7 +1,7 @@
 from ayon_server.settings import (
     Field,
     BaseSettingsModel,
-    ImageIOBaseModel,
+    HostImageIOBaseModel,
 )
 
 
@@ -22,8 +22,8 @@ def _render_format_enum():
 
 
 class UnrealSettings(BaseSettingsModel):
-    imageio: ImageIOBaseModel = Field(
-        default_factory=ImageIOBaseModel,
+    imageio: HostImageIOBaseModel = Field(
+        default_factory=HostImageIOBaseModel,
         title="Color Management (ImageIO)"
     )
     level_sequences_for_layouts: bool = Field(

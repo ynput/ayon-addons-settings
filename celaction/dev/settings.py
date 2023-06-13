@@ -1,4 +1,4 @@
-from ayon_server.settings import BaseSettingsModel, Field, ImageIOBaseModel
+from ayon_server.settings import BaseSettingsModel, Field, HostImageIOBaseModel
 
 
 class CollectRenderPathModel(BaseSettingsModel):
@@ -49,8 +49,8 @@ class PublishPuginsModel(BaseSettingsModel):
 
 
 class CelActionSettings(BaseSettingsModel):
-    imageio: ImageIOBaseModel = Field(
-        default_factory=ImageIOBaseModel,
+    imageio: HostImageIOBaseModel = Field(
+        default_factory=HostImageIOBaseModel,
         title="Color Management (ImageIO)"
     )
     workfile: WorkfileModel = Field(

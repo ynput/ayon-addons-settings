@@ -2,13 +2,27 @@ import json
 from pydantic import Field, validator
 from ayon_server.settings import (
     BaseSettingsModel,
-    ImageIOFileRulesModel,
+    ImageIOFileRuleModel,
     MultiplatformPathListModel,
 )
+from ayon_server.settings.validators import ensure_unique_names
 from ayon_server.exceptions import BadRequestException
 
 from .publish_plugins import PublishPuginsModel, DEFAULT_PUBLISH_VALUES
 from .tools import GlobalToolsModel, DEFAULT_TOOLS_VALUES
+
+
+class CoreImageIOFileRulesModel(BaseSettingsModel):
+    activate_global_file_rules: bool = Field(False)
+    rules: list[ImageIOFileRuleModel] = Field(
+        default_factory=list,
+        title="Rules"
+    )
+
+    @validator("rules")
+    def validate_unique_outputs(cls, value):
+        ensure_unique_names(value)
+        return value
 
 
 class CoreImageIOConfigModel(BaseSettingsModel):
@@ -16,11 +30,15 @@ class CoreImageIOConfigModel(BaseSettingsModel):
 
 
 class CoreImageIOBaseModel(BaseSettingsModel):
+    activate_global_color_management: bool = Field(
+        False,
+        title="Override global OCIO config"
+    )
     ocio_config: CoreImageIOConfigModel = Field(
         default_factory=CoreImageIOConfigModel, title="OCIO config"
     )
-    file_rules: ImageIOFileRulesModel = Field(
-        default_factory=ImageIOFileRulesModel, title="File Rules"
+    file_rules: CoreImageIOFileRulesModel = Field(
+        default_factory=CoreImageIOFileRulesModel, title="File Rules"
     )
 
 
@@ -79,6 +97,7 @@ class CoreSettings(BaseSettingsModel):
 
 DEFAULT_VALUES = {
     "imageio": {
+        "activate_global_color_management": False,
         "ocio_config": {
             "filepath": [
                 "{BUILTIN_OCIO_ROOT}/aces_1.2/config.ocio",
@@ -86,7 +105,7 @@ DEFAULT_VALUES = {
             ]
         },
         "file_rules": {
-            "enabled": False,
+            "activate_global_file_rules": False,
             "rules": [
                 {
                     "name": "example",

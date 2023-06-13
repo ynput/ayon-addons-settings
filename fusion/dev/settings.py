@@ -1,33 +1,9 @@
 from pydantic import Field
 from ayon_server.settings import (
     BaseSettingsModel,
-    ImageIOConfigModel,
-    ImageIOFileRulesModel,
+    HostImageIOBaseModel,
     MultiplatformPathListModel,
 )
-
-
-class OcioModel(BaseSettingsModel):
-    enabled: bool = False
-    configFilePath: MultiplatformPathListModel = Field(
-        default_factory=MultiplatformPathListModel,
-        title="OCIO Config File Path"
-    )
-
-
-class imageioModel(BaseSettingsModel):
-    ocio_config: ImageIOConfigModel = Field(
-        default_factory=ImageIOConfigModel,
-        title="OCIO config"
-    )
-    file_rules: ImageIOFileRulesModel = Field(
-        default_factory=ImageIOFileRulesModel,
-        title="File Rules"
-    )
-    ocio: OcioModel = Field(
-        default_factory=OcioModel,
-        title="OpenColorIO (OCIO)",
-    )
 
 
 class CopyFusionSettingsModel(BaseSettingsModel):
@@ -73,8 +49,8 @@ class CreatPluginsModel(BaseSettingsModel):
 
 
 class FusionSettings(BaseSettingsModel):
-    imageio: imageioModel = Field(
-        default_factory=imageioModel,
+    imageio: HostImageIOBaseModel = Field(
+        default_factory=HostImageIOBaseModel,
         title="Color Management (ImageIO)"
     )
     copy_fusion_settings: CopyFusionSettingsModel = Field(
@@ -96,14 +72,6 @@ DEFAULT_VALUES = {
         "file_rules": {
             "enabled": False,
             "rules": []
-        },
-        "ocio": {
-            "enabled": False,
-            "configFilePath": {
-                "windows": [],
-                "darwin": [],
-                "linux": []
-            }
         }
     },
     "copy_fusion_settings": {

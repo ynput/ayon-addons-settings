@@ -74,7 +74,6 @@ class WorkfileColorspaceSettings(BaseSettingsModel):
 
     color_management = colorManagement
     ocio_config = OCIO_config
-    custom = customOCIOConfigPath
     working_space_name = workingSpaceLUT
     monitor_name = monitorLut
     monitor_out_name = monitorOutLut
@@ -93,11 +92,6 @@ class WorkfileColorspaceSettings(BaseSettingsModel):
         description="Switch between OCIO configs",
         enum_resolver=lambda: ocio_configs_switcher_enum,
         conditionalEnum=True
-    )
-
-    customOCIOConfigPath: MultiplatformPathListModel = Field(
-        default_factory=MultiplatformPathListModel,
-        title="Custom OCIO config path"
     )
 
     workingSpaceLUT: str = Field(
@@ -147,6 +141,8 @@ class ImageIOSettings(BaseSettingsModel):
     now: nuke/imageio/viewer/viewerProcess
     future: nuke/imageio/viewer
     """
+    activate_host_color_management: bool = Field(
+        True, title="Enable Color Management")
     ocio_config: ImageIOConfigModel = Field(
         default_factory=ImageIOConfigModel,
         title="OCIO config"
@@ -206,11 +202,6 @@ DEFAULT_IMAGEIO_SETTINGS = {
     "workfile": {
         "colorManagement": "Nuke",
         "OCIO_config": "nuke-default",
-        "customOCIOConfigPath": {
-            "windows": [],
-            "darwin": [],
-            "linux": []
-        },
         "workingSpaceLUT": "linear",
         "monitorLut": "sRGB",
         "int8Lut": "sRGB",
@@ -326,7 +317,7 @@ DEFAULT_IMAGEIO_SETTINGS = {
             },
             {
                 "plugins": [
-                    "CreateWriteStill"
+                    "CreateWriteImage"
                 ],
                 "nukeNodeClass": "Write",
                 "knobs": [
