@@ -45,7 +45,12 @@ class CoreImageIOBaseModel(BaseSettingsModel):
 class CoreSettings(BaseSettingsModel):
     studio_name: str = Field("", title="Studio name")
     studio_code: str = Field("", title="Studio code")
-    environments: str = Field("{}", widget="textarea")
+    environments: str = Field(
+        "{}",
+        title="Global environment variables",
+        widget="textarea",
+        scope=["studio"],
+    )
     tools: GlobalToolsModel = Field(
         default_factory=GlobalToolsModel,
         title="Tools"
