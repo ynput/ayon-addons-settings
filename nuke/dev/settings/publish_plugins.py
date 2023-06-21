@@ -144,10 +144,16 @@ class ReformatNodesRepositionNodes(BaseSettingsModel):
 
 
 class ReformatNodesConfigModel(BaseSettingsModel):
+    """Only reposition nodes supported.
+
+    You can add multiple reformat nodes and set their knobs.
+    Order of reformat nodes is important. First reformat node will
+    be applied first and last reformat node will be applied last.
+    """
     enabled: bool = Field(False)
     reposition_nodes: list[ReformatNodesRepositionNodes] = Field(
         default_factory=list,
-        title="Reposition knobs supported only.<br/>You can add multiple reformat nodes <br/>and set their knobs. Order of reformat <br/>nodes is important. First reformat node <br/>will be applied first and last reformat <br/>node will be applied last."
+        title="Reposition knobs"
     )
 
 
