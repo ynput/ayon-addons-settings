@@ -1,8 +1,7 @@
-from ayon_server.settings import (
-    Field,
-    BaseSettingsModel,
-    ImageIOBaseModel,
-)
+from pydantic import Field
+from ayon_server.settings import BaseSettingsModel
+
+from .imageio import UnrealImageIOModel
 
 
 class ProjectSetup(BaseSettingsModel):
@@ -22,8 +21,8 @@ def _render_format_enum():
 
 
 class UnrealSettings(BaseSettingsModel):
-    imageio: ImageIOBaseModel = Field(
-        default_factory=ImageIOBaseModel,
+    imageio: UnrealImageIOModel = Field(
+        default_factory=UnrealImageIOModel,
         title="Color Management (ImageIO)"
     )
     level_sequences_for_layouts: bool = Field(

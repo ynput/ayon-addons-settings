@@ -4,8 +4,6 @@ from ayon_server.settings import (
     BaseSettingsModel,
     ensure_unique_names,
     MultiplatformPathListModel,
-    ImageIOConfigModel,
-    ImageIOFileRulesModel,
 )
 
 from .common import KnobModel
@@ -74,7 +72,6 @@ class WorkfileColorspaceSettings(BaseSettingsModel):
 
     color_management = colorManagement
     ocio_config = OCIO_config
-    custom = customOCIOConfigPath
     working_space_name = workingSpaceLUT
     monitor_name = monitorLut
     monitor_out_name = monitorOutLut
@@ -93,11 +90,6 @@ class WorkfileColorspaceSettings(BaseSettingsModel):
         description="Switch between OCIO configs",
         enum_resolver=lambda: ocio_configs_switcher_enum,
         conditionalEnum=True
-    )
-
-    customOCIOConfigPath: MultiplatformPathListModel = Field(
-        default_factory=MultiplatformPathListModel,
-        title="Custom OCIO config path"
     )
 
     workingSpaceLUT: str = Field(
@@ -126,16 +118,50 @@ class ReadColorspaceRulesItems(BaseSettingsModel):
     regex: str = Field("", title="Regex expression")
     colorspace: str = Field("", title="Colorspace")
 
+
 class RegexInputsModel(BaseSettingsModel):
     inputs: list[ReadColorspaceRulesItems] = Field(
         default_factory=list,
         title="Inputs"
     )
 
+
 class ViewProcessModel(BaseSettingsModel):
     viewerProcess: str = Field(
         title="Viewer Process Name"
     )
+
+
+class ImageIOConfigModel(BaseSettingsModel):
+    override_global_config: bool = Field(
+        False,
+        title="Override global OCIO config"
+    )
+    filepath: list[str] = Field(
+        default_factory=list,
+        title="Config path"
+    )
+
+
+class ImageIOFileRuleModel(BaseSettingsModel):
+    name: str = Field("", title="Rule name")
+    pattern: str = Field("", title="Regex pattern")
+    colorspace: str = Field("", title="Colorspace name")
+    ext: str = Field("", title="File extension")
+
+
+class ImageIOFileRulesModel(BaseSettingsModel):
+    activate_host_rules: bool = Field(False)
+    rules: list[ImageIOFileRuleModel] = Field(
+        default_factory=list,
+        title="Rules"
+    )
+
+    @validator("rules")
+    def validate_unique_outputs(cls, value):
+        ensure_unique_names(value)
+        return value
+
 
 class ImageIOSettings(BaseSettingsModel):
     """Nuke color management project settings. """
@@ -147,6 +173,8 @@ class ImageIOSettings(BaseSettingsModel):
     now: nuke/imageio/viewer/viewerProcess
     future: nuke/imageio/viewer
     """
+    activate_host_color_management: bool = Field(
+        True, title="Enable Color Management")
     ocio_config: ImageIOConfigModel = Field(
         default_factory=ImageIOConfigModel,
         title="OCIO config"
@@ -206,11 +234,6 @@ DEFAULT_IMAGEIO_SETTINGS = {
     "workfile": {
         "colorManagement": "Nuke",
         "OCIO_config": "nuke-default",
-        "customOCIOConfigPath": {
-            "windows": [],
-            "darwin": [],
-            "linux": []
-        },
         "workingSpaceLUT": "linear",
         "monitorLut": "sRGB",
         "int8Lut": "sRGB",
@@ -326,7 +349,7 @@ DEFAULT_IMAGEIO_SETTINGS = {
             },
             {
                 "plugins": [
-                    "CreateWriteStill"
+                    "CreateWriteImage"
                 ],
                 "nukeNodeClass": "Write",
                 "knobs": [

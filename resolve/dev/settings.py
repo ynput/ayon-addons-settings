@@ -1,4 +1,7 @@
-from ayon_server.settings import BaseSettingsModel, Field, ImageIOBaseModel
+from pydantic import Field
+from ayon_server.settings import BaseSettingsModel
+
+from .imageio import ResolveImageIOModel
 
 
 class CreateShotClipModels(BaseSettingsModel):
@@ -75,8 +78,11 @@ class CreatorPuginsModel(BaseSettingsModel):
 
 
 class ResolveSettings(BaseSettingsModel):
-    imageio: ImageIOBaseModel = Field(
-        default_factory=ImageIOBaseModel,
+    launch_openpype_menu_on_start: bool = Field(
+        False, title="Launch OpenPype menu on start of Resolve"
+    )
+    imageio: ResolveImageIOModel = Field(
+        default_factory=ResolveImageIOModel,
         title="Color Management (ImageIO)"
     )
     create: CreatorPuginsModel = Field(
@@ -86,6 +92,7 @@ class ResolveSettings(BaseSettingsModel):
 
 
 DEFAULT_VALUES = {
+    "launch_openpype_menu_on_start": False,
     "create": {
         "CreateShotClip": {
             "hierarchy": "{folder}/{sequence}",

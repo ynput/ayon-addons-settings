@@ -2,8 +2,8 @@ import json
 from pydantic import Field, validator
 from ayon_server.settings import (
     BaseSettingsModel,
-    ImageIOFileRulesModel,
     MultiplatformPathListModel,
+    ensure_unique_names,
 )
 from ayon_server.exceptions import BadRequestException
 
@@ -11,23 +11,52 @@ from .publish_plugins import PublishPuginsModel, DEFAULT_PUBLISH_VALUES
 from .tools import GlobalToolsModel, DEFAULT_TOOLS_VALUES
 
 
+class ImageIOFileRuleModel(BaseSettingsModel):
+    name: str = Field("", title="Rule name")
+    pattern: str = Field("", title="Regex pattern")
+    colorspace: str = Field("", title="Colorspace name")
+    ext: str = Field("", title="File extension")
+
+
+class CoreImageIOFileRulesModel(BaseSettingsModel):
+    activate_global_file_rules: bool = Field(False)
+    rules: list[ImageIOFileRuleModel] = Field(
+        default_factory=list,
+        title="Rules"
+    )
+
+    @validator("rules")
+    def validate_unique_outputs(cls, value):
+        ensure_unique_names(value)
+        return value
+
+
 class CoreImageIOConfigModel(BaseSettingsModel):
     filepath: list[str] = Field(default_factory=list, title="Config path")
 
 
 class CoreImageIOBaseModel(BaseSettingsModel):
+    activate_global_color_management: bool = Field(
+        False,
+        title="Override global OCIO config"
+    )
     ocio_config: CoreImageIOConfigModel = Field(
         default_factory=CoreImageIOConfigModel, title="OCIO config"
     )
-    file_rules: ImageIOFileRulesModel = Field(
-        default_factory=ImageIOFileRulesModel, title="File Rules"
+    file_rules: CoreImageIOFileRulesModel = Field(
+        default_factory=CoreImageIOFileRulesModel, title="File Rules"
     )
 
 
 class CoreSettings(BaseSettingsModel):
     studio_name: str = Field("", title="Studio name")
     studio_code: str = Field("", title="Studio code")
-    environments: str = Field("{}", widget="textarea")
+    environments: str = Field(
+        "{}",
+        title="Global environment variables",
+        widget="textarea",
+        scope=["studio"],
+    )
     tools: GlobalToolsModel = Field(
         default_factory=GlobalToolsModel,
         title="Tools"
@@ -79,6 +108,7 @@ class CoreSettings(BaseSettingsModel):
 
 DEFAULT_VALUES = {
     "imageio": {
+        "activate_global_color_management": False,
         "ocio_config": {
             "filepath": [
                 "{BUILTIN_OCIO_ROOT}/aces_1.2/config.ocio",
@@ -86,7 +116,7 @@ DEFAULT_VALUES = {
             ]
         },
         "file_rules": {
-            "enabled": False,
+            "activate_global_file_rules": False,
             "rules": [
                 {
                     "name": "example",

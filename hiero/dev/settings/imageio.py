@@ -1,9 +1,9 @@
-from pydantic import Field
+from pydantic import Field, validator
+
 from ayon_server.settings import (
     BaseSettingsModel,
     MultiplatformPathListModel,
-    ImageIOConfigModel,
-    ImageIOFileRulesModel,
+    ensure_unique_names,
 )
 
 
@@ -30,7 +30,6 @@ class WorkfileColorspaceSettings(BaseSettingsModel):
     but for better code consistency we are using snake_case:
 
     ocio_config = ocioConfigName
-    ocio_config_path = ocioconfigpath
     working_space_name = workingSpace
     int_16_name = sixteenBitLut
     int_8_name = eightBitLut
@@ -46,12 +45,6 @@ class WorkfileColorspaceSettings(BaseSettingsModel):
         enum_resolver=lambda: ocio_configs_switcher_enum,
         conditionalEnum=True
     )
-
-    ocioconfigpath: MultiplatformPathListModel = Field(
-        default_factory=MultiplatformPathListModel,
-        title="Custom OCIO config path"
-    )
-
     workingSpace: str = Field(
         title="Working Space"
     )
@@ -92,10 +85,43 @@ class RegexInputsModel(BaseSettingsModel):
     )
 
 
+class ImageIOConfigModel(BaseSettingsModel):
+    override_global_config: bool = Field(
+        False,
+        title="Override global OCIO config"
+    )
+    filepath: list[str] = Field(
+        default_factory=list,
+        title="Config path"
+    )
+
+
+class ImageIOFileRuleModel(BaseSettingsModel):
+    name: str = Field("", title="Rule name")
+    pattern: str = Field("", title="Regex pattern")
+    colorspace: str = Field("", title="Colorspace name")
+    ext: str = Field("", title="File extension")
+
+
+class ImageIOFileRulesModel(BaseSettingsModel):
+    activate_host_rules: bool = Field(False)
+    rules: list[ImageIOFileRuleModel] = Field(
+        default_factory=list,
+        title="Rules"
+    )
+
+    @validator("rules")
+    def validate_unique_outputs(cls, value):
+        ensure_unique_names(value)
+        return value
+
+
 class ImageIOSettings(BaseSettingsModel):
     """Hiero color management project settings. """
     _isGroup: bool = True
-
+    activate_host_color_management: bool = Field(
+        True, title="Enable Color Management"
+    )
     ocio_config: ImageIOConfigModel = Field(
         default_factory=ImageIOConfigModel,
         title="OCIO config"
@@ -123,11 +149,6 @@ class ImageIOSettings(BaseSettingsModel):
 DEFAULT_IMAGEIO_SETTINGS = {
     "workfile": {
         "ocioConfigName": "nuke-default",
-        "ocioconfigpath": {
-            "windows": [],
-            "darwin": [],
-            "linux": []
-        },
         "workingSpace": "linear",
         "viewerLut": "sRGB",
         "eightBitLut": "sRGB",
