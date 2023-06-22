@@ -2,13 +2,41 @@
 
 Note: Names were changed to get rid of the versions in class names.
 """
-from pydantic import Field
+from pydantic import Field, validator
 
-from ayon_server.settings import (
-    BaseSettingsModel,
-    ImageIOConfigModel,
-    ImageIOFileRulesModel,
-)
+from ayon_server.settings import BaseSettingsModel, ensure_unique_names
+
+
+class ImageIOConfigModel(BaseSettingsModel):
+    override_global_config: bool = Field(
+        False,
+        title="Override global OCIO config"
+    )
+    filepath: list[str] = Field(
+        default_factory=list,
+        title="Config path"
+    )
+
+
+class ImageIOFileRuleModel(BaseSettingsModel):
+    name: str = Field("", title="Rule name")
+    pattern: str = Field("", title="Regex pattern")
+    colorspace: str = Field("", title="Colorspace name")
+    ext: str = Field("", title="File extension")
+
+
+class ImageIOFileRulesModel(BaseSettingsModel):
+    activate_host_rules: bool = Field(False)
+    rules: list[ImageIOFileRuleModel] = Field(
+        default_factory=list,
+        title="Rules"
+    )
+
+    @validator("rules")
+    def validate_unique_outputs(cls, value):
+        ensure_unique_names(value)
+        return value
+
 
 
 class ColorManagementPreferenceV2Model(BaseSettingsModel):

@@ -1,4 +1,6 @@
-from ayon_server.settings import BaseSettingsModel, Field, HostImageIOBaseModel
+from pydantic import Field
+from ayon_server.settings import BaseSettingsModel
+from .imageio import CelActionImageIOModel
 
 
 class CollectRenderPathModel(BaseSettingsModel):
@@ -49,8 +51,8 @@ class PublishPuginsModel(BaseSettingsModel):
 
 
 class CelActionSettings(BaseSettingsModel):
-    imageio: HostImageIOBaseModel = Field(
-        default_factory=HostImageIOBaseModel,
+    imageio: CelActionImageIOModel = Field(
+        default_factory=CelActionImageIOModel,
         title="Color Management (ImageIO)"
     )
     workfile: WorkfileModel = Field(

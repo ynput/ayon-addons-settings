@@ -1,6 +1,6 @@
 from ayon_server.addons import BaseServerAddon
 
-from .settings.main import TraypublisherSettings, DEFAULT_TRAYPUBLISHER_SETTING
+from .settings import TraypublisherSettings, DEFAULT_TRAYPUBLISHER_SETTING
 from .version import __version__
 
 

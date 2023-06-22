@@ -4,8 +4,6 @@ from ayon_server.settings import (
     BaseSettingsModel,
     ensure_unique_names,
     MultiplatformPathListModel,
-    ImageIOConfigModel,
-    ImageIOFileRulesModel,
 )
 
 from .common import KnobModel
@@ -120,16 +118,50 @@ class ReadColorspaceRulesItems(BaseSettingsModel):
     regex: str = Field("", title="Regex expression")
     colorspace: str = Field("", title="Colorspace")
 
+
 class RegexInputsModel(BaseSettingsModel):
     inputs: list[ReadColorspaceRulesItems] = Field(
         default_factory=list,
         title="Inputs"
     )
 
+
 class ViewProcessModel(BaseSettingsModel):
     viewerProcess: str = Field(
         title="Viewer Process Name"
     )
+
+
+class ImageIOConfigModel(BaseSettingsModel):
+    override_global_config: bool = Field(
+        False,
+        title="Override global OCIO config"
+    )
+    filepath: list[str] = Field(
+        default_factory=list,
+        title="Config path"
+    )
+
+
+class ImageIOFileRuleModel(BaseSettingsModel):
+    name: str = Field("", title="Rule name")
+    pattern: str = Field("", title="Regex pattern")
+    colorspace: str = Field("", title="Colorspace name")
+    ext: str = Field("", title="File extension")
+
+
+class ImageIOFileRulesModel(BaseSettingsModel):
+    activate_host_rules: bool = Field(False)
+    rules: list[ImageIOFileRuleModel] = Field(
+        default_factory=list,
+        title="Rules"
+    )
+
+    @validator("rules")
+    def validate_unique_outputs(cls, value):
+        ensure_unique_names(value)
+        return value
+
 
 class ImageIOSettings(BaseSettingsModel):
     """Nuke color management project settings. """

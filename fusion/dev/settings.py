@@ -1,9 +1,10 @@
 from pydantic import Field
 from ayon_server.settings import (
     BaseSettingsModel,
-    HostImageIOBaseModel,
     MultiplatformPathListModel,
 )
+
+from .imageio import FusionImageIOModel
 
 
 class CopyFusionSettingsModel(BaseSettingsModel):
@@ -49,8 +50,8 @@ class CreatPluginsModel(BaseSettingsModel):
 
 
 class FusionSettings(BaseSettingsModel):
-    imageio: HostImageIOBaseModel = Field(
-        default_factory=HostImageIOBaseModel,
+    imageio: FusionImageIOModel = Field(
+        default_factory=FusionImageIOModel,
         title="Color Management (ImageIO)"
     )
     copy_fusion_settings: CopyFusionSettingsModel = Field(

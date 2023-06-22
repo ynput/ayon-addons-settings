@@ -1,14 +1,14 @@
 from ayon_server.settings import Field, BaseSettingsModel
 
-from .imageio import ImageIOModel, DEFAULT_IMAGEIO_SETTINGS
+from .imageio import FlameImageIOModel, DEFAULT_IMAGEIO_SETTINGS
 from .create_plugins import CreatePuginsModel, DEFAULT_CREATE_SETTINGS
 from .publish_plugins import PublishPuginsModel, DEFAULT_PUBLISH_SETTINGS
 from .loader_plugins import LoaderPluginsModel, DEFAULT_LOADER_SETTINGS
 
 
 class FlameSettings(BaseSettingsModel):
-    imageio: ImageIOModel = Field(
-        default_factory=ImageIOModel,
+    imageio: FlameImageIOModel = Field(
+        default_factory=FlameImageIOModel,
         title="Color Management (ImageIO)"
     )
     create: CreatePuginsModel = Field(

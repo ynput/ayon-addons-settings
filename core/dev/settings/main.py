@@ -2,14 +2,20 @@ import json
 from pydantic import Field, validator
 from ayon_server.settings import (
     BaseSettingsModel,
-    ImageIOFileRuleModel,
     MultiplatformPathListModel,
+    ensure_unique_names,
 )
-from ayon_server.settings.validators import ensure_unique_names
 from ayon_server.exceptions import BadRequestException
 
 from .publish_plugins import PublishPuginsModel, DEFAULT_PUBLISH_VALUES
 from .tools import GlobalToolsModel, DEFAULT_TOOLS_VALUES
+
+
+class ImageIOFileRuleModel(BaseSettingsModel):
+    name: str = Field("", title="Rule name")
+    pattern: str = Field("", title="Regex pattern")
+    colorspace: str = Field("", title="Colorspace name")
+    ext: str = Field("", title="File extension")
 
 
 class CoreImageIOFileRulesModel(BaseSettingsModel):

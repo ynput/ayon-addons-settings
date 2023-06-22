@@ -1,7 +1,9 @@
 from pydantic import Field, validator
 
 from ayon_server.settings import (
-    BaseSettingsModel, ensure_unique_names, task_types_enum
+    BaseSettingsModel,
+    ensure_unique_names,
+    task_types_enum,
 )
 from ayon_server.types import ColorRGBA_uint8
 

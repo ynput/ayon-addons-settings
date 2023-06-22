@@ -4,9 +4,9 @@ from ayon_server.settings import (
     ensure_unique_names,
     MultiplatformPathModel,
     MultiplatformPathListModel,
-    HostImageIOBaseModel,
 )
 
+from .imageio import HoudiniImageIOModel
 from .publish_plugins import (
     PublishPluginsModel,
     CreatePluginsModel,
@@ -53,8 +53,8 @@ class ShelvesModel(BaseSettingsModel):
 
 
 class HoudiniSettings(BaseSettingsModel):
-    imageio: HostImageIOBaseModel = Field(
-        default_factory=HostImageIOBaseModel,
+    imageio: HoudiniImageIOModel = Field(
+        default_factory=HoudiniImageIOModel,
         title="Color Management (ImageIO)"
     )
     shelves: list[ShelvesModel] = Field(
