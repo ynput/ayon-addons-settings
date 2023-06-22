@@ -8,7 +8,7 @@ from .settings import FlameSettings, DEFAULT_VALUES
 class FlameAddon(BaseServerAddon):
     name = "flame"
     title = "Flame"
-    version = "1.0.0"
+    version = "0.1.0"
     settings_model: Type[FlameSettings] = FlameSettings
     frontend_scopes = {}
     services = {}

@@ -7,7 +7,7 @@ from .settings import RoyalRenderSettings, DEFAULT_VALUES
 
 class RoyalRenderAddon(BaseServerAddon):
     name = "royalrender"
-    version = "1.0.0"
+    version = "0.1.0"
     title = "Royal Render"
     settings_model: Type[RoyalRenderSettings] = RoyalRenderSettings
 

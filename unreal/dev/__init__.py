@@ -8,7 +8,7 @@ from .settings import UnrealSettings, DEFAULT_VALUES
 class UnrealAddon(BaseServerAddon):
     name = "unreal"
     title = "Unreal"
-    version = "1.0.0"
+    version = "0.1.0"
     settings_model: Type[UnrealSettings] = UnrealSettings
     frontend_scopes = {}
     services = {}

@@ -8,7 +8,7 @@ from .settings import BlenderSettings, DEFAULT_VALUES
 class BlenderAddon(BaseServerAddon):
     name = "blender"
     title = "Blender"
-    version = "1.0.0"
+    version = "0.1.0"
     settings_model: Type[BlenderSettings] = BlenderSettings
     frontend_scopes = {}
     services = {}

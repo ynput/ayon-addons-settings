@@ -8,7 +8,7 @@ from .settings import DeadlineSettings, DEFAULT_VALUES
 class Deadline(BaseServerAddon):
     name = "deadline"
     title = "Deadline"
-    version = "1.0.0"
+    version = "0.1.0"
     settings_model: Type[DeadlineSettings] = DeadlineSettings
 
     async def get_default_settings(self):

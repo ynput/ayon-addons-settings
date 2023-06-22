@@ -7,7 +7,7 @@ from .settings import MusterSettings, DEFAULT_VALUES
 
 class MusterAddon(BaseServerAddon):
     name = "muster"
-    version = "1.0.0"
+    version = "0.1.0"
     title = "Muster"
     settings_model: Type[MusterSettings] = MusterSettings
 

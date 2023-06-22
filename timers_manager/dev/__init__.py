@@ -7,6 +7,6 @@ from .settings import TimersManagerSettings
 
 class TimersManagerAddon(BaseServerAddon):
     name = "timers_manager"
-    version = "1.0.0"
+    version = "0.1.0"
     title = "Timers Manager"
     settings_model: Type[TimersManagerSettings] = TimersManagerSettings

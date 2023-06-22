@@ -8,7 +8,7 @@ from .settings import TvpaintSettings, DEFAULT_VALUES
 class TvpaintAddon(BaseServerAddon):
     name = "tvpaint"
     title = "TVPaint"
-    version = "1.0.0"
+    version = "0.1.0"
     settings_model: Type[TvpaintSettings] = TvpaintSettings
     
 
