@@ -4,7 +4,7 @@ from .settings import CoreSettings, DEFAULT_VALUES
 
 class CoreAddon(BaseServerAddon):
     name = "core"
-    version = "1.0.0"
+    version = "0.1.0"
     settings_model = CoreSettings
 
     async def get_default_settings(self):

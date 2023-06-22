@@ -8,7 +8,7 @@ from .settings import ClockifySettings
 class ClockifyAddon(BaseServerAddon):
     name = "clockify"
     title = "Clockify"
-    version = "1.0.0"
+    version = "0.1.0"
     settings_model: Type[ClockifySettings] = ClockifySettings
     frontend_scopes = {}
     services = {}

@@ -8,7 +8,7 @@ from .settings import CelActionSettings, DEFAULT_VALUES
 class CelActionAddon(BaseServerAddon):
     name = "celaction"
     title = "CelAction"
-    version = "1.0.0"
+    version = "0.1.0"
     settings_model: Type[CelActionSettings] = CelActionSettings
     frontend_scopes = {}
     services = {}

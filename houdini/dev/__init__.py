@@ -8,7 +8,7 @@ from .settings import HoudiniSettings, DEFAULT_VALUES
 class Houdini(BaseServerAddon):
     name = "houdini"
     title = "Houdini"
-    version = "1.0.0"
+    version = "0.1.0"
     settings_model: Type[HoudiniSettings] = HoudiniSettings
 
     async def get_default_settings(self):

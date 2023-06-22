@@ -8,7 +8,7 @@ from .settings import NukeSettings, DEFAULT_VALUES
 class NukeAddon(BaseServerAddon):
     name = "nuke"
     title = "Nuke"
-    version = "1.0.0"
+    version = "0.1.0"
     settings_model: Type[NukeSettings] = NukeSettings
 
     async def get_default_settings(self):

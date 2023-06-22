@@ -8,7 +8,7 @@ from .settings import ResolveSettings, DEFAULT_VALUES
 class ResolveAddon(BaseServerAddon):
     name = "resolve"
     title = "DaVinci Resolve"
-    version = "1.0.0"
+    version = "0.1.0"
     settings_model: Type[ResolveSettings] = ResolveSettings
     frontend_scopes = {}
     services = {}

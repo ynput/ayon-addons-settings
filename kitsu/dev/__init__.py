@@ -8,7 +8,7 @@ from .settings import KitsuSettings, DEFAULT_VALUES
 class KitsuAddon(BaseServerAddon):
     name = "kitsu"
     title = "Kitsu"
-    version = "1.0.0"
+    version = "0.1.0"
     settings_model: Type[KitsuSettings] = KitsuSettings
     frontend_scopes = {}
     services = {}
