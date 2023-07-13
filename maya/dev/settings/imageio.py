@@ -110,9 +110,9 @@ DEFAULT_IMAGEIO_SETTINGS = {
     },
     "workfile": {
         "enabled": False,
-        "renderSpace": "ACEScg",
-        "displayName": "sRGB",
-        "viewName": "ACES 1.0 SDR-video"
+        "renderSpace": "ACES - ACEScg",
+        "displayName": "ACES",
+        "viewName": "sRGB"
     },
     "colorManagementPreference_v2": {
         "enabled": True,

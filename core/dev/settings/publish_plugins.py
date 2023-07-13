@@ -873,7 +873,8 @@ DEFAULT_PUBLISH_VALUES = {
                 "product_types": ["review"],
                 "hosts": [
                     "maya",
-                    "houdini"
+                    "houdini",
+                    "max"
                 ],
                 "task_types": [],
                 "task_names": [],
