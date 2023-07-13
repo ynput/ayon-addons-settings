@@ -12,9 +12,12 @@ from .editorial_creators import (
 )
 from .creator_plugins import (
     TrayPublisherCreatePluginsModel,
-    DEFAULT_CREATORS
+    DEFAULT_CREATORS,
 )
-from .publish_plugins import TrayPublisherPublishPlugins
+from .publish_plugins import (
+    TrayPublisherPublishPlugins,
+    DEFAULT_PUBLISH_PLUGINS,
+)
 
 
 class TraypublisherSettings(BaseSettingsModel):
@@ -45,11 +48,5 @@ DEFAULT_TRAYPUBLISHER_SETTING = {
     "simple_creators": DEFAULT_SIMPLE_CREATORS,
     "editorial_creators": DEFAULT_EDITORIAL_CREATORS,
     "create": DEFAULT_CREATORS,
-    "publish": {
-        "ValidateFrameRange": {
-            "enabled": True,
-            "optional": True,
-            "active": True
-        }
-    }
+    "publish": DEFAULT_PUBLISH_PLUGINS,
 }
