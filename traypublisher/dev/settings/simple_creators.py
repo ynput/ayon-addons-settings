@@ -32,6 +32,10 @@ class SimpleCreatorPlugin(BaseSettingsModel):
         False,
         title="Allow multiple items"
     )
+    allow_version_control: bool = Field(
+        False,
+        title="Allow version control"
+    )
     extensions: list[str] = Field(
         default_factory=list,
         title="Extensions"
@@ -51,6 +55,7 @@ DEFAULT_SIMPLE_CREATORS = [
         "detailed_description": "Workfiles are full scenes from any application that are directly edited by artists. They represent a state of work on a task at a given point and are usually not directly referenced into other scenes.",
         "allow_sequences": False,
         "allow_multiple_items": False,
+        "allow_version_control": False,
         "extensions": [
             ".ma",
             ".mb",
@@ -85,6 +90,7 @@ DEFAULT_SIMPLE_CREATORS = [
         "detailed_description": "Models should only contain geometry data, without any extras like cameras, locators or bones.\n\nKeep in mind that models published from tray publisher are not validated for correctness. ",
         "allow_sequences": False,
         "allow_multiple_items": True,
+        "allow_version_control": False,
         "extensions": [
             ".ma",
             ".mb",
@@ -110,6 +116,7 @@ DEFAULT_SIMPLE_CREATORS = [
         "detailed_description": "Alembic or bgeo cache of animated data",
         "allow_sequences": True,
         "allow_multiple_items": True,
+        "allow_version_control": False,
         "extensions": [
             ".abc",
             ".bgeo",
@@ -133,6 +140,7 @@ DEFAULT_SIMPLE_CREATORS = [
         "detailed_description": "Any type of image seqeuence coming from outside of the studio. Usually camera footage, but could also be animatics used for reference.",
         "allow_sequences": True,
         "allow_multiple_items": True,
+        "allow_version_control": False,
         "extensions": [
             ".exr",
             ".png",
@@ -155,6 +163,7 @@ DEFAULT_SIMPLE_CREATORS = [
         "detailed_description": "Sequence or single file renders",
         "allow_sequences": True,
         "allow_multiple_items": True,
+        "allow_version_control": False,
         "extensions": [
             ".exr",
             ".png",
@@ -178,6 +187,7 @@ DEFAULT_SIMPLE_CREATORS = [
         "detailed_description": "Ideally this should be only camera itself with baked animation, however, it can technically also include helper geometry.",
         "allow_sequences": False,
         "allow_multiple_items": True,
+        "allow_version_control": False,
         "extensions": [
             ".abc",
             ".ma",
@@ -202,6 +212,7 @@ DEFAULT_SIMPLE_CREATORS = [
         "detailed_description": "Any image data can be published as image product type. References, textures, concept art, matte paints. This is a fallback 2d product type for everything that doesn't fit more specific product type.",
         "allow_sequences": False,
         "allow_multiple_items": True,
+        "allow_version_control": False,
         "extensions": [
             ".exr",
             ".jpg",
@@ -225,6 +236,7 @@ DEFAULT_SIMPLE_CREATORS = [
         "detailed_description": "Hierarchical data structure for the efficient storage and manipulation of sparse volumetric data discretized on three-dimensional grids",
         "allow_sequences": True,
         "allow_multiple_items": True,
+        "allow_version_control": False,
         "extensions": [
             ".vdb"
         ]
@@ -243,6 +255,7 @@ DEFAULT_SIMPLE_CREATORS = [
         "detailed_description": "Script exported from matchmoving application to be later processed into a tracked camera with additional data",
         "allow_sequences": False,
         "allow_multiple_items": True,
+        "allow_version_control": False,
         "extensions": []
     },
     {
@@ -255,6 +268,7 @@ DEFAULT_SIMPLE_CREATORS = [
         "detailed_description": "CG rigged character or prop. Rig should be clean of any extra data and directly loadable into it's respective application\t",
         "allow_sequences": False,
         "allow_multiple_items": False,
+        "allow_version_control": False,
         "extensions": [
             ".ma",
             ".blend",
@@ -272,6 +286,7 @@ DEFAULT_SIMPLE_CREATORS = [
         "detailed_description": "Texture files with Unreal Engine naming conventions",
         "allow_sequences": False,
         "allow_multiple_items": True,
+        "allow_version_control": False,
         "extensions": []
     }
 ]
